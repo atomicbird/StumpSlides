@@ -1,0 +1,88 @@
+/* CSS files add styling rules to your content */
+
+body {
+  font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
+  margin: 0em;
+}
+
+h1 {
+  font-style: italic;
+  color: #373fff;
+}
+button.stumpbutton {
+  background: rgb(255,255,255);
+  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(241,241,241,1) 100%);
+  width: 80px;
+  height: 80px;
+  font-size: 40px;
+  border-radius: 10px;
+  border-color: rgba(241,241,241,1);
+  border-style: solid;
+  border-width: 1px;
+  margin: 5px;
+  cursor: pointer;
+  text-align: center;
+  padding: 10px;
+}
+
+#logo {
+  margin-top: 20px;
+  display: block;
+  margin-bottom: 20px;
+  max-width: 150px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#logoContainer {
+  position: fixed;
+  background-color: white;
+  width: 100%;
+}
+
+#buttons {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  background: white;
+  padding-top: 230px;
+}
+
+.disable-dbl-tap-zoom {
+  touch-action: manipulation;
+}
+
+#lastSend {
+  text-align: center;
+  height: 25px;
+  margin-bottom: 20px;
+}
+
+.shake {
+  /* Start the shake animation and make the animation last for 0.5 seconds */
+  animation: shake 0.5s; 
+
+  /* When the animation is finished, start again */
+  animation-iteration-count: infinite; 
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+#footer {
+  margin-top:30px;
+  margin-bottom:20px;
+  font-size: 10px;
+  text-align: center;
+}

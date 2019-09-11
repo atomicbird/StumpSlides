@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Hello Stump 360!</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    
+    <!-- import the webpage's javascript file -->
+    <script src="/script.js" defer></script>
+    <script src=".data/config.js"></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+  </head>  
+  <body class="disable-dbl-tap-zoom">
+    <p style="display:none;">
+      Send an Emoji or short message to Stump 360!
+    </p>
+    
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-database.js"></script>
+
+    <script>
+    // Firebase project configuration
+    // firebaseConfig has been moved to the .data/ folder.
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    
+    // Get a reference to the database service
+    var database = firebase.database();
+
+    var postListRef = firebase.database().ref('/stumps/')
+
+    postListRef.on('child_added', function(data) {
+      console.log("New child: " + data.val())
+    });
+        
+    function getRandomFunWord() {
+      var items = [
+        "Boom!",
+        "POSTED:",
+        "You throw a:",
+        "Restarting XCode:",
+        "EMOOJI:",
+        "Zap:",
+        "Bing Rules:",
+        "DuckDuckGoooo:",
+        "Ah..chew!",
+        "Fling:",
+        "PLACEHOLDER:",
+        "Dad Jokes Rule:",
+      ]
+      return items[Math.floor(Math.random()*items.length)];
+    }    
+        
+    var lastPostEmojiTimer;
+        
+    function saveMessage(textToSave) {
+      console.log("Trying to send " + textToSave)
+      if (textToSave.length == 0) {
+        return
+      }
+      console.log("Saving: " + textToSave + " to Firebase")
+      
+      // Create a new post reference with an auto-generated id
+      var newPostRef = postListRef.push();
+      newPostRef.set({
+          message: textToSave,
+          messageDate: (new Date()).valueOf()
+      });
+      document.getElementById("textToSave").value = ""
+      
+      // Reset the timer so we can press the button a ton and it only keeps one on screen
+      clearTimeout(lastPostEmojiTimer);
+      
+      document.getElementById("logo").classList.add('shake')
+      document.getElementById("lastSend").innerHTML = "<p><b>" + getRandomFunWord() + "</b> " + textToSave + "</p>"
+      //document.querySelector("#lastSend.p").style.display = ""
+      
+      lastPostEmojiTimer = setTimeout(function(){
+        //document.querySelector("#lastSend.p").style.display = "none"
+        document.getElementById("logo").classList.remove('shake')
+      }, 300);
+    }
+    </script>
+    <div id="logoContainer">
+      <img id="logo" src="https://cdn.glitch.com/264a30ae-45d0-4a78-8184-d32dabc0dac8%2FSix%20Flags%20over%20Stump%20256.png?v=1566242024330" />
+      <div id="lastSend"><p>&nbsp;</p>
+      </div>
+    </div>
+    <form style="display:none" name="myform" action="javascript:saveMessage(textToSave.value)">  
+      <input type="text" name="textToSave" id="textToSave" value="😀" maxlength="10"> 
+      <input name="Send" type="submit" value="Send"/>
+    </form>
+    <div id="buttons">
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="😀">😀</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="🔥">🔥</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="🤩">🤩</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="😍">😍</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="🎉">🎉</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="✅">✅</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="❌">❌</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="🌈">🌈</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="🌟">🌟</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="❤️">❤️</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="🍪">🍪</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="🍔">🍔</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="👏">👏</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="♻️">♻️</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="❤️">❤️</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="💥">💥</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="🎈">🎈</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="💩">💩</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="🤖">🤖</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="🎉">🎉</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="💯">💯</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="❓">❓</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="❗️">❗️</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="🆗">🆗</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="🍺">🍺</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="🍷">🍷</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="📱">📱</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="👍">👍</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="😱">😱</button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="dogcow"><img width="50" height="50" src="https://cdn.glitch.com/264a30ae-45d0-4a78-8184-d32dabc0dac8%2Fdogcow-small.png?v=1566355589705"/></button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="360idev"><img width="50" height="50" src="https://cdn.glitch.com/264a30ae-45d0-4a78-8184-d32dabc0dac8%2F360iDev%20logo-white-fullsize-100.png?v=1566356324458"/></button>
+      <button type="button" class="stumpbutton" onclick="saveMessage(value)" value="apple-logo"><img width="50" height="50" src="https://cdn.glitch.com/264a30ae-45d0-4a78-8184-d32dabc0dac8%2FApple-logo-100.png?v=1566356635630"/></button>
+    </div>
+    <div id="footer">
+      Proudly designed in Colorado, Made in UTF-8
+    </div>
+  </body>
+</html>
