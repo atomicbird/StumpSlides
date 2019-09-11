@@ -1,0 +1,6 @@
+framework module Pods_StumpSlides {
+  umbrella header "Pods-StumpSlides-umbrella.h"
+
+  export *
+  module * { export * }
+}
