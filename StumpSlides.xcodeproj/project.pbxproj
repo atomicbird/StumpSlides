@@ -10,6 +10,8 @@
 		0E1C69EE372B5B1FC3090AD1 /* Pods_StumpSlidesUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BE95E882162D0056D9A5C35 /* Pods_StumpSlidesUITests.framework */; };
 		6576B769DDE017D67658C193 /* Pods_StumpSlidesTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 555A0F92ECDB250605BFC517 /* Pods_StumpSlidesTests.framework */; };
 		EE1E5DE9231477B4003F3138 /* Stump 2019 Slides.pdf in Resources */ = {isa = PBXBuildFile; fileRef = EE1E5DE8231477B4003F3138 /* Stump 2019 Slides.pdf */; };
+		EE32E0D02356469E006D6827 /* TestSlides50.pdf in Resources */ = {isa = PBXBuildFile; fileRef = EE32E0CE2356469D006D6827 /* TestSlides50.pdf */; };
+		EE32E0D12356469E006D6827 /* TestSlides100.pdf in Resources */ = {isa = PBXBuildFile; fileRef = EE32E0CF2356469D006D6827 /* TestSlides100.pdf */; };
 		EE528C1E230CE74E00065971 /* dogcow.png in Resources */ = {isa = PBXBuildFile; fileRef = EE528C1D230CE74E00065971 /* dogcow.png */; };
 		EE528C22230CE9DE00065971 /* 360idev.png in Resources */ = {isa = PBXBuildFile; fileRef = EE528C21230CE9DE00065971 /* 360idev.png */; };
 		EE528C24230CEBEF00065971 /* apple-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = EE528C23230CEBEF00065971 /* apple-logo.png */; };
@@ -55,6 +57,8 @@
 		8CF3BC844D0B18AFE5C126C3 /* Pods-StumpSlidesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StumpSlidesTests.release.xcconfig"; path = "Target Support Files/Pods-StumpSlidesTests/Pods-StumpSlidesTests.release.xcconfig"; sourceTree = "<group>"; };
 		C680DFF4C0AD6843C3C98C76 /* Pods-StumpSlides.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StumpSlides.release.xcconfig"; path = "Target Support Files/Pods-StumpSlides/Pods-StumpSlides.release.xcconfig"; sourceTree = "<group>"; };
 		EE1E5DE8231477B4003F3138 /* Stump 2019 Slides.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Stump 2019 Slides.pdf"; sourceTree = "<group>"; };
+		EE32E0CE2356469D006D6827 /* TestSlides50.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = TestSlides50.pdf; sourceTree = "<group>"; };
+		EE32E0CF2356469D006D6827 /* TestSlides100.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = TestSlides100.pdf; sourceTree = "<group>"; };
 		EE528C1D230CE74E00065971 /* dogcow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dogcow.png; sourceTree = "<group>"; };
 		EE528C21230CE9DE00065971 /* 360idev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 360idev.png; sourceTree = "<group>"; };
 		EE528C23230CEBEF00065971 /* apple-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "apple-logo.png"; sourceTree = "<group>"; };
@@ -153,6 +157,8 @@
 		EE91F9FD230396F5003C716D /* StumpSlides */ = {
 			isa = PBXGroup;
 			children = (
+				EE32E0CE2356469D006D6827 /* TestSlides50.pdf */,
+				EE32E0CF2356469D006D6827 /* TestSlides100.pdf */,
 				EE91F9FE230396F5003C716D /* AppDelegate.swift */,
 				EE91FA00230396F5003C716D /* ViewController.swift */,
 				EE91FA2E23039B36003C716D /* StumpmojiWatcher.swift */,
@@ -298,6 +304,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE528C1E230CE74E00065971 /* dogcow.png in Resources */,
+				EE32E0D02356469E006D6827 /* TestSlides50.pdf in Resources */,
 				EE91FA09230396F6003C716D /* LaunchScreen.storyboard in Resources */,
 				EE91FA2D2303979C003C716D /* Stump 2018 slides.pdf in Resources */,
 				EE91FA332303A0AA003C716D /* GoogleService-Info.plist in Resources */,
@@ -306,6 +313,7 @@
 				EE528C24230CEBEF00065971 /* apple-logo.png in Resources */,
 				EE1E5DE9231477B4003F3138 /* Stump 2019 Slides.pdf in Resources */,
 				EE91FA04230396F5003C716D /* Main.storyboard in Resources */,
+				EE32E0D12356469E006D6827 /* TestSlides100.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
