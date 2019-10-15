@@ -11,47 +11,27 @@ import PDFKit
 
 class ViewController: UIViewController {
     
-    let pdfName = "Stump 2019 Slides.pdf"
+    let pdfName = "TestSlides100.pdf"
     var pdfDocument: PDFDocument!
     var pdfView: PDFView!
     var pdfThumbnailView: PDFThumbnailView!
-    
+    var pdfThumbnailScrollView: UIScrollView!
+    var thumbnailContainerView: UIView!
+
     var stumpmojiWatcher: StumpmojiWatcher!
     var stumpMojis: StumpmojiView!
 
     var backgroundColortimer: Timer!
+
+    let useThumbnailScrollView = true
+
+    let thumbnailSize: Int = 150
+    // Without some extra padding, PDFThumbnailView has geometry trouble with PDFs more than around 20 pages long when the scroll view is used. Tapping on a thumbnail may bring up an adjacent page instead of the tapped page, and the enlarged "selected" view of the thumbnail will be off center. This was reported in FB7379442, 2019-10-15.
+    // Adding a little horizontal padding gets normal behavior on iOS 13.1 but this is not documented and is something I found by experimenting.
+    let pdfThumbnailPerPagePadding = 2
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Add PDF view
-        pdfView = PDFView(frame: view.bounds)
-        pdfView.displayMode = .singlePage
-        pdfView.displayDirection = .horizontal
-        pdfView.autoScales = true
-        pdfView.translatesAutoresizingMaskIntoConstraints = false
-        pdfView.usePageViewController(true, withViewOptions: nil)
-        pdfView.backgroundColor = .black // This doesn't work-- see the ugly hack below
-        view.addSubviewAndConstrain(pdfView)
-        
-        // Add thumbnails but hide them for now
-        pdfThumbnailView = PDFThumbnailView()
-        pdfThumbnailView.translatesAutoresizingMaskIntoConstraints = false
-        pdfThumbnailView.pdfView = pdfView
-        pdfThumbnailView.layoutMode = .horizontal
-        pdfThumbnailView.thumbnailSize = CGSize(width: 150, height: 150)
-        pdfThumbnailView.alpha = 0.0
-        view.addSubview(pdfThumbnailView)
-        NSLayoutConstraint.activate([
-            pdfThumbnailView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            pdfThumbnailView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            pdfThumbnailView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            pdfThumbnailView.heightAnchor.constraint(equalToConstant: 150)
-            ])
-        
-        // Add tap gesture to show/hide thumbnails
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(pdfViewTapped))
-        pdfView.addGestureRecognizer(tapGestureRecognizer)
         
         // Load PDF
         if let documentURL = Bundle.main.url(forResource: pdfName, withExtension: nil),
@@ -60,6 +40,71 @@ class ViewController: UIViewController {
         } else {
             print("Couldn't load file \(pdfName)")
         }
+        
+        // Add PDF view
+        pdfView = PDFView(frame: view.bounds)
+        pdfView.displayMode = .singlePage
+        pdfView.displayDirection = .horizontal
+        pdfView.autoScales = true
+        pdfView.usePageViewController(true, withViewOptions: nil)
+        pdfView.backgroundColor = .black // This doesn't work-- see the ugly hack below
+        view.addSubviewAndConstrain(pdfView)
+        
+        // Add thumbnails but hide them for now. First the actual thumbnail viewer.
+        pdfThumbnailView = PDFThumbnailView()
+        pdfThumbnailView.translatesAutoresizingMaskIntoConstraints = false
+        pdfThumbnailView.pdfView = pdfView
+        pdfThumbnailView.layoutMode = .horizontal
+        pdfThumbnailView.thumbnailSize = CGSize(width: thumbnailSize, height: thumbnailSize)
+        
+        if useThumbnailScrollView {
+            pdfThumbnailView.frame = CGRect(x: 0, y: 0, width: thumbnailSize*(pdfDocument.pageCount + pdfThumbnailPerPagePadding), height: thumbnailSize)
+            NSLayoutConstraint.activate([
+                pdfThumbnailView.heightAnchor.constraint(equalToConstant: CGFloat(thumbnailSize)),
+                pdfThumbnailView.widthAnchor.constraint(equalToConstant: CGFloat(thumbnailSize*(pdfDocument.pageCount + pdfThumbnailPerPagePadding)))
+            ])
+            // Add a scroll view to hold the thumbnail view
+            pdfThumbnailScrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: thumbnailSize*pdfDocument.pageCount, height: thumbnailSize))
+            pdfThumbnailScrollView.translatesAutoresizingMaskIntoConstraints = false
+            pdfThumbnailScrollView.backgroundColor = .clear
+            pdfThumbnailScrollView.addSubview(pdfThumbnailView)
+            pdfThumbnailView.backgroundColor = .clear
+            pdfThumbnailScrollView.alpha = 0
+            
+            NSLayoutConstraint.activate([
+                pdfThumbnailView.leadingAnchor.constraint(equalTo: pdfThumbnailScrollView.leadingAnchor),
+                pdfThumbnailView.trailingAnchor.constraint(equalTo: pdfThumbnailScrollView.trailingAnchor),
+                pdfThumbnailView.topAnchor.constraint(equalTo: pdfThumbnailScrollView.topAnchor),
+                pdfThumbnailView.bottomAnchor.constraint(equalTo: pdfThumbnailScrollView.bottomAnchor)
+            ])
+            
+            // Add the scroll view to the hierarchy at the bottom of the screen.
+            view.addSubview(pdfThumbnailScrollView)
+            NSLayoutConstraint.activate([
+                pdfThumbnailScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                pdfThumbnailScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                pdfThumbnailScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                pdfThumbnailScrollView.heightAnchor.constraint(equalToConstant: CGFloat(thumbnailSize))
+            ])
+            thumbnailContainerView = pdfThumbnailScrollView
+        } else {
+            view.addSubview(pdfThumbnailView)
+            
+            NSLayoutConstraint.activate([
+                pdfThumbnailView.heightAnchor.constraint(equalToConstant: CGFloat(thumbnailSize)),
+                pdfThumbnailView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                pdfThumbnailView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                pdfThumbnailView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
+            
+            pdfThumbnailView.backgroundColor = .clear
+            pdfThumbnailView.alpha = 0
+            thumbnailContainerView = pdfThumbnailView
+        }
+
+        // Add tap gesture to show/hide thumbnails
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(pdfViewTapped))
+        pdfView.addGestureRecognizer(tapGestureRecognizer)
         
         // Add overlay to show incoming messages
         stumpMojis = StumpmojiView(frame: view.bounds)
@@ -102,14 +147,14 @@ class ViewController: UIViewController {
 
     @objc func pdfViewTapped() -> Void {
         let newAlpha: CGFloat = {
-            if pdfThumbnailView.alpha < 0.5 {
+            if thumbnailContainerView.alpha < 0.5 {
                 return 1.0
             } else {
                 return 0.0
             }
         }()
         UIView.animate(withDuration: 0.3) {
-            self.pdfThumbnailView.alpha = newAlpha
+            self.thumbnailContainerView.alpha = newAlpha
         }
     }
 }
