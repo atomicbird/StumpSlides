@@ -69,6 +69,7 @@ class ViewController: UIViewController {
             pdfThumbnailScrollView.backgroundColor = .clear
             pdfThumbnailScrollView.addSubview(pdfThumbnailView)
             pdfThumbnailView.backgroundColor = .clear
+            pdfThumbnailScrollView.indicatorStyle = .white
             pdfThumbnailScrollView.alpha = 0
             
             NSLayoutConstraint.activate([
