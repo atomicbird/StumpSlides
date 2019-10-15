@@ -47,7 +47,7 @@ class ViewController: UIViewController {
         pdfView.displayDirection = .horizontal
         pdfView.autoScales = true
         pdfView.usePageViewController(true, withViewOptions: nil)
-        pdfView.backgroundColor = .black // This doesn't work-- see the ugly hack below
+        pdfView.backgroundColor = .black
         view.addSubviewAndConstrain(pdfView)
         
         // Add thumbnails but hide them for now. First the actual thumbnail viewer.
@@ -116,26 +116,6 @@ class ViewController: UIViewController {
             self.stumpMojis.addMessage(message)
         }
         stumpmojiWatcher.startWatching()
-        
-        // Ugly hack to work around a bug where you can't set the background color of a PDFView if you're using it with a page view controller.
-        backgroundColortimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] (timer) in
-            guard let self = self else {
-                timer.invalidate()
-                return
-            }
-            var views = self.pdfView.subviews
-            while let view = views.first {
-                // Somewhere there's a _UIPageViewControllerContentView with a background that's 50% gray. Bastard.
-                if NSStringFromClass(type(of:view)) == "_UIPageViewControllerContentView" {
-                    UIView.animate(withDuration: 0.3, animations: {
-                        view.backgroundColor = .black
-                        self.backgroundColortimer.invalidate()
-                    })
-                }
-                views.append(contentsOf: view.subviews)
-                views.removeFirst()
-            }
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
