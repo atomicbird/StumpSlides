@@ -42,6 +42,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
+        return true
+    }
+    
+    func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
+
+        // Don't restore if the bundle version changed since state was changed.
+        guard let savedBundleVersion = coder.decodeObject(forKey: UIApplication.stateRestorationBundleVersionKey) as? String,
+            let infoDictionary = Bundle.main.infoDictionary,
+            let currentBundleVersion = infoDictionary[kCFBundleVersionKey as String] as? String,
+            savedBundleVersion == currentBundleVersion
+            else {
+                return false
+        }
+
+        return true
+    }
 
 }
 

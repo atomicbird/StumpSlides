@@ -117,11 +117,11 @@ class ViewController: UIViewController {
             self.stumpMojis.addMessage(message)
         }
         stumpmojiWatcher.startWatching()
+        pdfView.document = pdfDocument
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        pdfView.document = pdfDocument
     }
 
     override var prefersStatusBarHidden: Bool { return true }
@@ -136,6 +136,27 @@ class ViewController: UIViewController {
         }()
         UIView.animate(withDuration: 0.3) {
             self.thumbnailContainerView.alpha = newAlpha
+        }
+    }
+    
+    enum StateRestorationKeys: String {
+        case filename
+        case pageNumber
+    }
+    
+    override func encodeRestorableState(with coder: NSCoder) {
+        guard let currentPageNumber = pdfView.currentPageNumber else { return }
+        coder.encode(pdfName, forKey: StateRestorationKeys.filename.rawValue)
+        coder.encode(currentPageNumber, forKey: StateRestorationKeys.pageNumber.rawValue)
+    }
+    
+    override func decodeRestorableState(with coder: NSCoder) {
+        guard let savedFilename = coder.decodeObject(forKey: StateRestorationKeys.filename.rawValue) as? String
+            else { return }
+        let savedPageNumber = coder.decodeInteger(forKey: StateRestorationKeys.pageNumber.rawValue)
+        
+        if savedFilename == pdfName {
+            pdfView.go(to: savedPageNumber)
         }
     }
 }

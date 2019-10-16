@@ -12,6 +12,7 @@
 		EE1E5DE9231477B4003F3138 /* Stump 2019 Slides.pdf in Resources */ = {isa = PBXBuildFile; fileRef = EE1E5DE8231477B4003F3138 /* Stump 2019 Slides.pdf */; };
 		EE32E0D02356469E006D6827 /* TestSlides50.pdf in Resources */ = {isa = PBXBuildFile; fileRef = EE32E0CE2356469D006D6827 /* TestSlides50.pdf */; };
 		EE32E0D12356469E006D6827 /* TestSlides100.pdf in Resources */ = {isa = PBXBuildFile; fileRef = EE32E0CF2356469D006D6827 /* TestSlides100.pdf */; };
+		EE32E0D32357BDAF006D6827 /* PDFView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE32E0D22357BDAF006D6827 /* PDFView+Extensions.swift */; };
 		EE528C1E230CE74E00065971 /* dogcow.png in Resources */ = {isa = PBXBuildFile; fileRef = EE528C1D230CE74E00065971 /* dogcow.png */; };
 		EE528C22230CE9DE00065971 /* 360idev.png in Resources */ = {isa = PBXBuildFile; fileRef = EE528C21230CE9DE00065971 /* 360idev.png */; };
 		EE528C24230CEBEF00065971 /* apple-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = EE528C23230CEBEF00065971 /* apple-logo.png */; };
@@ -59,6 +60,7 @@
 		EE1E5DE8231477B4003F3138 /* Stump 2019 Slides.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Stump 2019 Slides.pdf"; sourceTree = "<group>"; };
 		EE32E0CE2356469D006D6827 /* TestSlides50.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = TestSlides50.pdf; sourceTree = "<group>"; };
 		EE32E0CF2356469D006D6827 /* TestSlides100.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = TestSlides100.pdf; sourceTree = "<group>"; };
+		EE32E0D22357BDAF006D6827 /* PDFView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFView+Extensions.swift"; sourceTree = "<group>"; };
 		EE528C1D230CE74E00065971 /* dogcow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dogcow.png; sourceTree = "<group>"; };
 		EE528C21230CE9DE00065971 /* 360idev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 360idev.png; sourceTree = "<group>"; };
 		EE528C23230CEBEF00065971 /* apple-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "apple-logo.png"; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				EE91FA07230396F6003C716D /* LaunchScreen.storyboard */,
 				EE91FA0A230396F6003C716D /* Info.plist */,
 				EE91FA322303A0AA003C716D /* GoogleService-Info.plist */,
+				EE32E0D22357BDAF006D6827 /* PDFView+Extensions.swift */,
 			);
 			path = StumpSlides;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 				EE91FA01230396F5003C716D /* ViewController.swift in Sources */,
 				EE91FA2F23039B36003C716D /* StumpmojiWatcher.swift in Sources */,
 				EE91FA3123039B65003C716D /* StackmojiView.swift in Sources */,
+				EE32E0D32357BDAF006D6827 /* PDFView+Extensions.swift in Sources */,
 				EE91F9FF230396F5003C716D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
