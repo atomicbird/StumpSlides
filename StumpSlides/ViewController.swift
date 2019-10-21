@@ -143,6 +143,7 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         pageSynchronizer.startSyncing()
+        logMilestone()
     }
 
     override var prefersStatusBarHidden: Bool { return true }
@@ -172,6 +173,7 @@ class ViewController: UIViewController {
     }
     
     override func decodeRestorableState(with coder: NSCoder) {
+        logMilestone()
         guard let savedFilename = coder.decodeObject(forKey: StateRestorationKeys.filename.rawValue) as? String
             else { return }
         let savedPageNumber = coder.decodeInteger(forKey: StateRestorationKeys.pageNumber.rawValue)
