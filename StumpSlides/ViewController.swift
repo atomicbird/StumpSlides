@@ -30,6 +30,7 @@ class ViewController: UIViewController {
     // Adding a little horizontal padding gets normal behavior on iOS 13.1 but this is not documented and is something I found by experimenting.
     let pdfThumbnailPerPagePadding = 2
     
+    var pageSynchronizer: PDFPageSynchronizer!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -117,11 +118,31 @@ class ViewController: UIViewController {
             self.stumpMojis.addMessage(message)
         }
         stumpmojiWatcher.startWatching()
+        
+        pageSynchronizer = PDFPageSynchronizer(with: self)
+
+        // This notification is posted
+        // - When the PDFView's "document" property is set. The page is page 0.
+        // - When state restoration happens.
+        // - When the user moves to a new page.
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.PDFViewPageChanged, object: nil, queue: OperationQueue.main) { [weak self] (notification) in
+            logMilestone("Page change notification")
+            guard let self = self else { return }
+            logMilestone("PDF page change: \(notification)")
+            logMilestone("Current page: \(String(describing: self.pdfView.currentPage))")
+            logMilestone("Visible pages: \(self.pdfView.visiblePages)")
+            if let currentPage = self.pdfView.currentPage {
+                let pageIndex = self.pdfDocument.index(for: currentPage)
+                logMilestone("Sending page index: \(pageIndex)")
+                self.pageSynchronizer.send(pageNumber: pageIndex)
+            }
+        }
         pdfView.document = pdfDocument
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        pageSynchronizer.startSyncing()
     }
 
     override var prefersStatusBarHidden: Bool { return true }
@@ -177,5 +198,13 @@ extension UIView {
             self.topAnchor.constraint(equalTo: subview.topAnchor),
             self.bottomAnchor.constraint(equalTo: subview.bottomAnchor)
             ])
+    }
+}
+
+extension ViewController: PDFPageSynchronizerDelegate {
+    func pdfPageSynchronizer(_: PDFPageSynchronizer, didReceivePage page: Int) {
+        DispatchQueue.main.async {
+            self.pdfView.go(to: page)
+        }
     }
 }
