@@ -179,20 +179,31 @@ class ViewController: UIViewController {
     }
     
     override func encodeRestorableState(with coder: NSCoder) {
-        guard let currentPageNumber = pdfView.currentPageNumber else { return }
-        coder.encode(pdfName, forKey: StateRestorationKeys.filename.rawValue)
-        coder.encode(currentPageNumber, forKey: StateRestorationKeys.pageNumber.rawValue)
+        coder.encode(pageSynchronizer, forKey: "pageSynchronizer")
+        
+//        guard let currentPageNumber = pdfView.currentPageNumber else { return }
+//        coder.encode(pdfName, forKey: StateRestorationKeys.filename.rawValue)
+//        coder.encode(currentPageNumber, forKey: StateRestorationKeys.pageNumber.rawValue)
     }
     
     override func decodeRestorableState(with coder: NSCoder) {
         logMilestone()
-        guard let savedFilename = coder.decodeObject(forKey: StateRestorationKeys.filename.rawValue) as? String
-            else { return }
-        let savedPageNumber = coder.decodeInteger(forKey: StateRestorationKeys.pageNumber.rawValue)
+        guard let savedPageSynchronizer = coder.decodeObject(forKey: "pageSynchronizer") as? PDFPageSynchronizer else { return }
+        savedPageSynchronizer.presentingViewController = self
+        self.pageSynchronizer = savedPageSynchronizer
+        pdfView.go(to: pageSynchronizer.lastPageSend.pageNumber)
         
-        if savedFilename == pdfName {
-            pdfView.go(to: savedPageNumber)
-        }
+//        guard let savedFilename = coder.decodeObject(forKey: StateRestorationKeys.filename.rawValue) as? String
+//            else { return }
+//        let savedPageNumber = coder.decodeInteger(forKey: StateRestorationKeys.pageNumber.rawValue)
+//        
+//        if savedFilename == pdfName {
+//            pdfView.go(to: savedPageNumber)
+//        }
+    }
+    
+    override func applicationFinishedRestoringState() {
+        logMilestone()
     }
 }
 

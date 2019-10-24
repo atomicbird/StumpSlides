@@ -13,47 +13,108 @@ protocol PDFPageSynchronizerDelegate {
     func pdfPageSynchronizer(_: PDFPageSynchronizer, didReceivePage: Int)
 }
 
-class PDFPageSynchronizer: NSObject {
+class PDFPageSynchronizer: NSObject, NSCoding {
     var peerID: MCPeerID!
     var mcSession: MCSession!
     var mcAdvertiserAssistant: MCAdvertiserAssistant!
     var testDataTimer: Timer!
     var mcBrowser: MCBrowserViewController!
     
+    var startDate: Date!
+    
+    struct PageSend: Codable {
+        enum CodingKeys: CodingKey {
+            case pageNumber
+            case startDate
+            case sendType
+        }
+
+        var pageNumber: Int = 0
+        var startDate: Date
+        
+        enum SendType: String, Codable {
+            case connection
+            case pageChange
+        }
+        var sendType: SendType = .pageChange
+    }
+    
+    var lastPageSend: PageSend
+    
     weak var presentingViewController: (UIViewController & PDFPageSynchronizerDelegate)?
     
     init(with viewController: UIViewController & PDFPageSynchronizerDelegate) {
         presentingViewController = viewController
+        lastPageSend = PageSend(startDate: Date())
         super.init()
-        
+        setupMultipeer()
+    }
+
+    fileprivate func setupMultipeer() -> Void {
         peerID = MCPeerID(displayName: UIDevice.current.name)
         mcSession = MCSession(peer: peerID, securityIdentity: nil, encryptionPreference: .required)
         mcSession.delegate = self
+        startDate = lastPageSend.startDate
     }
-
+    
     func startSyncing() -> Void {
+        logMilestone()
         guard mcAdvertiserAssistant == nil else { return }
         startHostingMP()
         joinSessionMP()
     }
     
+    // I couldn't find docs on what makes an acceptable service type with Multipeer networking, but word on the street (https://www.objc.io/issues/18-games/multipeer-connectivity-for-games/) says that it can't be more than 15 characters.
+    // Bundle ID seems like a good idea except there's a good chance it's too long, so remove the dots from it and take the last 15 characters. Last 15 instead of first 15 because they seem more likely to be unique, e.g. if there's more than one app from the same company where multiple bundle IDs might start with "com.myverylongcompanyname....".
+    lazy var serviceType: String = {
+        return String(Bundle.main.bundleIdentifier!.replacingOccurrences(of: ".", with: "").suffix(15))
+    }()
+    
     fileprivate func startHostingMP() {
-        mcAdvertiserAssistant = MCAdvertiserAssistant(serviceType: "hws-kb", discoveryInfo: nil, session: mcSession)
+        mcAdvertiserAssistant = MCAdvertiserAssistant(serviceType: serviceType, discoveryInfo: nil, session: mcSession)
         mcAdvertiserAssistant.start()
     }
 
     fileprivate func joinSessionMP() {
-        mcBrowser = MCBrowserViewController(serviceType: "hws-kb", session: mcSession)
+        mcBrowser = MCBrowserViewController(serviceType: serviceType, session: mcSession)
         mcBrowser.delegate = self
         presentingViewController?.present(mcBrowser, animated: true)
     }
     
-    func send(pageNumber: Int) -> Void {
+    fileprivate func send(_ pageSend: PageSend) -> Void {
+        logMilestone("Asked to send page \(pageSend.pageNumber) with type \(pageSend.sendType.rawValue)")
         if !self.mcSession.connectedPeers.isEmpty {
-            var page = Int32(pageNumber)
-            let pageNumberData = Data(bytes: &page, count: 4)
-            try? mcSession.send(pageNumberData, toPeers: mcSession.connectedPeers, with: .reliable)
+            logMilestone("Sending page \(pageSend.pageNumber) with type \(pageSend.sendType.rawValue)")
+            guard let encodedPageSend = try? JSONEncoder().encode(pageSend) else { return }
+            do {
+                try mcSession.send(encodedPageSend, toPeers: mcSession.connectedPeers, with: .reliable)
+            } catch {
+                logMilestone("Send error: \(error)")
+            }
         }
+    }
+    
+    func send(pageNumber: Int) -> Void {
+        guard pageNumber != lastPageSend.pageNumber else { return }
+        lastPageSend.pageNumber = pageNumber
+        
+        send(lastPageSend)
+    }
+    
+    // MARK - NSCoding
+    func encode(with coder: NSCoder) {
+        guard let encodedPageSend = try? JSONEncoder().encode(lastPageSend) else { return }
+        coder.encode(encodedPageSend, forKey: "pageSend")
+    }
+    
+    required init?(coder: NSCoder) {
+        guard let encodedPageSend = coder.decodeObject(forKey: "pageSend") as? Data,
+        var pageSend = try? JSONDecoder().decode(PageSend.self, from: encodedPageSend)
+            else { return nil }
+        pageSend.startDate = Date()
+        self.lastPageSend = pageSend
+        super.init()
+        setupMultipeer()
     }
 }
 
@@ -61,70 +122,65 @@ extension PDFPageSynchronizer: MCSessionDelegate, MCBrowserViewControllerDelegat
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         switch state {
         case MCSessionState.connected:
-            print("Connected: \(peerID.displayName)")
+            logMilestone("Connected: \(peerID.displayName)")
             DispatchQueue.main.async {
-//                if self.testDataTimer == nil {
-//                    self.testDataTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] (timer) in
-//                        guard let self = self else { return }
-//                        if !self.mcSession.connectedPeers.isEmpty, let data = try? NSKeyedArchiver.archivedData(withRootObject: Date(), requiringSecureCoding: false) {
-//                            try? self.mcSession.send(data, toPeers: self.mcSession.connectedPeers, with: .reliable)
-//                        }
-//                    })
-//                }
-                print("Dismissing MP browser")
+                logMilestone("Dismissing MP browser")
                 self.presentingViewController?.dismiss(animated: true)
                 self.mcBrowser = nil
+
+                // Send the current page to the other connected devices so that everyone can get on the same page.
+                let connectPageSend = PageSend(pageNumber: self.lastPageSend.pageNumber, startDate: self.startDate, sendType: .connection)
+                self.send(connectPageSend)
             }
 
         case MCSessionState.connecting:
-            print("Connecting: \(peerID.displayName)")
+            logMilestone("Connecting: \(peerID.displayName)")
             
         case MCSessionState.notConnected:
-            print("Not Connected: \(peerID.displayName)")
-            if mcSession.connectedPeers.isEmpty {
-//                testDataTimer.invalidate()
-//                testDataTimer = nil
-            }
+            logMilestone("Not Connected: \(peerID.displayName)")
         @unknown default:
             fatalError()
         }
     }
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        print("Received from \(peerID.displayName): \(data)")
-        if let receivedDate = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? Date {
-            print("Received from \(peerID.displayName): \(receivedDate)")
-        }
+        logMilestone("Received from \(peerID.displayName): \(data)")
+
+        guard let incomingPageSend = try? JSONDecoder().decode(PageSend.self, from: data) else { return }
+        logMilestone("Received page \(incomingPageSend.pageNumber), type = \(incomingPageSend.sendType.rawValue)")
         
-        if let incomingPageNumber = data.withUnsafeBytes ({ (ptr:UnsafeRawBufferPointer) -> Int32? in
-            let otherPtr = ptr.bindMemory(to: Int32.self)
-            return otherPtr.first
-            }) {
-            print("Received page number \(incomingPageNumber)")
-            presentingViewController?.pdfPageSynchronizer(self, didReceivePage: Int(incomingPageNumber))
+        // Whichever device thinks it started earliest wins out for page number on initial connect.
+        if incomingPageSend.sendType == .connection, incomingPageSend.startDate < startDate {
+            logMilestone("Updating local page (connect)")
+            self.lastPageSend = incomingPageSend
+            presentingViewController?.pdfPageSynchronizer(self, didReceivePage: incomingPageSend.pageNumber)
+        } else if incomingPageSend.sendType == .pageChange {
+            logMilestone("Updating local page (change)")
+            self.lastPageSend = incomingPageSend
+            presentingViewController?.pdfPageSynchronizer(self, didReceivePage: incomingPageSend.pageNumber)
         }
     }
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
-        print("Received stream from \(peerID.displayName): \(stream)")
+        logMilestone("Received stream from \(peerID.displayName): \(stream)")
     }
     
     func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
-        print("Started receiving from \(peerID.displayName): \(resourceName)")
+        logMilestone("Started receiving from \(peerID.displayName): \(resourceName)")
     }
     
     func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
-        print("Finished receiving from \(peerID.displayName): \(resourceName)")
+        logMilestone("Finished receiving from \(peerID.displayName): \(resourceName)")
     }
     
     func browserViewControllerDidFinish(_ browserViewController: MCBrowserViewController) {
-        print("Dismissing MP browser")
+        logMilestone("Dismissing MP browser")
         presentingViewController?.dismiss(animated: true)
         mcBrowser = nil
     }
     
     func browserViewControllerWasCancelled(_ browserViewController: MCBrowserViewController) {
-        print("Dismissing MP browser")
+        logMilestone("Dismissing MP browser")
         presentingViewController?.dismiss(animated: true)
         mcBrowser = nil
     }
