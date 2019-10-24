@@ -15,6 +15,7 @@
 		EE32E0D32357BDAF006D6827 /* PDFView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE32E0D22357BDAF006D6827 /* PDFView+Extensions.swift */; };
 		EE32E0D5235A5E06006D6827 /* PDFPageSynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE32E0D4235A5E06006D6827 /* PDFPageSynchronizer.swift */; };
 		EE32E10F235E4940006D6827 /* LogMilestone.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE32E10E235E4940006D6827 /* LogMilestone.swift */; };
+		EE32E14D23625C48006D6827 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE32E14C23625C48006D6827 /* UIView+Extensions.swift */; };
 		EE528C1E230CE74E00065971 /* dogcow.png in Resources */ = {isa = PBXBuildFile; fileRef = EE528C1D230CE74E00065971 /* dogcow.png */; };
 		EE528C22230CE9DE00065971 /* 360idev.png in Resources */ = {isa = PBXBuildFile; fileRef = EE528C21230CE9DE00065971 /* 360idev.png */; };
 		EE528C24230CEBEF00065971 /* apple-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = EE528C23230CEBEF00065971 /* apple-logo.png */; };
@@ -65,6 +66,7 @@
 		EE32E0D22357BDAF006D6827 /* PDFView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFView+Extensions.swift"; sourceTree = "<group>"; };
 		EE32E0D4235A5E06006D6827 /* PDFPageSynchronizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFPageSynchronizer.swift; sourceTree = "<group>"; };
 		EE32E10E235E4940006D6827 /* LogMilestone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogMilestone.swift; sourceTree = "<group>"; };
+		EE32E14C23625C48006D6827 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		EE528C1D230CE74E00065971 /* dogcow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dogcow.png; sourceTree = "<group>"; };
 		EE528C21230CE9DE00065971 /* 360idev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 360idev.png; sourceTree = "<group>"; };
 		EE528C23230CEBEF00065971 /* apple-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "apple-logo.png"; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				EE91FA0A230396F6003C716D /* Info.plist */,
 				EE91FA322303A0AA003C716D /* GoogleService-Info.plist */,
 				EE32E0D22357BDAF006D6827 /* PDFView+Extensions.swift */,
+				EE32E14C23625C48006D6827 /* UIView+Extensions.swift */,
 			);
 			path = StumpSlides;
 			sourceTree = "<group>";
@@ -450,6 +453,7 @@
 				EE91FA3123039B65003C716D /* StackmojiView.swift in Sources */,
 				EE32E0D5235A5E06006D6827 /* PDFPageSynchronizer.swift in Sources */,
 				EE32E0D32357BDAF006D6827 /* PDFView+Extensions.swift in Sources */,
+				EE32E14D23625C48006D6827 /* UIView+Extensions.swift in Sources */,
 				EE91F9FF230396F5003C716D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

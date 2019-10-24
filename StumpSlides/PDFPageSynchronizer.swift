@@ -13,6 +13,7 @@ protocol PDFPageSynchronizerDelegate {
     func pdfPageSynchronizer(_: PDFPageSynchronizer, didReceivePage: Int)
 }
 
+/// Synchronize the current page across two or more instances of the app running on different devices, via Multipeer networking.
 class PDFPageSynchronizer: NSObject {
     var peerID: MCPeerID!
     var mcSession: MCSession!
@@ -102,6 +103,7 @@ class PDFPageSynchronizer: NSObject {
     }
 }
 
+// MARK: - MCSessionDelegate, MCBrowserViewControllerDelegate
 extension PDFPageSynchronizer: MCSessionDelegate, MCBrowserViewControllerDelegate {
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         switch state {
