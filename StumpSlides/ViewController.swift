@@ -31,6 +31,8 @@ class ViewController: UIViewController {
     let pdfThumbnailPerPagePadding = 2
     
     var pageSynchronizer: PDFPageSynchronizer!
+    var skipNextPageChangeNotification = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -128,6 +130,10 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(forName: NSNotification.Name.PDFViewPageChanged, object: nil, queue: OperationQueue.main) { [weak self] (notification) in
             logMilestone("Page change notification")
             guard let self = self else { return }
+            guard !self.skipNextPageChangeNotification else {
+                self.skipNextPageChangeNotification = false
+                return
+            }
             logMilestone("PDF page change: \(notification)")
             logMilestone("Current page: \(String(describing: self.pdfView.currentPage))")
             logMilestone("Visible pages: \(self.pdfView.visiblePages)")
@@ -137,6 +143,12 @@ class ViewController: UIViewController {
                 self.pageSynchronizer.send(pageNumber: pageIndex)
             }
         }
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.PDFViewDocumentChanged, object: nil, queue: OperationQueue.main) { [weak self] (_) in
+            self?.skipNextPageChangeNotification = true
+            logMilestone("PDF document changed")
+        }
+        
         pdfView.document = pdfDocument
     }
     
@@ -147,7 +159,7 @@ class ViewController: UIViewController {
     }
 
     override var prefersStatusBarHidden: Bool { return true }
-
+    
     @objc func pdfViewTapped() -> Void {
         let newAlpha: CGFloat = {
             if thumbnailContainerView.alpha < 0.5 {
