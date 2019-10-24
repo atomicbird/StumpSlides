@@ -21,8 +21,6 @@ class ViewController: UIViewController {
     var stumpmojiWatcher: StumpmojiWatcher!
     var stumpMojis: StumpmojiView!
 
-    var backgroundColortimer: Timer!
-
     let useThumbnailScrollView = true
 
     let thumbnailSize: Int = 150
@@ -179,27 +177,19 @@ class ViewController: UIViewController {
     }
     
     override func encodeRestorableState(with coder: NSCoder) {
-        coder.encode(pageSynchronizer, forKey: "pageSynchronizer")
-        
-//        guard let currentPageNumber = pdfView.currentPageNumber else { return }
-//        coder.encode(pdfName, forKey: StateRestorationKeys.filename.rawValue)
-//        coder.encode(currentPageNumber, forKey: StateRestorationKeys.pageNumber.rawValue)
+        guard let currentPageNumber = pdfView.currentPageNumber else { return }
+        coder.encode(pdfName, forKey: StateRestorationKeys.filename.rawValue)
+        coder.encode(currentPageNumber, forKey: StateRestorationKeys.pageNumber.rawValue)
     }
     
     override func decodeRestorableState(with coder: NSCoder) {
+        guard let savedFilename = coder.decodeObject(forKey: StateRestorationKeys.filename.rawValue) as? String, savedFilename == pdfName
+            else { return }
         logMilestone()
-        guard let savedPageSynchronizer = coder.decodeObject(forKey: "pageSynchronizer") as? PDFPageSynchronizer else { return }
-        savedPageSynchronizer.presentingViewController = self
-        self.pageSynchronizer = savedPageSynchronizer
-        pdfView.go(to: pageSynchronizer.lastPageSend.pageNumber)
-        
-//        guard let savedFilename = coder.decodeObject(forKey: StateRestorationKeys.filename.rawValue) as? String
-//            else { return }
-//        let savedPageNumber = coder.decodeInteger(forKey: StateRestorationKeys.pageNumber.rawValue)
-//        
-//        if savedFilename == pdfName {
-//            pdfView.go(to: savedPageNumber)
-//        }
+
+        let savedPageNumber = coder.decodeInteger(forKey: StateRestorationKeys.pageNumber.rawValue)
+        pageSynchronizer = PDFPageSynchronizer(with: self, pageNumber: savedPageNumber)
+        pdfView.go(to: savedPageNumber)
     }
     
     override func applicationFinishedRestoringState() {

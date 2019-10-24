@@ -13,7 +13,7 @@ protocol PDFPageSynchronizerDelegate {
     func pdfPageSynchronizer(_: PDFPageSynchronizer, didReceivePage: Int)
 }
 
-class PDFPageSynchronizer: NSObject, NSCoding {
+class PDFPageSynchronizer: NSObject {
     var peerID: MCPeerID!
     var mcSession: MCSession!
     var mcAdvertiserAssistant: MCAdvertiserAssistant!
@@ -43,9 +43,9 @@ class PDFPageSynchronizer: NSObject, NSCoding {
     
     weak var presentingViewController: (UIViewController & PDFPageSynchronizerDelegate)?
     
-    init(with viewController: UIViewController & PDFPageSynchronizerDelegate) {
+    init(with viewController: UIViewController & PDFPageSynchronizerDelegate, pageNumber: Int = 0) {
         presentingViewController = viewController
-        lastPageSend = PageSend(startDate: Date())
+        lastPageSend = PageSend(pageNumber: pageNumber, startDate: Date())
         super.init()
         setupMultipeer()
     }
@@ -99,22 +99,6 @@ class PDFPageSynchronizer: NSObject, NSCoding {
         lastPageSend.pageNumber = pageNumber
         
         send(lastPageSend)
-    }
-    
-    // MARK - NSCoding
-    func encode(with coder: NSCoder) {
-        guard let encodedPageSend = try? JSONEncoder().encode(lastPageSend) else { return }
-        coder.encode(encodedPageSend, forKey: "pageSend")
-    }
-    
-    required init?(coder: NSCoder) {
-        guard let encodedPageSend = coder.decodeObject(forKey: "pageSend") as? Data,
-        var pageSend = try? JSONDecoder().decode(PageSend.self, from: encodedPageSend)
-            else { return nil }
-        pageSend.startDate = Date()
-        self.lastPageSend = pageSend
-        super.init()
-        setupMultipeer()
     }
 }
 
