@@ -31,6 +31,13 @@ class ViewController: UIViewController {
     var pageSynchronizer: PDFPageSynchronizer!
     var skipNextPageChangeNotification = false
     
+    @IBOutlet weak var buttonContainer: UIView! {
+        didSet {
+            buttonContainer.layer.cornerRadius = 10.0
+        }
+    }
+    @IBOutlet weak var disconnectButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -148,6 +155,10 @@ class ViewController: UIViewController {
         }
         
         pdfView.document = pdfDocument
+        
+        buttonContainer.alpha = 0.0
+        disconnectButton.isEnabled = false
+        view.bringSubviewToFront(buttonContainer)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -168,7 +179,16 @@ class ViewController: UIViewController {
         }()
         UIView.animate(withDuration: 0.3) {
             self.thumbnailContainerView.alpha = newAlpha
+            self.buttonContainer.alpha = newAlpha
         }
+    }
+    
+    @IBAction func browseForPeers(_ sender: Any) {
+        pageSynchronizer.browseForPeers()
+    }
+    
+    @IBAction func disconnectFromPeers(_ sender: Any) {
+        pageSynchronizer.disconnectFromPeers()
     }
     
     // MARK: - State Restoration
@@ -205,4 +225,9 @@ extension ViewController: PDFPageSynchronizerDelegate {
     var pdfDocumentPageCount: Int {
         return pdfDocument.pageCount
     }
+
+    func pdfPageSynchronizerPeersUpdated(_: PDFPageSynchronizer) -> Void {
+        disconnectButton.isEnabled = pageSynchronizer.peerCount != 0
+    }
+
 }

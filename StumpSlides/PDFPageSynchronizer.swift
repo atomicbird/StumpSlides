@@ -10,7 +10,8 @@ import Foundation
 import MultipeerConnectivity
 
 protocol PDFPageSynchronizerDelegate {
-    func pdfPageSynchronizer(_: PDFPageSynchronizer, didReceivePage: Int)
+    func pdfPageSynchronizer(_: PDFPageSynchronizer, didReceivePage: Int) -> Void
+    func pdfPageSynchronizerPeersUpdated(_: PDFPageSynchronizer) -> Void
     var pdfDocumentPageCount: Int { get }
 }
 
@@ -43,7 +44,8 @@ class PDFPageSynchronizer: NSObject {
     
     var lastPageSend: PageSend
     
-    weak var presentingViewController: (UIViewController & PDFPageSynchronizerDelegate)?
+    var presentingViewController: (UIViewController & PDFPageSynchronizerDelegate)
+    
     enum DiscoveryInfoKeys: String {
         case pageCount
     }
@@ -62,11 +64,12 @@ class PDFPageSynchronizer: NSObject {
         startDate = lastPageSend.startDate
     }
     
+    /// Start hosting and browsing
     func startSyncing() -> Void {
         logMilestone()
         guard mcAdvertiserAssistant == nil else { return }
-        startHostingMP()
-        joinSessionMP()
+        startHosting()
+        browseForPeers()
     }
     
     // I couldn't find docs on what makes an acceptable service type with Multipeer networking, but word on the street (https://www.objc.io/issues/18-games/multipeer-connectivity-for-games/) says that it can't be more than 15 characters.
@@ -75,18 +78,24 @@ class PDFPageSynchronizer: NSObject {
         return String(Bundle.main.bundleIdentifier!.replacingOccurrences(of: ".", with: "").suffix(15))
     }()
     
-    fileprivate func startHostingMP() {
-        mcAdvertiserAssistant = MCAdvertiserAssistant(serviceType: serviceType, discoveryInfo: nil, session: mcSession)
+    func startHosting() {
         let discoveryInfo = [DiscoveryInfoKeys.pageCount.rawValue: "\(presentingViewController.pdfDocumentPageCount)"]
         mcAdvertiserAssistant = MCAdvertiserAssistant(serviceType: serviceType, discoveryInfo: discoveryInfo, session: mcSession)
         mcAdvertiserAssistant.start()
     }
 
-    fileprivate func joinSessionMP() {
+    func browseForPeers() {
         mcBrowser = MCBrowserViewController(serviceType: serviceType, session: mcSession)
         mcBrowser.delegate = self
-        presentingViewController?.present(mcBrowser, animated: true)
+        presentingViewController.present(mcBrowser, animated: true)
     }
+    
+    func disconnectFromPeers() {
+        mcSession.disconnect()
+        self.presentingViewController.pdfPageSynchronizerPeersUpdated(self)
+    }
+    
+    var peerCount: Int { return mcSession.connectedPeers.count }
     
     fileprivate func send(_ pageSend: PageSend) -> Void {
         logMilestone("Asked to send page \(pageSend.pageNumber) with type \(pageSend.sendType.rawValue)")
@@ -109,20 +118,22 @@ class PDFPageSynchronizer: NSObject {
     }
 }
 
-// MARK: - MCSessionDelegate, MCBrowserViewControllerDelegate
-extension PDFPageSynchronizer: MCSessionDelegate, MCBrowserViewControllerDelegate {
+// MARK: - MCSessionDelegate
+extension PDFPageSynchronizer: MCSessionDelegate {
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         switch state {
         case MCSessionState.connected:
             logMilestone("Connected: \(peerID.displayName)")
             DispatchQueue.main.async {
                 logMilestone("Dismissing MP browser")
-                self.presentingViewController?.dismiss(animated: true)
+                self.presentingViewController.dismiss(animated: true)
                 self.mcBrowser = nil
 
                 // Send the current page to the other connected devices so that everyone can get on the same page.
                 let connectPageSend = PageSend(pageNumber: self.lastPageSend.pageNumber, startDate: self.startDate, sendType: .connection)
                 self.send(connectPageSend)
+                
+                self.presentingViewController.pdfPageSynchronizerPeersUpdated(self)
             }
 
         case MCSessionState.connecting:
@@ -130,6 +141,7 @@ extension PDFPageSynchronizer: MCSessionDelegate, MCBrowserViewControllerDelegat
             
         case MCSessionState.notConnected:
             logMilestone("Not Connected: \(peerID.displayName)")
+            self.presentingViewController.pdfPageSynchronizerPeersUpdated(self)
         @unknown default:
             fatalError()
         }
@@ -144,12 +156,12 @@ extension PDFPageSynchronizer: MCSessionDelegate, MCBrowserViewControllerDelegat
         // Whichever device thinks it started earliest wins out for page number on initial connect.
         if incomingPageSend.sendType == .connection, incomingPageSend.startDate < startDate {
             logMilestone("Updating local page (connect)")
-            presentingViewController?.pdfPageSynchronizer(self, didReceivePage: incomingPageSend.pageNumber)
             self.lastPageSend.pageNumber = incomingPageSend.pageNumber
+            presentingViewController.pdfPageSynchronizer(self, didReceivePage: incomingPageSend.pageNumber)
         } else if incomingPageSend.sendType == .pageChange {
             logMilestone("Updating local page (change)")
-            presentingViewController?.pdfPageSynchronizer(self, didReceivePage: incomingPageSend.pageNumber)
             self.lastPageSend.pageNumber = incomingPageSend.pageNumber
+            presentingViewController.pdfPageSynchronizer(self, didReceivePage: incomingPageSend.pageNumber)
         }
     }
     
@@ -164,16 +176,19 @@ extension PDFPageSynchronizer: MCSessionDelegate, MCBrowserViewControllerDelegat
     func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
         logMilestone("Finished receiving from \(peerID.displayName): \(resourceName)")
     }
-    
+}
+
+// MARK: - MCSessionDelegate, MCBrowserViewControllerDelegate
+extension PDFPageSynchronizer: MCBrowserViewControllerDelegate {
     func browserViewControllerDidFinish(_ browserViewController: MCBrowserViewController) {
         logMilestone("Dismissing MP browser")
-        presentingViewController?.dismiss(animated: true)
+        presentingViewController.dismiss(animated: true)
         mcBrowser = nil
     }
     
     func browserViewControllerWasCancelled(_ browserViewController: MCBrowserViewController) {
         logMilestone("Dismissing MP browser")
-        presentingViewController?.dismiss(animated: true)
+        presentingViewController.dismiss(animated: true)
         mcBrowser = nil
     }
     

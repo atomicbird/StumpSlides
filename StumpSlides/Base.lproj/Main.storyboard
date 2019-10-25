@@ -14,9 +14,54 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hRn-dR-Gsp">
+                                <rect key="frame" x="198" y="64" width="196" height="121"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="ZSq-9U-cus">
+                                        <rect key="frame" x="20" y="20" width="156" height="81"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jxs-Au-eqx">
+                                                <rect key="frame" x="0.0" y="0.0" width="89" height="30"/>
+                                                <state key="normal" title="Connect to...">
+                                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="browseForPeers:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BOE-Qr-DN4"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CDM-k8-B47">
+                                                <rect key="frame" x="0.0" y="51" width="156" height="30"/>
+                                                <state key="normal" title="Disconnect from peers">
+                                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="disconnectFromPeers:" destination="BYZ-38-t0r" eventType="touchUpInside" id="T8q-Ez-JsS"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <constraints>
+                                    <constraint firstItem="ZSq-9U-cus" firstAttribute="leading" secondItem="hRn-dR-Gsp" secondAttribute="leading" constant="20" id="5m4-sG-NMl"/>
+                                    <constraint firstAttribute="bottom" secondItem="ZSq-9U-cus" secondAttribute="bottom" constant="20" id="6o8-vq-CFl"/>
+                                    <constraint firstItem="ZSq-9U-cus" firstAttribute="top" secondItem="hRn-dR-Gsp" secondAttribute="top" constant="20" id="FEj-el-LSS"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZSq-9U-cus" secondAttribute="trailing" constant="20" id="Ngj-8O-9Qk"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="hRn-dR-Gsp" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="f3y-7T-fRN"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hRn-dR-Gsp" secondAttribute="trailing" constant="20" id="oNs-sa-1EX"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="buttonContainer" destination="hRn-dR-Gsp" id="LDD-H7-2Ai"/>
+                        <outlet property="disconnectButton" destination="CDM-k8-B47" id="1qG-uC-DGn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
