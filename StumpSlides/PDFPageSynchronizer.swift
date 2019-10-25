@@ -138,12 +138,12 @@ extension PDFPageSynchronizer: MCSessionDelegate, MCBrowserViewControllerDelegat
         // Whichever device thinks it started earliest wins out for page number on initial connect.
         if incomingPageSend.sendType == .connection, incomingPageSend.startDate < startDate {
             logMilestone("Updating local page (connect)")
-            self.lastPageSend = incomingPageSend
             presentingViewController?.pdfPageSynchronizer(self, didReceivePage: incomingPageSend.pageNumber)
+            self.lastPageSend.pageNumber = incomingPageSend.pageNumber
         } else if incomingPageSend.sendType == .pageChange {
             logMilestone("Updating local page (change)")
-            self.lastPageSend = incomingPageSend
             presentingViewController?.pdfPageSynchronizer(self, didReceivePage: incomingPageSend.pageNumber)
+            self.lastPageSend.pageNumber = incomingPageSend.pageNumber
         }
     }
     
