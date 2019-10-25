@@ -11,6 +11,7 @@ import MultipeerConnectivity
 
 protocol PDFPageSynchronizerDelegate {
     func pdfPageSynchronizer(_: PDFPageSynchronizer, didReceivePage: Int)
+    var pdfDocumentPageCount: Int { get }
 }
 
 /// Synchronize the current page across two or more instances of the app running on different devices, via Multipeer networking.
@@ -43,6 +44,9 @@ class PDFPageSynchronizer: NSObject {
     var lastPageSend: PageSend
     
     weak var presentingViewController: (UIViewController & PDFPageSynchronizerDelegate)?
+    enum DiscoveryInfoKeys: String {
+        case pageCount
+    }
     
     init(with viewController: UIViewController & PDFPageSynchronizerDelegate, pageNumber: Int = 0) {
         presentingViewController = viewController
@@ -73,6 +77,8 @@ class PDFPageSynchronizer: NSObject {
     
     fileprivate func startHostingMP() {
         mcAdvertiserAssistant = MCAdvertiserAssistant(serviceType: serviceType, discoveryInfo: nil, session: mcSession)
+        let discoveryInfo = [DiscoveryInfoKeys.pageCount.rawValue: "\(presentingViewController.pdfDocumentPageCount)"]
+        mcAdvertiserAssistant = MCAdvertiserAssistant(serviceType: serviceType, discoveryInfo: discoveryInfo, session: mcSession)
         mcAdvertiserAssistant.start()
     }
 
@@ -169,5 +175,15 @@ extension PDFPageSynchronizer: MCSessionDelegate, MCBrowserViewControllerDelegat
         logMilestone("Dismissing MP browser")
         presentingViewController?.dismiss(animated: true)
         mcBrowser = nil
+    }
+    
+    func browserViewController(_ browserViewController: MCBrowserViewController, shouldPresentNearbyPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) -> Bool {
+        guard let discoveryInfo = info else { return false }
+        // Compare the number of pages in the peer's document to the local document to decide if we should connect.
+        guard let incomingPageCountString = discoveryInfo[DiscoveryInfoKeys.pageCount.rawValue],
+            let incomingPageCount = Int(incomingPageCountString),
+            incomingPageCount == presentingViewController.pdfDocumentPageCount
+            else { return false }
+        return true
     }
 }

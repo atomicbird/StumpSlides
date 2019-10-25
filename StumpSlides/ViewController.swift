@@ -201,4 +201,8 @@ extension ViewController: PDFPageSynchronizerDelegate {
             self.pdfView.go(to: page)
         }
     }
+    
+    var pdfDocumentPageCount: Int {
+        return pdfDocument.pageCount
+    }
 }
