@@ -47,7 +47,7 @@ class ViewController: UIViewController {
             let pdfDocument = PDFDocument(url: documentURL) {
             self.pdfDocument = pdfDocument
         } else {
-            print("Couldn't load file \(pdfName)")
+            logMilestone("Couldn't load file \(pdfName)")
         }
         
         // Add PDF view

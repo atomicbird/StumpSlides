@@ -24,10 +24,6 @@ class StumpmojiView: UIView {
 
     func addMessage(_ message: String) -> Void {
         let messageInitialXPosition = CGFloat.random(in: 20...frame.maxX-20)
-        let messageFinalXPosition = CGFloat.random(in: 20...frame.maxX-20)
-        let messageFinalYPosition = CGFloat.random(in: frame.maxY ... 1.25*frame.maxY)
-        let animationTime = TimeInterval.random(in: 5...15)
-        let animationRotation = CGFloat.random(in: -8*CGFloat.pi...8*CGFloat.pi)
         
         let messageView: UIView = {
             if message == "dogcow" || message == "360idev" || message == "apple-logo" {
@@ -41,12 +37,16 @@ class StumpmojiView: UIView {
                 view.font = UIFont.systemFont(ofSize: 60, weight: .heavy)
                 view.sizeToFit()
                 view.backgroundColor = .clear
-                view.textColor = StumpmojiView.messageColors.randomElement()
                 return view
             }
         }()
         addSubview(messageView)
         
+        let messageFinalXPosition = CGFloat.random(in: 20...frame.maxX-20)
+        let messageFinalYPosition = CGFloat.random(in: frame.maxY ... 1.25*frame.maxY)
+        let animationTime = TimeInterval.random(in: 5...15)
+        let animationRotation = CGFloat.random(in: -8*CGFloat.pi...8*CGFloat.pi)
+
         UIView.animate(withDuration: animationTime, animations: {
             messageView.frame.origin.y = messageFinalYPosition
             messageView.frame.origin.x = messageFinalXPosition
