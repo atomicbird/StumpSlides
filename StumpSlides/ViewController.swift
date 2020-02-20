@@ -22,13 +22,14 @@ class ViewController: UIViewController {
     var stumpMojis: StumpmojiView!
 
     let useThumbnailScrollView = true
+    let usePageSynchronizer = true
 
     let thumbnailSize: Int = 150
     // Without some extra padding, PDFThumbnailView has geometry trouble with PDFs more than around 20 pages long when the scroll view is used. Tapping on a thumbnail may bring up an adjacent page instead of the tapped page, and the enlarged "selected" view of the thumbnail will be off center. This was reported in FB7379442, 2019-10-15.
     // Adding a little horizontal padding gets normal behavior on iOS 13.1 but this is not documented and is something I found by experimenting.
     let pdfThumbnailPerPagePadding = 2
     
-    var pageSynchronizer: PDFPageSynchronizer!
+    var pageSynchronizer: PDFPageSynchronizer?
     var skipNextPageChangeNotification = false
     
     @IBOutlet weak var buttonContainer: UIView! {
@@ -126,7 +127,9 @@ class ViewController: UIViewController {
         }
         stumpmojiWatcher.startWatching()
         
-        pageSynchronizer = PDFPageSynchronizer(with: self)
+        if usePageSynchronizer {
+            pageSynchronizer = PDFPageSynchronizer(with: self)
+        }
 
         // This notification is posted
         // - When the PDFView's "document" property is set. The page is page 0.
@@ -145,7 +148,7 @@ class ViewController: UIViewController {
             if let currentPage = self.pdfView.currentPage {
                 let pageIndex = self.pdfDocument.index(for: currentPage)
                 logMilestone("Sending page index: \(pageIndex)")
-                self.pageSynchronizer.send(pageNumber: pageIndex)
+                self.pageSynchronizer?.send(pageNumber: pageIndex)
             }
         }
         
@@ -163,7 +166,7 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        pageSynchronizer.startSyncing()
+        pageSynchronizer?.startSyncing()
         logMilestone()
     }
 
@@ -184,11 +187,11 @@ class ViewController: UIViewController {
     }
     
     @IBAction func browseForPeers(_ sender: Any) {
-        pageSynchronizer.browseForPeers()
+        pageSynchronizer?.browseForPeers()
     }
     
     @IBAction func disconnectFromPeers(_ sender: Any) {
-        pageSynchronizer.disconnectFromPeers()
+        pageSynchronizer?.disconnectFromPeers()
     }
     
     // MARK: - State Restoration
@@ -209,7 +212,9 @@ class ViewController: UIViewController {
         logMilestone()
 
         let savedPageNumber = coder.decodeInteger(forKey: StateRestorationKeys.pageNumber.rawValue)
-        pageSynchronizer = PDFPageSynchronizer(with: self, pageNumber: savedPageNumber)
+        if usePageSynchronizer {
+            pageSynchronizer = PDFPageSynchronizer(with: self, pageNumber: savedPageNumber)
+        }
         pdfView.go(to: savedPageNumber)
     }
 }
@@ -227,7 +232,7 @@ extension ViewController: PDFPageSynchronizerDelegate {
     }
 
     func pdfPageSynchronizerPeersUpdated(_: PDFPageSynchronizer) -> Void {
-        disconnectButton.isEnabled = pageSynchronizer.peerCount != 0
+        disconnectButton.isEnabled = pageSynchronizer?.peerCount != 0
     }
 
 }
