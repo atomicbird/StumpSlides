@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+#include <TargetConditionals.h>
+#if TARGET_OS_IOS
+
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -33,10 +36,10 @@ typedef void (^FIRAuthURLPresentationCompletion)(NSURL *_Nullable callbackURL,
     @param callbackURL The callback URL to check for match.
     @return Whether or not the specific callback URL matches or not.
  */
-typedef BOOL (^FIRAuthURLCallbackMatcher)(NSURL * _Nullable callbackURL);
+typedef BOOL (^FIRAuthURLCallbackMatcher)(NSURL *_Nullable callbackURL);
 
 /** @class FIRAuthURLPresenter
-    @brief A Class responsible for presenting URL via SFSafariViewController or UIWebView.
+    @brief A Class responsible for presenting URL via SFSafariViewController or WKWebView.
  */
 @interface FIRAuthURLPresenter : NSObject
 
@@ -48,9 +51,9 @@ typedef BOOL (^FIRAuthURLCallbackMatcher)(NSURL * _Nullable callbackURL);
         or asynchronously in future on an unspecified thread once the presentation finishes.
  */
 - (void)presentURL:(NSURL *)URL
-        UIDelegate:(nullable id<FIRAuthUIDelegate>)UIDelegate
-   callbackMatcher:(FIRAuthURLCallbackMatcher)callbackMatcher
-        completion:(FIRAuthURLPresentationCompletion)completion;
+         UIDelegate:(nullable id<FIRAuthUIDelegate>)UIDelegate
+    callbackMatcher:(FIRAuthURLCallbackMatcher)callbackMatcher
+         completion:(FIRAuthURLPresentationCompletion)completion;
 
 /** @fn canHandleURL:
     @brief Determines if a URL was produced by the currently presented URL.
@@ -62,3 +65,5 @@ typedef BOOL (^FIRAuthURLCallbackMatcher)(NSURL * _Nullable callbackURL);
 @end
 
 NS_ASSUME_NONNULL_END
+
+#endif

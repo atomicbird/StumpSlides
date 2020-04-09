@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+#include <TargetConditionals.h>
+#if !TARGET_OS_OSX
+
 #import <Foundation/Foundation.h>
 
 #import "FIRAuthAPNSTokenType.h"
@@ -46,8 +49,8 @@ NS_ASSUME_NONNULL_BEGIN
     @param type The APNs token type.
     @return The initialized instance.
  */
-- (instancetype)initWithData:(NSData *)data type:(FIRAuthAPNSTokenType)type
-    NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithData:(NSData *)data
+                        type:(FIRAuthAPNSTokenType)type NS_DESIGNATED_INITIALIZER;
 
 /** @fn init
     @brief Call @c initWithData:type: to get an instance of this class.
@@ -57,3 +60,5 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+
+#endif

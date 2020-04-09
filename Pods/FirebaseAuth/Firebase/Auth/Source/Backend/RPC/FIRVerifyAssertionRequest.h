@@ -66,6 +66,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property(nonatomic, copy, nullable) NSString *providerIDToken;
 
+/** @property providerRawNonce
+    @brief An raw nonce from the IDP.
+ */
+@property(nonatomic, copy, nullable) NSString *providerRawNonce;
+
 /** @property returnIDPCredential
     @brief Whether the response should return the IDP credential directly.
  */
@@ -96,7 +101,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (nullable instancetype)initWithEndpoint:(NSString *)endpoint
                      requestConfiguration:(FIRAuthRequestConfiguration *)requestConfiguration
-                         NS_UNAVAILABLE;
+    NS_UNAVAILABLE;
 
 /** @fn initWithProviderID:requestConfifuration
     @brief Designated initializer.
@@ -106,7 +111,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (nullable instancetype)initWithProviderID:(NSString *)providerID
                        requestConfiguration:(FIRAuthRequestConfiguration *)requestConfiguration
-                           NS_DESIGNATED_INITIALIZER;
+    NS_DESIGNATED_INITIALIZER;
 
 @end
 
