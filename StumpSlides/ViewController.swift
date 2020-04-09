@@ -58,6 +58,7 @@ class ViewController: UIViewController {
         pdfView.autoScales = true
         pdfView.usePageViewController(true, withViewOptions: nil)
         pdfView.backgroundColor = .black
+        pdfView.document = pdfDocument
         view.addSubviewAndConstrain(pdfView)
         
         // Add thumbnails but hide them for now. First the actual thumbnail viewer.
@@ -68,13 +69,12 @@ class ViewController: UIViewController {
         pdfThumbnailView.thumbnailSize = CGSize(width: thumbnailSize, height: thumbnailSize)
         
         if useThumbnailScrollView {
-            pdfThumbnailView.frame = CGRect(x: 0, y: 0, width: thumbnailSize*(pdfDocument.pageCount + pdfThumbnailPerPagePadding), height: thumbnailSize)
             NSLayoutConstraint.activate([
                 pdfThumbnailView.heightAnchor.constraint(equalToConstant: CGFloat(thumbnailSize)),
                 pdfThumbnailView.widthAnchor.constraint(equalToConstant: CGFloat(pdfDocument.pageCount*(thumbnailSize + pdfThumbnailPerPagePadding) + pdfThumbnailEndPadding*2))
             ])
             // Add a scroll view to hold the thumbnail view
-            pdfThumbnailScrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: thumbnailSize*pdfDocument.pageCount, height: thumbnailSize))
+            pdfThumbnailScrollView = UIScrollView()
             pdfThumbnailScrollView.translatesAutoresizingMaskIntoConstraints = false
             pdfThumbnailScrollView.backgroundColor = .clear
             pdfThumbnailScrollView.addSubview(pdfThumbnailView)
@@ -136,9 +136,10 @@ class ViewController: UIViewController {
         // - When the PDFView's "document" property is set. The page is page 0.
         // - When state restoration happens.
         // - When the user moves to a new page.
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.PDFViewPageChanged, object: nil, queue: OperationQueue.main) { [weak self] (notification) in
+        NotificationCenter.default.addObserver(forName: .PDFViewPageChanged, object: nil, queue: OperationQueue.main) { [weak self] (notification) in
             logMilestone("Page change notification")
             guard let self = self else { return }
+            // Ignore a page change notification that happens when loading a PDF (when assigning to pdfView.document). Page sync messages should only be sent when the user changes the page.
             guard !self.skipNextPageChangeNotification else {
                 self.skipNextPageChangeNotification = false
                 return
@@ -153,12 +154,10 @@ class ViewController: UIViewController {
             }
         }
         
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.PDFViewDocumentChanged, object: nil, queue: OperationQueue.main) { [weak self] (_) in
+        NotificationCenter.default.addObserver(forName: .PDFViewDocumentChanged, object: nil, queue: OperationQueue.main) { [weak self] (_) in
             self?.skipNextPageChangeNotification = true
             logMilestone("PDF document changed")
         }
-        
-        pdfView.document = pdfDocument
         
         buttonContainer.alpha = 0.0
         disconnectButton.isEnabled = false
