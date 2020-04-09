@@ -28,6 +28,7 @@ class ViewController: UIViewController {
     // Without some extra padding, PDFThumbnailView has geometry trouble with PDFs more than around 20 pages long when the scroll view is used. Tapping on a thumbnail may bring up an adjacent page instead of the tapped page, and the enlarged "selected" view of the thumbnail will be off center. This was reported in FB7379442, 2019-10-15.
     // Adding a little horizontal padding gets normal behavior on iOS 13.1 but this is not documented and is something I found by experimenting.
     let pdfThumbnailPerPagePadding = 2
+    lazy var pdfThumbnailEndPadding: Int = { return thumbnailSize / 2 }()
     
     var pageSynchronizer: PDFPageSynchronizer?
     var skipNextPageChangeNotification = false
@@ -70,7 +71,7 @@ class ViewController: UIViewController {
             pdfThumbnailView.frame = CGRect(x: 0, y: 0, width: thumbnailSize*(pdfDocument.pageCount + pdfThumbnailPerPagePadding), height: thumbnailSize)
             NSLayoutConstraint.activate([
                 pdfThumbnailView.heightAnchor.constraint(equalToConstant: CGFloat(thumbnailSize)),
-                pdfThumbnailView.widthAnchor.constraint(equalToConstant: CGFloat(thumbnailSize*(pdfDocument.pageCount + pdfThumbnailPerPagePadding)))
+                pdfThumbnailView.widthAnchor.constraint(equalToConstant: CGFloat(pdfDocument.pageCount*(thumbnailSize + pdfThumbnailPerPagePadding) + pdfThumbnailEndPadding*2))
             ])
             // Add a scroll view to hold the thumbnail view
             pdfThumbnailScrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: thumbnailSize*pdfDocument.pageCount, height: thumbnailSize))
