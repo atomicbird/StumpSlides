@@ -71,7 +71,7 @@ class ViewController: UIViewController {
         if useThumbnailScrollView {
             NSLayoutConstraint.activate([
                 pdfThumbnailView.heightAnchor.constraint(equalToConstant: CGFloat(thumbnailSize)),
-                pdfThumbnailView.widthAnchor.constraint(equalToConstant: CGFloat(pdfDocument.pageCount*(thumbnailSize + pdfThumbnailPerPagePadding) + pdfThumbnailEndPadding*2))
+                pdfThumbnailView.widthAnchor.constraint(equalToConstant: CGFloat(pdfDocument.pageCount*(thumbnailSize + pdfThumbnailPerPagePadding)))
             ])
             // Add a scroll view to hold the thumbnail view
             pdfThumbnailScrollView = UIScrollView()
@@ -83,8 +83,8 @@ class ViewController: UIViewController {
             pdfThumbnailScrollView.alpha = 0
             
             NSLayoutConstraint.activate([
-                pdfThumbnailView.leadingAnchor.constraint(equalTo: pdfThumbnailScrollView.leadingAnchor),
-                pdfThumbnailView.trailingAnchor.constraint(equalTo: pdfThumbnailScrollView.trailingAnchor),
+                pdfThumbnailView.leadingAnchor.constraint(equalTo: pdfThumbnailScrollView.leadingAnchor, constant: CGFloat(pdfThumbnailEndPadding)),
+                pdfThumbnailView.trailingAnchor.constraint(equalTo: pdfThumbnailScrollView.trailingAnchor, constant: CGFloat(-pdfThumbnailEndPadding)),
                 pdfThumbnailView.topAnchor.constraint(equalTo: pdfThumbnailScrollView.topAnchor),
                 pdfThumbnailView.bottomAnchor.constraint(equalTo: pdfThumbnailScrollView.bottomAnchor)
             ])
