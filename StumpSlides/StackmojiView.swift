@@ -26,7 +26,7 @@ class StumpmojiView: UIView {
         let messageInitialXPosition = CGFloat.random(in: 20...frame.maxX-20)
         
         let messageView: UIView = {
-            if message == "dogcow" || message == "360idev" || message == "apple-logo" {
+            if message == "dogcow" || message == "360iDev" || message == "apple-logo" {
                 let image = UIImage(named: message)
                 let imageView = UIImageView(image: image)
                 imageView.frame = CGRect(x: messageInitialXPosition, y: 0, width: 100, height: 100)
