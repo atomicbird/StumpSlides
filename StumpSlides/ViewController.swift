@@ -12,6 +12,11 @@ import PDFKit
 class ViewController: UIViewController {
     
     let pdfName = "TestSlides100.pdf"
+    enum UserDefaultsKeys: String {
+        case pdfName
+        case currentPage
+    }
+//    let pdfName = "TestSlides50.pdf"
     var pdfDocument: PDFDocument!
     var pdfView: PDFView!
     var pdfThumbnailView: PDFThumbnailView!
@@ -43,6 +48,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // If the PDF changed, remove the saved page number
+        if let previousPdfName = UserDefaults.standard.string(forKey: UserDefaultsKeys.pdfName.rawValue), previousPdfName != pdfName {
+            UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.currentPage.rawValue)
+        }
+        UserDefaults.standard.setValue(pdfName, forKey: UserDefaultsKeys.pdfName.rawValue)
         // Load PDF
         if let documentURL = Bundle.main.url(forResource: pdfName, withExtension: nil),
             let pdfDocument = PDFDocument(url: documentURL) {
@@ -115,6 +125,7 @@ class ViewController: UIViewController {
         // Add tap gesture to show/hide thumbnails
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(pdfViewTapped))
         pdfView.addGestureRecognizer(tapGestureRecognizer)
+        // Add double tap gesture to show/hide button overlay
         let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(pdfViewDoubleTap))
         doubleTapGestureRecognizer.numberOfTapsRequired = 2
         pdfView.addGestureRecognizer(doubleTapGestureRecognizer)
@@ -154,6 +165,8 @@ class ViewController: UIViewController {
                 let pageIndex = self.pdfDocument.index(for: currentPage)
                 logMilestone("Sending page index: \(pageIndex)")
                 self.pageSynchronizer?.send(pageNumber: pageIndex)
+                
+                UserDefaults.standard.setValue(pageIndex, forKey: UserDefaultsKeys.currentPage.rawValue)
             }
         }
         
@@ -165,6 +178,13 @@ class ViewController: UIViewController {
         buttonContainer.alpha = 0.0
         disconnectButton.isEnabled = false
         view.bringSubviewToFront(buttonContainer)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let savedPage = UserDefaults.standard.object(forKey: UserDefaultsKeys.currentPage.rawValue) as? Int {
+            pdfView.go(to: savedPage)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
