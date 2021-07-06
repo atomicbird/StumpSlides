@@ -67,7 +67,8 @@ class ViewController: UIViewController {
         pdfThumbnailView.pdfView = pdfView
         pdfThumbnailView.layoutMode = .horizontal
         pdfThumbnailView.thumbnailSize = CGSize(width: thumbnailSize, height: thumbnailSize)
-        
+        pdfThumbnailView.backgroundColor = .clear
+
         if useThumbnailScrollView {
             NSLayoutConstraint.activate([
                 pdfThumbnailView.heightAnchor.constraint(equalToConstant: CGFloat(thumbnailSize)),
@@ -78,7 +79,6 @@ class ViewController: UIViewController {
             pdfThumbnailScrollView.translatesAutoresizingMaskIntoConstraints = false
             pdfThumbnailScrollView.backgroundColor = .clear
             pdfThumbnailScrollView.addSubview(pdfThumbnailView)
-            pdfThumbnailView.backgroundColor = .clear
             pdfThumbnailScrollView.indicatorStyle = .white
             pdfThumbnailScrollView.alpha = 0
             
@@ -108,7 +108,6 @@ class ViewController: UIViewController {
                 pdfThumbnailView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             ])
             
-            pdfThumbnailView.backgroundColor = .clear
             pdfThumbnailView.alpha = 0
             thumbnailContainerView = pdfThumbnailView
         }
