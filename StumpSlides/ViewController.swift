@@ -116,6 +116,10 @@ class ViewController: UIViewController {
         // Add tap gesture to show/hide thumbnails
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(pdfViewTapped))
         pdfView.addGestureRecognizer(tapGestureRecognizer)
+        let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(pdfViewDoubleTap))
+        doubleTapGestureRecognizer.numberOfTapsRequired = 2
+        pdfView.addGestureRecognizer(doubleTapGestureRecognizer)
+        tapGestureRecognizer.require(toFail: doubleTapGestureRecognizer)
         
         // Add overlay to show incoming messages
         stumpMojis = StumpmojiView(frame: view.bounds)
@@ -172,18 +176,24 @@ class ViewController: UIViewController {
 
     override var prefersStatusBarHidden: Bool { return true }
     
-    @objc func pdfViewTapped() -> Void {
+    func showOrHide(view: UIView) -> Void {
         let newAlpha: CGFloat = {
-            if thumbnailContainerView.alpha < 0.5 {
+            if view.alpha < 0.5 {
                 return 1.0
             } else {
                 return 0.0
             }
         }()
         UIView.animate(withDuration: 0.3) {
-            self.thumbnailContainerView.alpha = newAlpha
-            self.buttonContainer.alpha = newAlpha
+            view.alpha = newAlpha
         }
+    }
+    @objc func pdfViewTapped() -> Void {
+        showOrHide(view: thumbnailContainerView)
+    }
+    
+    @objc func pdfViewDoubleTap() -> Void {
+        showOrHide(view: buttonContainer)
     }
     
     @IBAction func browseForPeers(_ sender: Any) {
