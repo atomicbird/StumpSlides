@@ -61,6 +61,7 @@
 		8CF3BC844D0B18AFE5C126C3 /* Pods-StumpSlidesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StumpSlidesTests.release.xcconfig"; path = "Target Support Files/Pods-StumpSlidesTests/Pods-StumpSlidesTests.release.xcconfig"; sourceTree = "<group>"; };
 		C680DFF4C0AD6843C3C98C76 /* Pods-StumpSlides.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StumpSlides.release.xcconfig"; path = "Target Support Files/Pods-StumpSlides/Pods-StumpSlides.release.xcconfig"; sourceTree = "<group>"; };
 		EE1E5DE8231477B4003F3138 /* Stump 2019 Slides.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Stump 2019 Slides.pdf"; sourceTree = "<group>"; };
+		EE322DC52695415400003DD3 /* StumpSlides.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StumpSlides.entitlements; sourceTree = "<group>"; };
 		EE32E0CE2356469D006D6827 /* TestSlides50.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = TestSlides50.pdf; sourceTree = "<group>"; };
 		EE32E0CF2356469D006D6827 /* TestSlides100.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = TestSlides100.pdf; sourceTree = "<group>"; };
 		EE32E0D22357BDAF006D6827 /* PDFView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFView+Extensions.swift"; sourceTree = "<group>"; };
@@ -165,6 +166,7 @@
 		EE91F9FD230396F5003C716D /* StumpSlides */ = {
 			isa = PBXGroup;
 			children = (
+				EE322DC52695415400003DD3 /* StumpSlides.entitlements */,
 				EE32E0CE2356469D006D6827 /* TestSlides50.pdf */,
 				EE32E0CF2356469D006D6827 /* TestSlides100.pdf */,
 				EE91F9FE230396F5003C716D /* AppDelegate.swift */,
@@ -632,6 +634,7 @@
 			baseConfigurationReference = 06BF4FB790A81B3FDA5D1B35 /* Pods-StumpSlides.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = StumpSlides/StumpSlides.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FZTVR399HK;
 				INFOPLIST_FILE = StumpSlides/Info.plist;
@@ -642,6 +645,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.atomicbird.stumpslides;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -652,6 +656,7 @@
 			baseConfigurationReference = C680DFF4C0AD6843C3C98C76 /* Pods-StumpSlides.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = StumpSlides/StumpSlides.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FZTVR399HK;
 				INFOPLIST_FILE = StumpSlides/Info.plist;
@@ -662,6 +667,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.atomicbird.stumpslides;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
