@@ -71,11 +71,22 @@ class PDFPageSynchronizer: NSObject {
         startHosting()
         browseForPeers()
     }
-    
-    // I couldn't find docs on what makes an acceptable service type with Multipeer networking, but word on the street (https://www.objc.io/issues/18-games/multipeer-connectivity-for-games/) says that it can't be more than 15 characters.
-    // Bundle ID seems like a good idea except there's a good chance it's too long, so remove the dots from it and take the last 15 characters. Last 15 instead of first 15 because they seem more likely to be unique, e.g. if there's more than one app from the same company where multiple bundle IDs might start with "com.myverylongcompanyname....".
+
+    // The service name needs to be 1-15 chars, only lowercase ASCII letters, numbers, or hyphens. Full rules are currently found in the MCAdvertiserAssistant documentation or apparently RFC 6335.
+    // Service name ALSO must match the one declared in Info.plist under NSBonjourServices, stripped of the Bonjour-y details. If Info.plist has "_stump360._tcp", the service name here must me "stump360".
     lazy var serviceType: String = {
-        return String(Bundle.main.bundleIdentifier!.replacingOccurrences(of: ".", with: "").suffix(15))
+        // Expect an array where the first element is something like "_stump360._tcp"
+        guard let bonjourServices = Bundle.main.infoDictionary?["NSBonjourServices"] as? [String],
+              !bonjourServices.isEmpty,
+              bonjourServices[0].hasSuffix("._tcp"),
+              bonjourServices[0].first == "_"
+        else {
+            fatalError()
+        }
+        let bonjourService = bonjourServices[0]
+        var mpService = bonjourServices[0].split(separator: ".")[0]
+        mpService.removeFirst()
+        return String(mpService)
     }()
     
     func startHosting() {
