@@ -9,9 +9,6 @@
 /* Begin PBXBuildFile section */
 		0E1C69EE372B5B1FC3090AD1 /* Pods_StumpSlidesUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BE95E882162D0056D9A5C35 /* Pods_StumpSlidesUITests.framework */; };
 		6576B769DDE017D67658C193 /* Pods_StumpSlidesTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 555A0F92ECDB250605BFC517 /* Pods_StumpSlidesTests.framework */; };
-		EE1E5DE9231477B4003F3138 /* Stump 2019 Slides.pdf in Resources */ = {isa = PBXBuildFile; fileRef = EE1E5DE8231477B4003F3138 /* Stump 2019 Slides.pdf */; };
-		EE32E0D02356469E006D6827 /* TestSlides50.pdf in Resources */ = {isa = PBXBuildFile; fileRef = EE32E0CE2356469D006D6827 /* TestSlides50.pdf */; };
-		EE32E0D12356469E006D6827 /* TestSlides100.pdf in Resources */ = {isa = PBXBuildFile; fileRef = EE32E0CF2356469D006D6827 /* TestSlides100.pdf */; };
 		EE32E0D32357BDAF006D6827 /* PDFView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE32E0D22357BDAF006D6827 /* PDFView+Extensions.swift */; };
 		EE32E0D5235A5E06006D6827 /* PDFPageSynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE32E0D4235A5E06006D6827 /* PDFPageSynchronizer.swift */; };
 		EE32E10F235E4940006D6827 /* LogMilestone.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE32E10E235E4940006D6827 /* LogMilestone.swift */; };
@@ -26,7 +23,6 @@
 		EE91FA09230396F6003C716D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE91FA07230396F6003C716D /* LaunchScreen.storyboard */; };
 		EE91FA14230396F6003C716D /* StumpSlidesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE91FA13230396F6003C716D /* StumpSlidesTests.swift */; };
 		EE91FA1F230396F6003C716D /* StumpSlidesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE91FA1E230396F6003C716D /* StumpSlidesUITests.swift */; };
-		EE91FA2D2303979C003C716D /* Stump 2018 slides.pdf in Resources */ = {isa = PBXBuildFile; fileRef = EE91FA2C2303979C003C716D /* Stump 2018 slides.pdf */; };
 		EE91FA2F23039B36003C716D /* StumpmojiWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE91FA2E23039B36003C716D /* StumpmojiWatcher.swift */; };
 		EE91FA3123039B65003C716D /* StackmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE91FA3023039B65003C716D /* StackmojiView.swift */; };
 		EE91FA332303A0AA003C716D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE91FA322303A0AA003C716D /* GoogleService-Info.plist */; };
@@ -60,14 +56,12 @@
 		7BA0C9765B606F939FB3477B /* Pods-StumpSlidesTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StumpSlidesTests.debug.xcconfig"; path = "Target Support Files/Pods-StumpSlidesTests/Pods-StumpSlidesTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8CF3BC844D0B18AFE5C126C3 /* Pods-StumpSlidesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StumpSlidesTests.release.xcconfig"; path = "Target Support Files/Pods-StumpSlidesTests/Pods-StumpSlidesTests.release.xcconfig"; sourceTree = "<group>"; };
 		C680DFF4C0AD6843C3C98C76 /* Pods-StumpSlides.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StumpSlides.release.xcconfig"; path = "Target Support Files/Pods-StumpSlides/Pods-StumpSlides.release.xcconfig"; sourceTree = "<group>"; };
-		EE1E5DE8231477B4003F3138 /* Stump 2019 Slides.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Stump 2019 Slides.pdf"; sourceTree = "<group>"; };
 		EE322DC52695415400003DD3 /* StumpSlides.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StumpSlides.entitlements; sourceTree = "<group>"; };
-		EE32E0CE2356469D006D6827 /* TestSlides50.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = TestSlides50.pdf; sourceTree = "<group>"; };
-		EE32E0CF2356469D006D6827 /* TestSlides100.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = TestSlides100.pdf; sourceTree = "<group>"; };
 		EE32E0D22357BDAF006D6827 /* PDFView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFView+Extensions.swift"; sourceTree = "<group>"; };
 		EE32E0D4235A5E06006D6827 /* PDFPageSynchronizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFPageSynchronizer.swift; sourceTree = "<group>"; };
 		EE32E10E235E4940006D6827 /* LogMilestone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogMilestone.swift; sourceTree = "<group>"; };
 		EE32E14C23625C48006D6827 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		EE32E14E23625D3E006D6827 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		EE528C1D230CE74E00065971 /* dogcow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dogcow.png; sourceTree = "<group>"; };
 		EE528C21230CE9DE00065971 /* 360idev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 360idev.png; sourceTree = "<group>"; };
 		EE528C23230CEBEF00065971 /* apple-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "apple-logo.png"; sourceTree = "<group>"; };
@@ -84,7 +78,6 @@
 		EE91FA1A230396F6003C716D /* StumpSlidesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StumpSlidesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE91FA1E230396F6003C716D /* StumpSlidesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StumpSlidesUITests.swift; sourceTree = "<group>"; };
 		EE91FA20230396F6003C716D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EE91FA2C2303979C003C716D /* Stump 2018 slides.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Stump 2018 slides.pdf"; sourceTree = "<group>"; };
 		EE91FA2E23039B36003C716D /* StumpmojiWatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StumpmojiWatcher.swift; sourceTree = "<group>"; };
 		EE91FA3023039B65003C716D /* StackmojiView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackmojiView.swift; sourceTree = "<group>"; };
 		EE91FA322303A0AA003C716D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -144,6 +137,7 @@
 		EE91F9F2230396F5003C716D = {
 			isa = PBXGroup;
 			children = (
+				EE32E14E23625D3E006D6827 /* README.md */,
 				EE91F9FD230396F5003C716D /* StumpSlides */,
 				EE91FA12230396F6003C716D /* StumpSlidesTests */,
 				EE91FA1D230396F6003C716D /* StumpSlidesUITests */,
@@ -167,8 +161,6 @@
 			isa = PBXGroup;
 			children = (
 				EE322DC52695415400003DD3 /* StumpSlides.entitlements */,
-				EE32E0CE2356469D006D6827 /* TestSlides50.pdf */,
-				EE32E0CF2356469D006D6827 /* TestSlides100.pdf */,
 				EE91F9FE230396F5003C716D /* AppDelegate.swift */,
 				EE91FA00230396F5003C716D /* ViewController.swift */,
 				EE32E10E235E4940006D6827 /* LogMilestone.swift */,
@@ -178,8 +170,6 @@
 				EE528C1D230CE74E00065971 /* dogcow.png */,
 				EE528C21230CE9DE00065971 /* 360idev.png */,
 				EE528C23230CEBEF00065971 /* apple-logo.png */,
-				EE91FA2C2303979C003C716D /* Stump 2018 slides.pdf */,
-				EE1E5DE8231477B4003F3138 /* Stump 2019 Slides.pdf */,
 				EE91FA02230396F5003C716D /* Main.storyboard */,
 				EE91FA05230396F6003C716D /* Assets.xcassets */,
 				EE91FA07230396F6003C716D /* LaunchScreen.storyboard */,
@@ -318,16 +308,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE528C1E230CE74E00065971 /* dogcow.png in Resources */,
-				EE32E0D02356469E006D6827 /* TestSlides50.pdf in Resources */,
 				EE91FA09230396F6003C716D /* LaunchScreen.storyboard in Resources */,
-				EE91FA2D2303979C003C716D /* Stump 2018 slides.pdf in Resources */,
 				EE91FA332303A0AA003C716D /* GoogleService-Info.plist in Resources */,
 				EE91FA06230396F6003C716D /* Assets.xcassets in Resources */,
 				EE528C22230CE9DE00065971 /* 360idev.png in Resources */,
 				EE528C24230CEBEF00065971 /* apple-logo.png in Resources */,
-				EE1E5DE9231477B4003F3138 /* Stump 2019 Slides.pdf in Resources */,
 				EE91FA04230396F5003C716D /* Main.storyboard in Resources */,
-				EE32E0D12356469E006D6827 /* TestSlides100.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,22 +340,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-StumpSlides/Pods-StumpSlides-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-StumpSlides/Pods-StumpSlides-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-StumpSlides/Pods-StumpSlides-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -638,7 +613,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FZTVR399HK;
 				INFOPLIST_FILE = StumpSlides/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -660,7 +635,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FZTVR399HK;
 				INFOPLIST_FILE = StumpSlides/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

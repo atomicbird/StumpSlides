@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19115.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19107.5"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -16,24 +18,34 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hRn-dR-Gsp">
-                                <rect key="frame" x="198" y="64" width="196" height="121"/>
+                                <rect key="frame" x="198" y="64" width="196" height="172"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="ZSq-9U-cus">
-                                        <rect key="frame" x="20" y="20" width="156" height="81"/>
+                                        <rect key="frame" x="20" y="20" width="156" height="132"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jxs-Au-eqx">
-                                                <rect key="frame" x="0.0" y="0.0" width="89" height="30"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qbh-OO-qPA">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="Open...">
+                                                    <color key="titleColor" systemColor="labelColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="openDocument" destination="BYZ-38-t0r" eventType="touchUpInside" id="cUE-sQ-NOf"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jxs-Au-eqx">
+                                                <rect key="frame" x="0.0" y="51" width="89" height="30"/>
                                                 <state key="normal" title="Connect to...">
-                                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="titleColor" systemColor="labelColor"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="browseForPeers:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BOE-Qr-DN4"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CDM-k8-B47">
-                                                <rect key="frame" x="0.0" y="51" width="156" height="30"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CDM-k8-B47">
+                                                <rect key="frame" x="0.0" y="102" width="156" height="30"/>
                                                 <state key="normal" title="Disconnect from peers">
-                                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="titleColor" systemColor="labelColor"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="disconnectFromPeers:" destination="BYZ-38-t0r" eventType="touchUpInside" id="T8q-Ez-JsS"/>
@@ -42,7 +54,7 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <color key="backgroundColor" systemColor="lightTextColor"/>
                                 <constraints>
                                     <constraint firstItem="ZSq-9U-cus" firstAttribute="leading" secondItem="hRn-dR-Gsp" secondAttribute="leading" constant="20" id="5m4-sG-NMl"/>
                                     <constraint firstAttribute="bottom" secondItem="ZSq-9U-cus" secondAttribute="bottom" constant="20" id="6o8-vq-CFl"/>
@@ -51,12 +63,12 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="hRn-dR-Gsp" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="f3y-7T-fRN"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hRn-dR-Gsp" secondAttribute="trailing" constant="20" id="oNs-sa-1EX"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="buttonContainer" destination="hRn-dR-Gsp" id="LDD-H7-2Ai"/>
@@ -68,4 +80,12 @@
             <point key="canvasLocation" x="132" y="87"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="lightTextColor">
+            <color white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

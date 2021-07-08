@@ -8,11 +8,14 @@
 
 import UIKit
 import PDFKit
+import UniformTypeIdentifiers
 
 class ViewController: UIViewController {
+    enum UserDefaultsKeys: String {
+        case urlBookmark
+    }
     
-    let pdfName = "TestSlides100.pdf"
-//    let pdfName = "TestSlides50.pdf"
+    var documentURL: URL? = nil
     var pdfDocument: PDFDocument!
     var pdfView: PDFView!
     var pdfThumbnailView: PDFThumbnailView!
@@ -44,14 +47,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Load PDF
-        if let documentURL = Bundle.main.url(forResource: pdfName, withExtension: nil),
-            let pdfDocument = PDFDocument(url: documentURL) {
-            self.pdfDocument = pdfDocument
-        } else {
-            logMilestone("Couldn't load file \(pdfName)")
-        }
-        
         // Add PDF view
         pdfView = PDFView(frame: view.bounds)
         pdfView.displayMode = .singlePage
@@ -59,7 +54,6 @@ class ViewController: UIViewController {
         pdfView.autoScales = true
         pdfView.usePageViewController(true, withViewOptions: nil)
         pdfView.backgroundColor = .black
-        pdfView.document = pdfDocument
         view.addSubviewAndConstrain(pdfView)
         
         // Add thumbnails but hide them for now. First the actual thumbnail viewer.
@@ -72,8 +66,8 @@ class ViewController: UIViewController {
 
         if useThumbnailScrollView {
             NSLayoutConstraint.activate([
-                pdfThumbnailView.heightAnchor.constraint(equalToConstant: CGFloat(thumbnailSize)),
-                pdfThumbnailView.widthAnchor.constraint(equalToConstant: CGFloat(pdfDocument.pageCount*(thumbnailSize + pdfThumbnailPerPagePadding)))
+                pdfThumbnailView.heightAnchor.constraint(equalToConstant: CGFloat(thumbnailSize))
+                // Width will be set when a PDF is loaded
             ])
             // Add a scroll view to hold the thumbnail view
             pdfThumbnailScrollView = UIScrollView()
@@ -137,6 +131,8 @@ class ViewController: UIViewController {
             pageSynchronizer = PDFPageSynchronizer(with: self)
         }
 
+        loadPreviousDocument()
+
         // This notification is posted
         // - When the PDFView's "document" property is set. The page is page 0.
         // - When state restoration happens.
@@ -169,13 +165,78 @@ class ViewController: UIViewController {
         view.bringSubviewToFront(buttonContainer)
     }
     
+    /// If there's a bookmark to a previously viewed document, and it still works, load that PDF.
+    func loadPreviousDocument() -> Void {
+        var bookmarkURL: URL? = nil
+        // Resolve the bookmark to the last seen document
+        if let bookmarkData = UserDefaults.standard.data(forKey: UserDefaultsKeys.urlBookmark.rawValue) {
+            var isStale = false
+            do {
+                let url = try URL(resolvingBookmarkData: bookmarkData, options: [.withoutUI, .withoutMounting], relativeTo: nil, bookmarkDataIsStale: &isStale)
+                if !isStale {
+                    bookmarkURL = url
+                }
+            } catch {
+                logMilestone("Error resolving bookmark: \(error)")
+            }
+        }
+
+        // If the bookmark produced a working URL, load the document. Else ask the user to open something.
+        if let bookmarkURL = bookmarkURL {
+            load(documentURL: bookmarkURL)
+        }
+    }
+    
+    // Keep a reference to this constraint so it can be changed when loading a new PDF.
+    var pdfThumbnailWidthConstraint: NSLayoutConstraint?
+    
+    /// Load a PDF from the URL. The URL may be security scoped, for example if it refers to a document on iCloud Drive
+    /// - Parameter documentURL: URL pointing to a PDF
+    func load(documentURL: URL) -> Void {
+        // Stop accessing any currently loaded document
+        if let previousDocumentURL = self.documentURL {
+            previousDocumentURL.stopAccessingSecurityScopedResource()
+        }
+        guard documentURL.startAccessingSecurityScopedResource() else {
+            logMilestone("Couldn't access URL \(documentURL)")
+            return
+        }
+        guard let pdfDocument = PDFDocument(url: documentURL) else {
+            logMilestone("Couldn't load document at \(documentURL)")
+            return
+        }
+        self.documentURL = documentURL
+        self.pdfDocument = pdfDocument
+        pdfView.document = pdfDocument
+        
+        // Constrain the thumbnail view width based on the current document
+        if let pdfThumbnailWidthConstraint = pdfThumbnailWidthConstraint {
+            pdfThumbnailWidthConstraint.constant = CGFloat(pdfDocument.pageCount*(thumbnailSize + pdfThumbnailPerPagePadding))
+        } else {
+            let pdfThumbnailWidthConstraint = pdfThumbnailView.widthAnchor.constraint(equalToConstant: CGFloat(pdfDocument.pageCount*(thumbnailSize + pdfThumbnailPerPagePadding)))
+            NSLayoutConstraint.activate([pdfThumbnailWidthConstraint])
+            self.pdfThumbnailWidthConstraint = pdfThumbnailWidthConstraint
+        }
+
+        // Save a new bookmark for later use. If this fails we'll have to open the document again next time.
+        do {
+            let bookmark = try documentURL.bookmarkData()
+            UserDefaults.standard.set(bookmark, forKey: UserDefaultsKeys.urlBookmark.rawValue)
+        } catch {
+            logMilestone("Error reading file: \(error)")
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        pageSynchronizer?.startSyncing()
+        // If we didn't load a previously-viewed document, ask the user to open something.
+        if pdfDocument == nil {
+            openDocument()
+        }
         logMilestone()
     }
 
@@ -202,6 +263,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func browseForPeers(_ sender: Any) {
+        pageSynchronizer?.startSyncing()
         pageSynchronizer?.browseForPeers()
     }
     
@@ -209,28 +271,38 @@ class ViewController: UIViewController {
         pageSynchronizer?.disconnectFromPeers()
     }
     
+    @IBAction func openDocument() {
+        let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [UTType.pdf])
+        documentPicker.allowsMultipleSelection = false
+        documentPicker.shouldShowFileExtensions = true
+        documentPicker.delegate = self
+        present(documentPicker, animated: true, completion: nil)
+    }
+    
     // MARK: - State Restoration
     enum StateRestorationKeys: String {
-        case filename
+        case documentURLPath // URL is only saved to decide whether to restore the page number. URL bookmark resolution is handled elsewhere.
         case pageNumber
     }
     
     override func encodeRestorableState(with coder: NSCoder) {
+        logMilestone()
         guard let currentPageNumber = pdfView.currentPageNumber else { return }
-        coder.encode(pdfName, forKey: StateRestorationKeys.filename.rawValue)
+        coder.encode(documentURL?.path, forKey: StateRestorationKeys.documentURLPath.rawValue)
         coder.encode(currentPageNumber, forKey: StateRestorationKeys.pageNumber.rawValue)
     }
     
     override func decodeRestorableState(with coder: NSCoder) {
-        guard let savedFilename = coder.decodeObject(forKey: StateRestorationKeys.filename.rawValue) as? String, savedFilename == pdfName
-            else { return }
-        logMilestone()
-
+        // This happens after viewDidLoad but before viewDidAppear, so documentURL will tell us if we found a previous document.
+        // We only use the URL path to decide if it's the same document here. Resolving URL bookmarks happens elsewhere.
+        guard let savedPath = coder.decodeObject(forKey: StateRestorationKeys.documentURLPath.rawValue) as? String, savedPath == documentURL?.path
+        else { return }
         let savedPageNumber = coder.decodeInteger(forKey: StateRestorationKeys.pageNumber.rawValue)
         if usePageSynchronizer {
             pageSynchronizer = PDFPageSynchronizer(with: self, pageNumber: savedPageNumber)
         }
         pdfView.go(to: savedPageNumber)
+        logMilestone()
     }
 }
 
@@ -238,7 +310,9 @@ class ViewController: UIViewController {
 extension ViewController: PDFPageSynchronizerDelegate {
     func pdfPageSynchronizer(_: PDFPageSynchronizer, didReceivePage page: Int) {
         DispatchQueue.main.async {
-            self.pdfView.go(to: page)
+            if page <= self.pdfDocument.pageCount {
+                self.pdfView.go(to: page)
+            }
         }
     }
     
@@ -250,4 +324,16 @@ extension ViewController: PDFPageSynchronizerDelegate {
         disconnectButton.isEnabled = pageSynchronizer?.peerCount != 0
     }
 
+}
+
+extension ViewController: UIDocumentPickerDelegate {
+    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+        logMilestone("Document picker cancelled")
+    }
+    
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        logMilestone("Document picker picked \(urls)")
+        guard !urls.isEmpty else { return }
+        load(documentURL: urls[0])
+    }
 }
