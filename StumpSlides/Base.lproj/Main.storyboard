@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19107.5"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,62 +16,78 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hRn-dR-Gsp">
-                                <rect key="frame" x="198" y="64" width="196" height="172"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3fn-66-8RY">
+                                <rect key="frame" x="20" y="64" width="157.5" height="178"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="ZSq-9U-cus">
-                                        <rect key="frame" x="20" y="20" width="156" height="132"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Hby-Eg-arP">
+                                        <rect key="frame" x="0.0" y="8" width="157.5" height="162"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qbh-OO-qPA">
-                                                <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
-                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" title="Open...">
-                                                    <color key="titleColor" systemColor="labelColor"/>
-                                                </state>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3FE-oz-302">
+                                                <rect key="frame" x="0.0" y="0.0" width="157.5" height="34.5"/>
+                                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                                 <connections>
-                                                    <action selector="openDocument" destination="BYZ-38-t0r" eventType="touchUpInside" id="cUE-sQ-NOf"/>
+                                                    <action selector="showHideMenu" destination="BYZ-38-t0r" eventType="touchUpInside" id="3G1-GB-NPD"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jxs-Au-eqx">
-                                                <rect key="frame" x="0.0" y="51" width="89" height="30"/>
-                                                <state key="normal" title="Connect to...">
-                                                    <color key="titleColor" systemColor="labelColor"/>
-                                                </state>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DId-Bc-oeN">
+                                                <rect key="frame" x="0.0" y="42.5" width="157.5" height="34.5"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Open...">
+                                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </buttonConfiguration>
                                                 <connections>
-                                                    <action selector="browseForPeers:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BOE-Qr-DN4"/>
+                                                    <action selector="openDocument" destination="BYZ-38-t0r" eventType="touchUpInside" id="fEs-Uk-4C9"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CDM-k8-B47">
-                                                <rect key="frame" x="0.0" y="102" width="156" height="30"/>
-                                                <state key="normal" title="Disconnect from peers">
-                                                    <color key="titleColor" systemColor="labelColor"/>
-                                                </state>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BEk-bf-d7G">
+                                                <rect key="frame" x="0.0" y="85" width="157.5" height="34.5"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Conect to...">
+                                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </buttonConfiguration>
                                                 <connections>
-                                                    <action selector="disconnectFromPeers:" destination="BYZ-38-t0r" eventType="touchUpInside" id="T8q-Ez-JsS"/>
+                                                    <action selector="browseForPeers:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WKc-Zr-Qga"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="12O-SL-cDJ">
+                                                <rect key="frame" x="0.0" y="127.5" width="157.5" height="34.5"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Disconnect peers">
+                                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="disconnectFromPeers:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gBd-oB-R28"/>
                                                 </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="lightTextColor"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59701849489795922" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="ZSq-9U-cus" firstAttribute="leading" secondItem="hRn-dR-Gsp" secondAttribute="leading" constant="20" id="5m4-sG-NMl"/>
-                                    <constraint firstAttribute="bottom" secondItem="ZSq-9U-cus" secondAttribute="bottom" constant="20" id="6o8-vq-CFl"/>
-                                    <constraint firstItem="ZSq-9U-cus" firstAttribute="top" secondItem="hRn-dR-Gsp" secondAttribute="top" constant="20" id="FEj-el-LSS"/>
-                                    <constraint firstAttribute="trailing" secondItem="ZSq-9U-cus" secondAttribute="trailing" constant="20" id="Ngj-8O-9Qk"/>
+                                    <constraint firstItem="Hby-Eg-arP" firstAttribute="top" secondItem="3fn-66-8RY" secondAttribute="top" constant="8" id="Nlm-Sn-aiI"/>
+                                    <constraint firstAttribute="trailing" secondItem="Hby-Eg-arP" secondAttribute="trailing" id="Sfr-go-rWZ"/>
+                                    <constraint firstItem="Hby-Eg-arP" firstAttribute="leading" secondItem="3fn-66-8RY" secondAttribute="leading" id="hmi-S3-LjC"/>
+                                    <constraint firstAttribute="bottom" secondItem="Hby-Eg-arP" secondAttribute="bottom" constant="8" id="qbo-Z8-NH7"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="hRn-dR-Gsp" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="f3y-7T-fRN"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hRn-dR-Gsp" secondAttribute="trailing" constant="20" id="oNs-sa-1EX"/>
+                            <constraint firstItem="3fn-66-8RY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="8Gs-gy-85r"/>
+                            <constraint firstItem="3fn-66-8RY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="gXs-wE-ilu"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="buttonContainer" destination="hRn-dR-Gsp" id="LDD-H7-2Ai"/>
-                        <outlet property="disconnectButton" destination="CDM-k8-B47" id="1qG-uC-DGn"/>
+                        <outlet property="disconnectButton" destination="12O-SL-cDJ" id="VoK-7g-JqH"/>
+                        <outlet property="menuBackground" destination="3fn-66-8RY" id="Fmi-fc-loZ"/>
+                        <outlet property="menuContainer" destination="Hby-Eg-arP" id="rc1-oz-0aU"/>
+                        <outlet property="menuControlButton" destination="3FE-oz-302" id="bqb-3N-w0s"/>
+                        <outletCollection property="menuButtons" destination="BEk-bf-d7G" collectionClass="NSMutableArray" id="IQ4-Fo-d9a"/>
+                        <outletCollection property="menuButtons" destination="DId-Bc-oeN" collectionClass="NSMutableArray" id="2XE-oE-6yW"/>
+                        <outletCollection property="menuButtons" destination="12O-SL-cDJ" collectionClass="NSMutableArray" id="amI-Zb-Og3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -80,12 +95,4 @@
             <point key="canvasLocation" x="132" y="87"/>
         </scene>
     </scenes>
-    <resources>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="lightTextColor">
-            <color white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>

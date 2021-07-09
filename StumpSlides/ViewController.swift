@@ -37,12 +37,29 @@ class ViewController: UIViewController {
     var pageSynchronizer: PDFPageSynchronizer?
     var skipNextPageChangeNotification = false
     
-    @IBOutlet weak var buttonContainer: UIView! {
+    var menuVisible = false
+    @IBOutlet weak var disconnectButton: UIButton!
+    @IBOutlet var menuButtons: [UIButton]! {
         didSet {
-            buttonContainer.layer.cornerRadius = 10.0
+            menuButtons.forEach {
+                $0.isHidden = true
+            }
         }
     }
-    @IBOutlet weak var disconnectButton: UIButton!
+    @IBOutlet weak var menuBackground: UIView! {
+        didSet {
+            menuBackground.backgroundColor = .clear
+            menuBackground.layer.cornerRadius = 10.0
+        }
+    }
+    @IBOutlet weak var menuContainer: UIStackView!
+    @IBOutlet weak var menuControlButton: UIButton! {
+        didSet {
+            let image = UIImage(systemName: "line.horizontal.3")
+            menuControlButton.setTitle("", for: .normal)
+            menuControlButton.setImage(image, for: .normal)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,11 +127,6 @@ class ViewController: UIViewController {
         // Add tap gesture to show/hide thumbnails
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(pdfViewTapped))
         pdfView.addGestureRecognizer(tapGestureRecognizer)
-        // Add double tap gesture to show/hide button overlay
-        let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(pdfViewDoubleTap))
-        doubleTapGestureRecognizer.numberOfTapsRequired = 2
-        pdfView.addGestureRecognizer(doubleTapGestureRecognizer)
-        tapGestureRecognizer.require(toFail: doubleTapGestureRecognizer)
         
         // Add overlay to show incoming messages
         stumpMojis = StumpmojiView(frame: view.bounds)
@@ -160,9 +172,8 @@ class ViewController: UIViewController {
             logMilestone("PDF document changed")
         }
         
-        buttonContainer.alpha = 0.0
         disconnectButton.isEnabled = false
-        view.bringSubviewToFront(buttonContainer)
+        view.bringSubviewToFront(menuBackground)
     }
     
     /// If there's a bookmark to a previously viewed document, and it still works, load that PDF.
@@ -258,17 +269,29 @@ class ViewController: UIViewController {
         showOrHide(view: thumbnailContainerView)
     }
     
-    @objc func pdfViewDoubleTap() -> Void {
-        showOrHide(view: buttonContainer)
-    }
-    
     @IBAction func browseForPeers(_ sender: Any) {
         pageSynchronizer?.startSyncing()
         pageSynchronizer?.browseForPeers()
+        showHideMenu()
     }
     
     @IBAction func disconnectFromPeers(_ sender: Any) {
         pageSynchronizer?.disconnectFromPeers()
+        showHideMenu()
+    }
+    
+    @IBAction func showHideMenu() {
+        self.menuButtons.forEach {
+            $0.isHidden.toggle()
+        }
+        menuVisible.toggle()
+        if menuVisible {
+            menuBackground.backgroundColor = UIColor(white: 1.0, alpha: 0.6)
+            menuControlButton.tintColor = .black
+        } else {
+            menuBackground.backgroundColor = .clear
+            menuControlButton.tintColor = .white
+        }
     }
     
     @IBAction func openDocument() {
@@ -277,6 +300,7 @@ class ViewController: UIViewController {
         documentPicker.shouldShowFileExtensions = true
         documentPicker.delegate = self
         present(documentPicker, animated: true, completion: nil)
+        showHideMenu()
     }
     
     // MARK: - State Restoration
