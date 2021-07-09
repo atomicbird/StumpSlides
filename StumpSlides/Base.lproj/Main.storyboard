@@ -1,29 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19115.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="ipad12_9rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19107.5"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Oleg Stepanov - LevelUp.otf">
+            <string>LevelUp</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="ViewController" customModule="StumpSlides" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3fn-66-8RY">
-                                <rect key="frame" x="20" y="64" width="157.5" height="178"/>
+                                <rect key="frame" x="20" y="44" width="303.5" height="188.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Hby-Eg-arP">
-                                        <rect key="frame" x="0.0" y="8" width="157.5" height="162"/>
+                                        <rect key="frame" x="0.0" y="8" width="303.5" height="172.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3FE-oz-302">
-                                                <rect key="frame" x="0.0" y="0.0" width="157.5" height="34.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="303.5" height="34.5"/>
                                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Button"/>
@@ -32,9 +37,16 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DId-Bc-oeN">
-                                                <rect key="frame" x="0.0" y="42.5" width="157.5" height="34.5"/>
+                                                <rect key="frame" x="0.0" y="42.5" width="303.5" height="38"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Open...">
+                                                <buttonConfiguration key="configuration" style="plain">
+                                                    <attributedString key="attributedTitle">
+                                                        <fragment content="Open...">
+                                                            <attributes>
+                                                                <font key="NSFont" size="24" name="LevelUp"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
                                                     <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </buttonConfiguration>
                                                 <connections>
@@ -42,9 +54,16 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BEk-bf-d7G">
-                                                <rect key="frame" x="0.0" y="85" width="157.5" height="34.5"/>
+                                                <rect key="frame" x="0.0" y="88.5" width="303.5" height="38"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Conect to...">
+                                                <buttonConfiguration key="configuration" style="plain">
+                                                    <attributedString key="attributedTitle">
+                                                        <fragment content="Conect to...">
+                                                            <attributes>
+                                                                <font key="NSFont" size="24" name="LevelUp"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
                                                     <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </buttonConfiguration>
                                                 <connections>
@@ -52,9 +71,16 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="12O-SL-cDJ">
-                                                <rect key="frame" x="0.0" y="127.5" width="157.5" height="34.5"/>
+                                                <rect key="frame" x="0.0" y="134.5" width="303.5" height="38"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Disconnect peers">
+                                                <buttonConfiguration key="configuration" style="plain">
+                                                    <attributedString key="attributedTitle">
+                                                        <fragment content="Disconnect peers">
+                                                            <attributes>
+                                                                <font key="NSFont" size="24" name="LevelUp"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
                                                     <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </buttonConfiguration>
                                                 <connections>
@@ -72,19 +98,59 @@
                                     <constraint firstAttribute="bottom" secondItem="Hby-Eg-arP" secondAttribute="bottom" constant="8" id="qbo-Z8-NH7"/>
                                 </constraints>
                             </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="woZ-EZ-GHS">
+                                <rect key="frame" x="311" y="964" width="744" height="40"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Panel: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="3qm-HM-nI9">
+                                        <rect key="frame" x="0.0" y="0.0" width="179" height="40"/>
+                                        <fontDescription key="fontDescription" name="LevelUp" family="Level Up" pointSize="40"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="bbh-qd-YzD">
+                                        <rect key="frame" x="193" y="0.0" width="99" height="40"/>
+                                        <fontDescription key="fontDescription" name="LevelUp" family="Level Up" pointSize="40"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Wk0-v4-XO5">
+                                        <rect key="frame" x="306" y="0.0" width="20" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="20" id="o2N-mA-wED"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Attendees:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="4wX-0I-Vir">
+                                        <rect key="frame" x="340" y="0.0" width="291" height="40"/>
+                                        <fontDescription key="fontDescription" name="LevelUp" family="Level Up" pointSize="40"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="n2e-2u-M6R">
+                                        <rect key="frame" x="645" y="0.0" width="99" height="40"/>
+                                        <fontDescription key="fontDescription" name="LevelUp" family="Level Up" pointSize="40"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="woZ-EZ-GHS" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="2le-y9-g6y"/>
                             <constraint firstItem="3fn-66-8RY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="8Gs-gy-85r"/>
                             <constraint firstItem="3fn-66-8RY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="gXs-wE-ilu"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="woZ-EZ-GHS" secondAttribute="bottom" id="rYt-Xh-yYI"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="attendeeScore" destination="n2e-2u-M6R" id="xXE-tv-flo"/>
                         <outlet property="disconnectButton" destination="12O-SL-cDJ" id="VoK-7g-JqH"/>
                         <outlet property="menuBackground" destination="3fn-66-8RY" id="Fmi-fc-loZ"/>
                         <outlet property="menuContainer" destination="Hby-Eg-arP" id="rc1-oz-0aU"/>
                         <outlet property="menuControlButton" destination="3FE-oz-302" id="bqb-3N-w0s"/>
+                        <outlet property="panelScore" destination="bbh-qd-YzD" id="KeX-ye-n8f"/>
+                        <outlet property="scoreStack" destination="woZ-EZ-GHS" id="2nR-Kr-Ah1"/>
                         <outletCollection property="menuButtons" destination="BEk-bf-d7G" collectionClass="NSMutableArray" id="IQ4-Fo-d9a"/>
                         <outletCollection property="menuButtons" destination="DId-Bc-oeN" collectionClass="NSMutableArray" id="2XE-oE-6yW"/>
                         <outletCollection property="menuButtons" destination="12O-SL-cDJ" collectionClass="NSMutableArray" id="amI-Zb-Og3"/>

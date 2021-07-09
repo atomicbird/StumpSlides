@@ -60,7 +60,17 @@ class ViewController: UIViewController {
             menuControlButton.setImage(image, for: .normal)
         }
     }
+    @IBOutlet weak var scoreStack: UIStackView!
+    @IBOutlet weak var panelScore: UILabel!
+    @IBOutlet weak var attendeeScore: UILabel!
     
+    var stumpScore = StumpScores() {
+        didSet {
+            panelScore.text = String(stumpScore.panelScore)
+            attendeeScore.text = String(stumpScore.audienceScore)
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -137,6 +147,10 @@ class ViewController: UIViewController {
         stumpmojiWatcher.stumpmojiReceived = { (message) in
             self.stumpMojis.addMessage(message)
         }
+        stumpmojiWatcher.scoreReceived = { (incomingScore) in
+            logMilestone("Received \(incomingScore)")
+            self.stumpScore = incomingScore
+        }
         stumpmojiWatcher.startWatching()
         
         if usePageSynchronizer {
@@ -174,6 +188,7 @@ class ViewController: UIViewController {
         
         disconnectButton.isEnabled = false
         view.bringSubviewToFront(menuBackground)
+        view.bringSubviewToFront(scoreStack)
     }
     
     /// If there's a bookmark to a previously viewed document, and it still works, load that PDF.
