@@ -15,7 +15,7 @@ import Foundation
 func logMilestone(_ message: String? = nil, file: String = #file, function: String = #function, line: Int = #line) {
     // Feel free to change the list of Emojis, but don't make it shorter, because a longer list is better.
     let logEmojis = ["😀","😎","😱","😈","👺","👽","👾","🤖","🎃","👍","👁","🧠","🎒","🧤","🐶","🐱","🐭","🐹","🦊","🐻","🐨","🐵","🦄","🦋","🌈","🔥","💥","⭐️","🍉","🥝","🌽","🍔","🍿","🎹","🎁","❤️","🧡","💛","💚","💙","💜","🔔"]
-    let logEmoji = logEmojis[abs(file.hashValue % logEmojis.count)]
+    let logEmoji = logEmojis[abs(file.hash % logEmojis.count)]
     if let message = message {
         print("Milestone: \(logEmoji) \((file as NSString).lastPathComponent):\(line) \(function): \(message)")
     } else {
