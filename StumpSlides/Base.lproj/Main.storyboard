@@ -22,10 +22,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3fn-66-8RY">
-                                <rect key="frame" x="20" y="44" width="303.5" height="188.5"/>
+                                <rect key="frame" x="20" y="44" width="319.5" height="188.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Hby-Eg-arP">
-                                        <rect key="frame" x="0.0" y="8" width="303.5" height="172.5"/>
+                                        <rect key="frame" x="8" y="8" width="303.5" height="172.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3FE-oz-302">
                                                 <rect key="frame" x="0.0" y="0.0" width="303.5" height="34.5"/>
@@ -93,8 +93,8 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59701849489795922" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="Hby-Eg-arP" firstAttribute="top" secondItem="3fn-66-8RY" secondAttribute="top" constant="8" id="Nlm-Sn-aiI"/>
-                                    <constraint firstAttribute="trailing" secondItem="Hby-Eg-arP" secondAttribute="trailing" id="Sfr-go-rWZ"/>
-                                    <constraint firstItem="Hby-Eg-arP" firstAttribute="leading" secondItem="3fn-66-8RY" secondAttribute="leading" id="hmi-S3-LjC"/>
+                                    <constraint firstAttribute="trailing" secondItem="Hby-Eg-arP" secondAttribute="trailing" constant="8" id="Sfr-go-rWZ"/>
+                                    <constraint firstItem="Hby-Eg-arP" firstAttribute="leading" secondItem="3fn-66-8RY" secondAttribute="leading" constant="8" id="hmi-S3-LjC"/>
                                     <constraint firstAttribute="bottom" secondItem="Hby-Eg-arP" secondAttribute="bottom" constant="8" id="qbo-Z8-NH7"/>
                                 </constraints>
                             </view>
