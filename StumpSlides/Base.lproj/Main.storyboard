@@ -146,6 +146,7 @@
                     <connections>
                         <outlet property="attendeeScore" destination="n2e-2u-M6R" id="xXE-tv-flo"/>
                         <outlet property="disconnectButton" destination="12O-SL-cDJ" id="VoK-7g-JqH"/>
+                        <outlet property="iCloudDownloadingView" destination="0Sr-3G-g6c" id="TxU-MF-UoL"/>
                         <outlet property="menuBackground" destination="3fn-66-8RY" id="Fmi-fc-loZ"/>
                         <outlet property="menuContainer" destination="Hby-Eg-arP" id="rc1-oz-0aU"/>
                         <outlet property="menuControlButton" destination="3FE-oz-302" id="bqb-3N-w0s"/>
@@ -157,6 +158,34 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="0Sr-3G-g6c">
+                    <rect key="frame" x="0.0" y="0.0" width="543" height="111"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Downloading PDF from iCloud..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3cH-MS-VT6">
+                            <rect key="frame" x="19.5" y="24" width="504" height="26"/>
+                            <fontDescription key="fontDescription" name="LevelUp" family="Level Up" pointSize="24"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Ztv-nZ-bwF">
+                            <rect key="frame" x="261" y="66" width="20" height="37"/>
+                            <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </activityIndicatorView>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="Xyn-iT-gLH"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="Xyn-iT-gLH" firstAttribute="trailing" secondItem="Ztv-nZ-bwF" secondAttribute="trailing" constant="262" id="7tY-tV-p9S"/>
+                        <constraint firstItem="Ztv-nZ-bwF" firstAttribute="leading" secondItem="Xyn-iT-gLH" secondAttribute="leading" constant="261" id="AaK-AP-Oel"/>
+                        <constraint firstItem="3cH-MS-VT6" firstAttribute="top" secondItem="0Sr-3G-g6c" secondAttribute="top" constant="24" id="AhD-yl-zgB"/>
+                        <constraint firstItem="Xyn-iT-gLH" firstAttribute="trailing" secondItem="3cH-MS-VT6" secondAttribute="trailing" constant="19.5" id="Nq8-aI-72l"/>
+                        <constraint firstAttribute="bottom" secondItem="Ztv-nZ-bwF" secondAttribute="bottom" constant="8" id="fjf-J9-ZzI"/>
+                        <constraint firstItem="3cH-MS-VT6" firstAttribute="leading" secondItem="Xyn-iT-gLH" secondAttribute="leading" constant="19.5" id="upn-vB-Jwm"/>
+                        <constraint firstItem="Ztv-nZ-bwF" firstAttribute="top" secondItem="3cH-MS-VT6" secondAttribute="bottom" constant="16" id="yba-SO-kX7"/>
+                        <constraint firstItem="Ztv-nZ-bwF" firstAttribute="top" secondItem="3cH-MS-VT6" secondAttribute="bottom" constant="16" id="zuD-dy-qH1"/>
+                    </constraints>
+                </view>
             </objects>
             <point key="canvasLocation" x="132" y="87"/>
         </scene>

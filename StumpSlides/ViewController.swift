@@ -17,6 +17,21 @@ class ViewController: UIViewController {
     
     var documentURL: URL? = nil
     var pdfDocument: PDFDocument!
+    var documentDownloadInProgress = false {
+        didSet {
+            // Show/hide the iCloud download alert
+            if documentDownloadInProgress {
+                guard iCloudDownloadingView.superview == nil else { return }
+                view.addSubview(iCloudDownloadingView)
+                NSLayoutConstraint.activate([view.centerXAnchor.constraint(equalTo: iCloudDownloadingView.centerXAnchor),
+                                             view.centerYAnchor.constraint(equalTo: iCloudDownloadingView.centerYAnchor)
+                                            ])
+                view.bringSubviewToFront(iCloudDownloadingView)
+            } else {
+                iCloudDownloadingView.removeFromSuperview()
+            }
+        }
+    }
     var pdfView: PDFView!
     var pdfThumbnailView: PDFThumbnailView!
     var pdfThumbnailScrollView: UIScrollView!
@@ -63,6 +78,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var scoreStack: UIStackView!
     @IBOutlet weak var panelScore: UILabel!
     @IBOutlet weak var attendeeScore: UILabel!
+    
+    @IBOutlet var iCloudDownloadingView: UIView! {
+        didSet {
+            iCloudDownloadingView.translatesAutoresizingMaskIntoConstraints = false
+            iCloudDownloadingView.layer.cornerRadius = 10.0
+        }
+    }
     
     var stumpScore = StumpScores() {
         didSet {
@@ -227,6 +249,30 @@ class ViewController: UIViewController {
             logMilestone("Couldn't access URL \(documentURL)")
             return
         }
+        
+        // Uncomment this ONLY during debugging
+//        do {
+//            try FileManager.default.evictUbiquitousItem(at: documentURL)
+//        } catch {
+//            logMilestone("Error evicting document: \(error)")
+//        }
+        
+        do {
+            // N.B. you don't get valid results for resource values until after you stopAccessingSecurityScopedResource.
+            let documentCloudInfo = try documentURL.resourceValues(forKeys: [.isUbiquitousItemKey, .ubiquitousItemDownloadingStatusKey])
+            if let isUbiquitous = documentCloudInfo.isUbiquitousItem, isUbiquitous, documentCloudInfo.ubiquitousItemDownloadingStatus != .current {
+                logMilestone("Need to download ubiquitous item at \(documentURL)")
+                downloadUbiquitousItemAt(url: documentURL)
+                return
+            }
+        } catch {
+            logMilestone("Error checking or downloading iCloud file: \(error)")
+        }
+        
+        loadValidated(documentURL: documentURL)
+    }
+    
+    func loadValidated(documentURL: URL) -> Void {
         guard let pdfDocument = PDFDocument(url: documentURL) else {
             logMilestone("Couldn't load document at \(documentURL)")
             return
@@ -253,6 +299,40 @@ class ViewController: UIViewController {
         }
     }
     
+    func downloadUbiquitousItemAt(url: URL) {
+        do {
+            let downloadInfo = try url.resourceValues(forKeys: [.ubiquitousItemDownloadingStatusKey, .ubiquitousItemIsDownloadingKey, .ubiquitousItemDownloadRequestedKey])
+            logMilestone("Download info: requested = \(String(describing: downloadInfo.ubiquitousItemDownloadRequested)), status = \(String(describing: downloadInfo.ubiquitousItemDownloadingStatus)), downloading = \(String(describing: downloadInfo.ubiquitousItemIsDownloading))")
+            // Return if we already asked for the download
+            if let downloadRequested = downloadInfo.ubiquitousItemDownloadRequested, downloadRequested { return }
+            // Return if it's already downloaded
+            if let downloadStatus = downloadInfo.ubiquitousItemDownloadingStatus, downloadStatus == .current { return }
+            // Return if it's currently downloading
+            if let downloading = downloadInfo.ubiquitousItemIsDownloading, downloading { return }
+            // Start downloading
+            documentDownloadInProgress = true
+            try FileManager.default.startDownloadingUbiquitousItem(at: url)
+            
+            Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] (timer) in
+                do {
+                    let downloadStatus = try url.resourceValues(forKeys: [.ubiquitousItemDownloadingStatusKey])
+                    logMilestone("Download status: \(String(describing: downloadStatus.ubiquitousItemDownloadingStatus))")
+                    if downloadStatus.ubiquitousItemDownloadingStatus == .current {
+                        timer.invalidate()
+                        self?.loadValidated(documentURL: url)
+                        self?.documentDownloadInProgress = false
+                    }
+                } catch {
+                    logMilestone("Error checking download status: \(error)")
+                    self?.documentDownloadInProgress = false
+                }
+            }
+        } catch {
+            logMilestone("Error starting iCloud download: \(error)")
+            openDocument()
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
@@ -260,7 +340,7 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // If we didn't load a previously-viewed document, ask the user to open something.
-        if pdfDocument == nil {
+        if pdfDocument == nil, !documentDownloadInProgress {
             openDocument()
         }
         logMilestone()
