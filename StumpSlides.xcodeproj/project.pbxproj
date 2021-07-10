@@ -13,6 +13,8 @@
 		EE32E0D5235A5E06006D6827 /* PDFPageSynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE32E0D4235A5E06006D6827 /* PDFPageSynchronizer.swift */; };
 		EE32E10F235E4940006D6827 /* LogMilestone.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE32E10E235E4940006D6827 /* LogMilestone.swift */; };
 		EE32E14D23625C48006D6827 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE32E14C23625C48006D6827 /* UIView+Extensions.swift */; };
+		EE450F672698EEA200582A11 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE450F662698EEA200582A11 /* GoogleService-Info.plist */; };
+		EE450F692698F92B00582A11 /* Oleg Stepanov - LevelUp.otf in Resources */ = {isa = PBXBuildFile; fileRef = EE450F682698F92B00582A11 /* Oleg Stepanov - LevelUp.otf */; };
 		EE528C1E230CE74E00065971 /* dogcow.png in Resources */ = {isa = PBXBuildFile; fileRef = EE528C1D230CE74E00065971 /* dogcow.png */; };
 		EE528C22230CE9DE00065971 /* 360idev.png in Resources */ = {isa = PBXBuildFile; fileRef = EE528C21230CE9DE00065971 /* 360idev.png */; };
 		EE528C24230CEBEF00065971 /* apple-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = EE528C23230CEBEF00065971 /* apple-logo.png */; };
@@ -25,7 +27,6 @@
 		EE91FA1F230396F6003C716D /* StumpSlidesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE91FA1E230396F6003C716D /* StumpSlidesUITests.swift */; };
 		EE91FA2F23039B36003C716D /* StumpmojiWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE91FA2E23039B36003C716D /* StumpmojiWatcher.swift */; };
 		EE91FA3123039B65003C716D /* StackmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE91FA3023039B65003C716D /* StackmojiView.swift */; };
-		EE91FA332303A0AA003C716D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE91FA322303A0AA003C716D /* GoogleService-Info.plist */; };
 		F0AEF79981F3A007E726054F /* Pods_StumpSlides.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4648B48971FDC149487BDB5F /* Pods_StumpSlides.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +63,8 @@
 		EE32E10E235E4940006D6827 /* LogMilestone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogMilestone.swift; sourceTree = "<group>"; };
 		EE32E14C23625C48006D6827 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		EE32E14E23625D3E006D6827 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		EE450F662698EEA200582A11 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EE450F682698F92B00582A11 /* Oleg Stepanov - LevelUp.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oleg Stepanov - LevelUp.otf"; sourceTree = "<group>"; };
 		EE528C1D230CE74E00065971 /* dogcow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dogcow.png; sourceTree = "<group>"; };
 		EE528C21230CE9DE00065971 /* 360idev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 360idev.png; sourceTree = "<group>"; };
 		EE528C23230CEBEF00065971 /* apple-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "apple-logo.png"; sourceTree = "<group>"; };
@@ -80,7 +83,6 @@
 		EE91FA20230396F6003C716D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE91FA2E23039B36003C716D /* StumpmojiWatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StumpmojiWatcher.swift; sourceTree = "<group>"; };
 		EE91FA3023039B65003C716D /* StackmojiView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackmojiView.swift; sourceTree = "<group>"; };
-		EE91FA322303A0AA003C716D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,9 +176,10 @@
 				EE91FA05230396F6003C716D /* Assets.xcassets */,
 				EE91FA07230396F6003C716D /* LaunchScreen.storyboard */,
 				EE91FA0A230396F6003C716D /* Info.plist */,
-				EE91FA322303A0AA003C716D /* GoogleService-Info.plist */,
+				EE450F662698EEA200582A11 /* GoogleService-Info.plist */,
 				EE32E0D22357BDAF006D6827 /* PDFView+Extensions.swift */,
 				EE32E14C23625C48006D6827 /* UIView+Extensions.swift */,
+				EE450F682698F92B00582A11 /* Oleg Stepanov - LevelUp.otf */,
 			);
 			path = StumpSlides;
 			sourceTree = "<group>";
@@ -309,11 +312,12 @@
 			files = (
 				EE528C1E230CE74E00065971 /* dogcow.png in Resources */,
 				EE91FA09230396F6003C716D /* LaunchScreen.storyboard in Resources */,
-				EE91FA332303A0AA003C716D /* GoogleService-Info.plist in Resources */,
 				EE91FA06230396F6003C716D /* Assets.xcassets in Resources */,
+				EE450F692698F92B00582A11 /* Oleg Stepanov - LevelUp.otf in Resources */,
 				EE528C22230CE9DE00065971 /* 360idev.png in Resources */,
 				EE528C24230CEBEF00065971 /* apple-logo.png in Resources */,
 				EE91FA04230396F5003C716D /* Main.storyboard in Resources */,
+				EE450F672698EEA200582A11 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
