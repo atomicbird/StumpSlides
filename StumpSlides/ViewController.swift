@@ -57,6 +57,7 @@ class ViewController: UIViewController {
     @IBOutlet var menuButtons: [UIButton]! {
         didSet {
             menuButtons.forEach {
+                $0.setTitleColor(.black, for: .normal)
                 $0.isHidden = true
             }
         }
