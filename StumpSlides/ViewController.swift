@@ -87,6 +87,7 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var byteGameButton: UIButton!
     var stumpScore = StumpScores() {
         didSet {
             panelScore.text = String(stumpScore.panelScore)
@@ -211,6 +212,7 @@ class ViewController: UIViewController {
         
         disconnectButton.isEnabled = false
         view.bringSubviewToFront(menuBackground)
+        view.bringSubviewToFront(byteGameButton)
         view.bringSubviewToFront(scoreStack)
     }
     
@@ -395,8 +397,16 @@ class ViewController: UIViewController {
         documentPicker.allowsMultipleSelection = false
         documentPicker.shouldShowFileExtensions = true
         documentPicker.delegate = self
+        self.modalPresentationStyle = .fullScreen
         present(documentPicker, animated: true, completion: nil)
         showHideMenu()
+    }
+    
+    @IBAction func showByteGame(_ sender: Any) {
+        guard let byteGameVC = self.storyboard?.instantiateViewController(withIdentifier: "ByteGameViewController") else { return }
+        present(byteGameVC, animated: true) {
+            
+        }
     }
     
     // MARK: - State Restoration
