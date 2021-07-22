@@ -347,6 +347,10 @@ class ViewController: UIViewController {
             openDocument()
         }
         logMilestone()
+        
+        if let byteGameVC = byteGameController {
+            byteGameScores = (speakers:byteGameVC.speakerScore, attendees:byteGameVC.attendeeScore)
+        }
     }
 
     override var prefersStatusBarHidden: Bool { return true }
@@ -402,11 +406,17 @@ class ViewController: UIViewController {
         showHideMenu()
     }
     
+    var byteGameController: ByteGameViewController?
+    var byteGameScores: (speakers:Int, attendees:Int)?
+    
     @IBAction func showByteGame(_ sender: Any) {
-        guard let byteGameVC = self.storyboard?.instantiateViewController(withIdentifier: "ByteGameViewController") else { return }
-        present(byteGameVC, animated: true) {
-            
+        guard let byteGameVC = byteGameController ?? self.storyboard?.instantiateViewController(withIdentifier: "ByteGameViewController") as? ByteGameViewController else { return }
+        byteGameController = byteGameVC
+        if let previousScores = byteGameScores {
+            byteGameController?.attendeeScore = previousScores.attendees
+            byteGameController?.speakerScore = previousScores.speakers
         }
+        present(byteGameVC, animated: true)
     }
     
     // MARK: - State Restoration
