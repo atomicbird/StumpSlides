@@ -66,7 +66,7 @@ class ByteGameViewController: UIViewController {
         dismissGestureRecognizer.direction = .down
         view.addGestureRecognizer(dismissGestureRecognizer)
         
-        bitsToTotalDistanceConstraints[0].constant = 40 // A hack because I couldn't get layout right without it.
+        bitsToTotalDistanceConstraints.forEach { $0.constant = 40 }  // A hack because I couldn't get layout right without it.
 
         updateTotals()
     }
