@@ -56,19 +56,25 @@ class ByteGameViewController: UIViewController {
         modalPresentationStyle = .fullScreen
     }
     
+    var pinchGestureRecognizer: UIPinchGestureRecognizer!
+    var rotationGestureRecognizer: UIRotationGestureRecognizer!
+    var dismissGestureRecognizer: UISwipeGestureRecognizer!
+    
+    var dismissHandler: ((ByteGameViewController) -> Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let dismissGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(dismiss))
+        dismissGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(dismiss))
         dismissGestureRecognizer.direction = .down
         view.addGestureRecognizer(dismissGestureRecognizer)
         
         bitsToTotalDistanceConstraints.forEach { $0.constant = 40 }  // A hack because I couldn't get layout right without it.
 
-        let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(handlePinchGesture(_:)))
+        pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(handlePinchGesture(_:)))
         pinchGestureRecognizer.delegate = self
         view.addGestureRecognizer(pinchGestureRecognizer)
-        let rotationGestureRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(handleRotationGesture(_:)))
+        rotationGestureRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(handleRotationGesture(_:)))
         view.addGestureRecognizer(rotationGestureRecognizer)
         rotationGestureRecognizer.delegate = self
         
@@ -81,6 +87,12 @@ class ByteGameViewController: UIViewController {
     
     var calculatedFontsByWidth: [Int: UIFont] = [:]
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIView.animate(withDuration: 0.3) {
+            self.view.alpha = 1.0
+        }
+    }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         logMilestone()
@@ -139,7 +151,7 @@ class ByteGameViewController: UIViewController {
     }
     
     @IBAction func dismiss(_ sender: Any) {
-        dismiss(animated: true)
+        dismissHandler?(self)
     }
 
     @IBAction func toggleAttendee(_ sender: UIButton) {
@@ -293,6 +305,8 @@ class ByteGameViewController: UIViewController {
 
 extension ByteGameViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
+        // Pinch and rotate are simultaneous with each other but dismiss stands alone.
+        return (gestureRecognizer == pinchGestureRecognizer && otherGestureRecognizer == rotationGestureRecognizer) ||
+        (gestureRecognizer == rotationGestureRecognizer && otherGestureRecognizer == pinchGestureRecognizer)
     }
 }

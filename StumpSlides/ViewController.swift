@@ -420,12 +420,23 @@ class ViewController: UIViewController {
         addChild(byteGameVC)
         byteGameVC.view.frame = view.bounds
         byteGameVC.view.translatesAutoresizingMaskIntoConstraints = false
+        byteGameVC.view.alpha = 0.0
         view.addSubview(byteGameVC.view)
         view.bringSubviewToFront(byteGameVC.view)
         
         // Constraints are applied by ByteGameViewController's `didMove(toParent:)`.
         
         byteGameVC.didMove(toParent: self)
+        
+        byteGameVC.dismissHandler = { (byteGameVC) in
+            UIView.animate(withDuration: 0.3) {
+                byteGameVC.view.alpha = 0.0
+            } completion: { _ in
+                byteGameVC.didMove(toParent: nil)
+                byteGameVC.view.removeFromSuperview()
+                byteGameVC.removeFromParent()
+            }
+        }
     }
     
     // MARK: - State Restoration
