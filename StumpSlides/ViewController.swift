@@ -370,7 +370,7 @@ class ViewController: UIViewController {
     @objc func pdfViewTapped() -> Void {
         showOrHide(view: thumbnailContainerView)
     }
-    
+
     @IBAction func browseForPeers(_ sender: Any) {
         pageSynchronizer?.startSyncing()
         pageSynchronizer?.browseForPeers()
@@ -416,7 +416,16 @@ class ViewController: UIViewController {
             byteGameController?.attendeeScore = previousScores.attendees
             byteGameController?.speakerScore = previousScores.speakers
         }
-        present(byteGameVC, animated: true)
+        
+        addChild(byteGameVC)
+        byteGameVC.view.frame = view.bounds
+        byteGameVC.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(byteGameVC.view)
+        view.bringSubviewToFront(byteGameVC.view)
+        
+        // Constraints are applied by ByteGameViewController's `didMove(toParent:)`.
+        
+        byteGameVC.didMove(toParent: self)
     }
     
     // MARK: - State Restoration
