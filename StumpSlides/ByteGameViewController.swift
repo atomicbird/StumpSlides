@@ -179,11 +179,11 @@ class ByteGameViewController: UIViewController {
         print("Speaker score: \(speakerScore), attendee: \(attendeeScore)")
         updateTotals()
     }
-    @IBAction func toggleValue(_ sender: UIButton) {
-        let toggledBit = sender.tag
-        speakerButtons[toggledBit].setTitle("0", for: .normal)
-        attendeeButtons[toggledBit].setTitle("0", for: .normal)
-    }
+//    @IBAction func toggleValue(_ sender: UIButton) {
+//        let toggledBit = sender.tag
+//        speakerButtons[toggledBit].setTitle("0", for: .normal)
+//        attendeeButtons[toggledBit].setTitle("0", for: .normal)
+//    }
     
     func updateTotals() {
         if totalScoreStyleHex {
