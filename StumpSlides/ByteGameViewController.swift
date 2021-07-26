@@ -34,6 +34,25 @@ class ByteGameViewController: UIViewController {
             }
         }
     }
+    var bitIndicatorLabels = [UILabel]() // Every "*" label below the bits
+    @IBOutlet var attendeeBitIndicatorsRaw: [UILabel]! {
+        didSet {
+            let attendeeBitIndicators = attendeeBitIndicatorsRaw.sorted { labelA, labelB in
+                labelA.frame.minX > labelB.frame.minX
+            }
+            for (index, label) in attendeeBitIndicators.enumerated() { label.tag = index }
+            bitIndicatorLabels.append(contentsOf: attendeeBitIndicators)
+        }
+    }
+    @IBOutlet var speakerBitIndicatorsRaw: [UILabel]! {
+        didSet {
+            let speakerBitIndicators = speakerBitIndicatorsRaw.sorted { labelA, labelB in
+                labelA.frame.minX > labelB.frame.minX
+            }
+            for (index, label) in speakerBitIndicators.enumerated() { label.tag = index }
+            bitIndicatorLabels.append(contentsOf: speakerBitIndicators)
+        }
+    }
     var speakerButtons: [UIButton] = []
     @IBOutlet weak var attendeeTotalLabel: UILabel!
     @IBOutlet weak var speakerTotalLabel: UILabel!
@@ -48,6 +67,7 @@ class ByteGameViewController: UIViewController {
     
     var attendeeScore = 0
     var speakerScore = 0
+    var activeBit = 0
     
     let fontName = "Level Up"
     
@@ -69,6 +89,13 @@ class ByteGameViewController: UIViewController {
         dismissGestureRecognizer.direction = .down
         view.addGestureRecognizer(dismissGestureRecognizer)
         
+        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(changeActiveBit(_:)))
+        swipeLeftGesture.direction = .left
+        view.addGestureRecognizer(swipeLeftGesture)
+        let swipeRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(changeActiveBit(_:)))
+        swipeRightGesture.direction = .right
+        view.addGestureRecognizer(swipeRightGesture)
+        
         bitsToTotalDistanceConstraints.forEach { $0.constant = 40 }  // A hack because I couldn't get layout right without it.
 
         pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(handlePinchGesture(_:)))
@@ -79,6 +106,7 @@ class ByteGameViewController: UIViewController {
         rotationGestureRecognizer.delegate = self
         
         updateTotals()
+        updateBitIndicators()
     }
     
     override func viewWillLayoutSubviews() {
@@ -147,6 +175,7 @@ class ByteGameViewController: UIViewController {
         }
         
         totalScoreStyleSwitch.setTitleTextAttributes([.font: UIFont(name: fontName, size: scoreFont.pointSize/6.0) as Any, .foregroundColor: UIColor.green as Any], for: .normal)
+        bitIndicatorLabels.forEach { $0.font =  UIFont(name: fontName, size: scoreFont.pointSize/2.0) }
 
     }
     
@@ -154,8 +183,18 @@ class ByteGameViewController: UIViewController {
         dismissHandler?(self)
     }
 
+    @objc func changeActiveBit(_ sender: UISwipeGestureRecognizer) -> Void {
+        if sender.direction == .left {
+            activeBit = min(activeBit + 1, 7)
+        } else {
+            activeBit = max(activeBit - 1, 0)
+        }
+        updateBitIndicators()
+    }
+    
     @IBAction func toggleAttendee(_ sender: UIButton) {
         let toggledBitIndex = sender.tag
+        guard toggledBitIndex == activeBit else { return }
         attendeeScore ^= 1 << toggledBitIndex
         let newBitValue = (attendeeScore >> toggledBitIndex) & 1
         sender.setTitle("\(newBitValue)", for: .normal)
@@ -169,6 +208,7 @@ class ByteGameViewController: UIViewController {
     
     @IBAction func toggleSpeaker(_ sender: UIButton) {
         let toggledBitIndex = sender.tag
+        guard toggledBitIndex == activeBit else { return }
         speakerScore ^= 1 << toggledBitIndex
         let newBitValue = (speakerScore >> toggledBitIndex) & 1
         sender.setTitle("\(newBitValue)", for: .normal)
@@ -193,6 +233,10 @@ class ByteGameViewController: UIViewController {
             attendeeTotalLabel.text = "\(attendeeScore)"
             speakerTotalLabel.text = "\(speakerScore)"
         }
+    }
+    
+    func updateBitIndicators() -> Void {
+        bitIndicatorLabels.forEach { $0.text = ($0.tag == activeBit) ? "*" : "" }
     }
     
     @IBAction func toggleScoreStyle(_ sender: Any) {
