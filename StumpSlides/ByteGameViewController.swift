@@ -63,11 +63,16 @@ class ByteGameViewController: UIViewController {
     @IBOutlet var scoreContainerViews: [UIView]!
     @IBOutlet weak var totalScoreStyleSwitch: UISegmentedControl!
     @IBOutlet weak var mainContainerView: UIView!
+    @IBOutlet var byteHeaderLabels: [UILabel]!
+    @IBOutlet weak var timerButton: UIButton!
     var totalScoreStyleHex = true
     
     var attendeeScore = 0
     var speakerScore = 0
     var activeBit = 0
+    let timeLimits: [TimeInterval] = [10, 20, 30, 40, 50, 60, 70, 80]
+    var remainingTime: TimeInterval = 0
+    var questionTimer: Timer?
     
     let fontName = "Level Up"
     
@@ -107,6 +112,7 @@ class ByteGameViewController: UIViewController {
         
         updateTotals()
         updateBitIndicators()
+        updateRemainingTime()
     }
     
     override func viewWillLayoutSubviews() {
@@ -175,8 +181,9 @@ class ByteGameViewController: UIViewController {
         }
         
         totalScoreStyleSwitch.setTitleTextAttributes([.font: UIFont(name: fontName, size: scoreFont.pointSize/6.0) as Any, .foregroundColor: UIColor.green as Any], for: .normal)
-        bitIndicatorLabels.forEach { $0.font =  UIFont(name: fontName, size: scoreFont.pointSize/2.0) }
-
+        bitIndicatorLabels.forEach { $0.font = UIFont(name: fontName, size: scoreFont.pointSize/2.0) }
+        byteHeaderLabels.forEach { $0.font = UIFont(name: fontName, size: scoreFont.pointSize * 0.75) }
+        timerButton.titleLabel?.font = UIFont(name: fontName, size: scoreFont.pointSize * 0.75)
     }
     
     @IBAction func dismiss(_ sender: Any) {
@@ -184,12 +191,15 @@ class ByteGameViewController: UIViewController {
     }
 
     @objc func changeActiveBit(_ sender: UISwipeGestureRecognizer) -> Void {
+        // No changing the active bit unless the timer is stopped.
+        guard questionTimer == nil else { return }
         if sender.direction == .left {
             activeBit = min(activeBit + 1, 7)
         } else {
             activeBit = max(activeBit - 1, 0)
         }
         updateBitIndicators()
+        updateRemainingTime()
     }
     
     @IBAction func toggleAttendee(_ sender: UIButton) {
@@ -219,11 +229,6 @@ class ByteGameViewController: UIViewController {
         print("Speaker score: \(speakerScore), attendee: \(attendeeScore)")
         updateTotals()
     }
-//    @IBAction func toggleValue(_ sender: UIButton) {
-//        let toggledBit = sender.tag
-//        speakerButtons[toggledBit].setTitle("0", for: .normal)
-//        attendeeButtons[toggledBit].setTitle("0", for: .normal)
-//    }
     
     func updateTotals() {
         if totalScoreStyleHex {
@@ -242,6 +247,41 @@ class ByteGameViewController: UIViewController {
     @IBAction func toggleScoreStyle(_ sender: Any) {
         totalScoreStyleHex.toggle()
         updateTotals()
+    }
+    
+    var questionTimeFormatter: DateComponentsFormatter = {
+        let dateCompsFormatter = DateComponentsFormatter()
+        dateCompsFormatter.allowedUnits = [.minute, .second]
+        dateCompsFormatter.zeroFormattingBehavior = .pad
+        dateCompsFormatter.unitsStyle = .positional
+        return dateCompsFormatter
+    }()
+    
+    func updateRemainingTime() -> Void {
+        let timeString: String?
+        if questionTimer != nil {
+            timeString = questionTimeFormatter.string(from:remainingTime)
+        } else {
+            timeString = questionTimeFormatter.string(from: timeLimits[activeBit])
+        }
+        timerButton.setTitle(timeString ?? "ERROR!", for: .normal)
+    }
+    
+    @IBAction func toggleTimer(_ sender: Any) {
+        if questionTimer == nil {
+            remainingTime = timeLimits[activeBit]
+            questionTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { _ in
+                self.remainingTime = max(self.remainingTime - 1, 0)
+                self.updateRemainingTime()
+                if self.remainingTime <= 0 {
+                    self.questionTimer?.invalidate()
+                    self.questionTimer = nil
+                }
+            })
+        } else {
+            questionTimer?.invalidate()
+            questionTimer = nil
+        }
     }
     
     var pinchStartSize = CGSize.zero
