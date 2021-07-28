@@ -110,6 +110,8 @@ class ByteGameViewController: UIViewController {
         view.addGestureRecognizer(rotationGestureRecognizer)
         rotationGestureRecognizer.delegate = self
         
+        remainingTime = timeLimits[activeBit]
+
         updateTotals()
         updateBitIndicators()
         updateRemainingTime()
@@ -198,6 +200,7 @@ class ByteGameViewController: UIViewController {
         } else {
             activeBit = max(activeBit - 1, 0)
         }
+        remainingTime = timeLimits[activeBit]
         updateBitIndicators()
         updateRemainingTime()
     }
@@ -258,18 +261,12 @@ class ByteGameViewController: UIViewController {
     }()
     
     func updateRemainingTime() -> Void {
-        let timeString: String?
-        if questionTimer != nil {
-            timeString = questionTimeFormatter.string(from:remainingTime)
-        } else {
-            timeString = questionTimeFormatter.string(from: timeLimits[activeBit])
-        }
+        let timeString = questionTimeFormatter.string(from:remainingTime)
         timerButton.setTitle(timeString ?? "ERROR!", for: .normal)
     }
     
     @IBAction func toggleTimer(_ sender: Any) {
         if questionTimer == nil {
-            remainingTime = timeLimits[activeBit]
             questionTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { _ in
                 self.remainingTime = max(self.remainingTime - 1, 0)
                 self.updateRemainingTime()
