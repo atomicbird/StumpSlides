@@ -143,7 +143,7 @@ class ByteGameViewController: UIViewController {
 
         var scoreFont: UIFont
         // Test strings used for layout calculations
-        let totalScoreTestText = "255"
+        let totalScoreTestText = "WWW"
         let bitButtonTestText = "0"
         
         if let targetFont = calculatedFontsByWidth[Int(spaceAvailableForLabels)] {
