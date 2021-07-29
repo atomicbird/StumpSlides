@@ -96,6 +96,7 @@ class PDFPageSynchronizer: NSObject {
     }
 
     func browseForPeers() {
+        guard mcBrowser == nil else { return }
         mcBrowser = MCBrowserViewController(serviceType: serviceType, session: mcSession)
         mcBrowser.delegate = self
         DispatchQueue.main.async {
