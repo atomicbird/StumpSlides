@@ -98,12 +98,16 @@ class PDFPageSynchronizer: NSObject {
     func browseForPeers() {
         mcBrowser = MCBrowserViewController(serviceType: serviceType, session: mcSession)
         mcBrowser.delegate = self
-        presentingViewController.present(mcBrowser, animated: true)
+        DispatchQueue.main.async {
+            self.presentingViewController.present(self.mcBrowser, animated: true)
+        }
     }
     
     func disconnectFromPeers() {
         mcSession.disconnect()
-        self.presentingViewController.pdfPageSynchronizerPeersUpdated(self)
+        DispatchQueue.main.async {
+            self.presentingViewController.pdfPageSynchronizerPeersUpdated(self)
+        }
     }
     
     var peerCount: Int { return mcSession.connectedPeers.count }
@@ -137,14 +141,18 @@ extension PDFPageSynchronizer: MCSessionDelegate {
             logMilestone("Connected: \(peerID.displayName)")
             DispatchQueue.main.async {
                 logMilestone("Dismissing MP browser")
-                self.presentingViewController.dismiss(animated: true)
+                DispatchQueue.main.async {
+                    self.presentingViewController.dismiss(animated: true)
+                }
                 self.mcBrowser = nil
 
                 // Send the current page to the other connected devices so that everyone can get on the same page.
                 let connectPageSend = PageSend(pageNumber: self.lastPageSend.pageNumber, startDate: self.startDate, sendType: .connection)
                 self.send(connectPageSend)
                 
-                self.presentingViewController.pdfPageSynchronizerPeersUpdated(self)
+                DispatchQueue.main.async {
+                    self.presentingViewController.pdfPageSynchronizerPeersUpdated(self)
+                }
             }
 
         case MCSessionState.connecting:
@@ -152,7 +160,9 @@ extension PDFPageSynchronizer: MCSessionDelegate {
             
         case MCSessionState.notConnected:
             logMilestone("Not Connected: \(peerID.displayName)")
-            self.presentingViewController.pdfPageSynchronizerPeersUpdated(self)
+            DispatchQueue.main.async {
+                self.presentingViewController.pdfPageSynchronizerPeersUpdated(self)
+            }
         @unknown default:
             fatalError()
         }
@@ -168,11 +178,15 @@ extension PDFPageSynchronizer: MCSessionDelegate {
         if incomingPageSend.sendType == .connection, incomingPageSend.startDate < startDate {
             logMilestone("Updating local page (connect)")
             self.lastPageSend.pageNumber = incomingPageSend.pageNumber
-            presentingViewController.pdfPageSynchronizer(self, didReceivePage: incomingPageSend.pageNumber)
+            DispatchQueue.main.async {
+                self.presentingViewController.pdfPageSynchronizer(self, didReceivePage: incomingPageSend.pageNumber)
+            }
         } else if incomingPageSend.sendType == .pageChange {
             logMilestone("Updating local page (change)")
             self.lastPageSend.pageNumber = incomingPageSend.pageNumber
-            presentingViewController.pdfPageSynchronizer(self, didReceivePage: incomingPageSend.pageNumber)
+            DispatchQueue.main.async {
+                self.presentingViewController.pdfPageSynchronizer(self, didReceivePage: incomingPageSend.pageNumber)
+            }
         }
     }
     
@@ -193,13 +207,17 @@ extension PDFPageSynchronizer: MCSessionDelegate {
 extension PDFPageSynchronizer: MCBrowserViewControllerDelegate {
     func browserViewControllerDidFinish(_ browserViewController: MCBrowserViewController) {
         logMilestone("Dismissing MP browser")
-        presentingViewController.dismiss(animated: true)
+        DispatchQueue.main.async {
+            self.presentingViewController.dismiss(animated: true)
+        }
         mcBrowser = nil
     }
     
     func browserViewControllerWasCancelled(_ browserViewController: MCBrowserViewController) {
         logMilestone("Dismissing MP browser")
-        presentingViewController.dismiss(animated: true)
+        DispatchQueue.main.async {
+            self.presentingViewController.dismiss(animated: true)
+        }
         mcBrowser = nil
     }
     
