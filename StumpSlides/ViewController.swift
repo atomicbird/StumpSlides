@@ -439,6 +439,33 @@ class ViewController: UIViewController {
         }
     }
     
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
+    override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        guard presses.count == 1, // Only one press at a time
+              let press = presses.first,
+              let pressedKey = press.key,
+              pressedKey.modifierFlags == [] || pressedKey.modifierFlags == [.numericPad] // No modifiers (shift, ctrl) allowed
+        else {
+            super.pressesBegan(presses, with: event)
+            return
+        }
+        guard let currentPage = self.pdfView.currentPage else { return }
+        let pageIndex = self.pdfDocument.index(for: currentPage)
+
+        if pressedKey.keyCode == .keyboardLeftArrow {
+            if pageIndex > 0 {
+                pdfView.go(to: pageIndex-1)
+            }
+        } else if pressedKey.keyCode == .keyboardRightArrow {
+            if pageIndex < pdfDocument.pageCount {
+                pdfView.go(to: pageIndex+1)
+            }
+        }
+    }
+    
     // MARK: - State Restoration
     enum StateRestorationKeys: String {
         case documentURLPath // URL is only saved to decide whether to restore the page number. URL bookmark resolution is handled elsewhere.
