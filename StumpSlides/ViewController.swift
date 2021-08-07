@@ -9,6 +9,7 @@
 import UIKit
 import PDFKit
 import UniformTypeIdentifiers
+import AVKit
 
 class ViewController: UIViewController {
     enum UserDefaultsKeys: String {
@@ -189,6 +190,7 @@ class ViewController: UIViewController {
         // - When the user moves to a new page.
         NotificationCenter.default.addObserver(forName: .PDFViewPageChanged, object: nil, queue: OperationQueue.main) { [weak self] (notification) in
             logMilestone("Page change notification")
+            self?.stopToThink()
             guard let self = self else { return }
             // Ignore a page change notification that happens when loading a PDF (when assigning to pdfView.document). Page sync messages should only be sent when the user changes the page.
             guard !self.skipNextPageChangeNotification else {
@@ -404,6 +406,43 @@ class ViewController: UIViewController {
         self.modalPresentationStyle = .fullScreen
         present(documentPicker, animated: true, completion: nil)
         showHideMenu()
+    }
+
+    lazy var thinkingVC: AVPlayerViewController = {
+        let controller = AVPlayerViewController()
+        guard let url = Bundle.main.url(forResource: "Thinking", withExtension: "mov") else { fatalError() }
+        let player = AVPlayer(url: url)
+        controller.player = player
+        controller.showsPlaybackControls = false
+
+        return controller
+    }()
+    
+    let stopToThinkProbability = 0.1
+    
+    func stopToThink() -> Void {
+        guard presentedViewController == nil else { return }
+        
+        let limit: Double = 100
+        guard Double.random(in: 1...limit) < stopToThinkProbability * 100.0 else { return }
+        
+        present(thinkingVC, animated: false) {
+            self.thinkingVC.player?.play()
+        }
+        
+        let observerRef = NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: thinkingVC.player?.currentItem, queue: OperationQueue.main) { [weak self] notification in
+            print("Notification: \(notification)")
+            self?.thinkingVC.player?.currentItem?.seek(to: CMTime.zero) { _ in
+                self?.thinkingVC.player?.play()
+            }
+        }
+
+        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
+            self.thinkingVC.dismiss(animated: false) {
+                self.thinkingVC.player?.pause()
+            }
+            NotificationCenter.default.removeObserver(observerRef)
+        }
     }
     
     var byteGameController: ByteGameViewController?
