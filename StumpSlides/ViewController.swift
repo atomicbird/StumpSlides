@@ -91,8 +91,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var byteGameButton: UIButton!
     var stumpScore = StumpScores() {
         didSet {
-            panelScore.text = String(stumpScore.panelScore)
-            attendeeScore.text = String(stumpScore.audienceScore)
+            panelScore.text = String(stumpScore[.panelScore])
+            attendeeScore.text = String(stumpScore[.audienceScore])
         }
     }
 

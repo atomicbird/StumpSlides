@@ -9,11 +9,49 @@
 import Foundation
 import Firebase
 
-struct StumpScores: Codable, Equatable {
-    var panelScore = 0
-    var audienceScore = 0
-    var panelAskedCount = 0
-    var audienceAskedCount = 0
+struct StumpScores: Equatable {
+    enum ScoreKeys: String, CaseIterable {
+        case panelScore
+        case audienceScore
+        case panelAskedCount
+        case audienceAskedCount
+    }
+    
+    typealias StumpScoresDict = [ScoreKeys:Int]
+    typealias SnapshotDict = [String:Int]
+    
+    var scoreDict: StumpScoresDict
+    
+    /// Initialize all zeroe scores
+    init() {
+        scoreDict = StumpScoresDict()
+        ScoreKeys.allCases.forEach { scoreDict[$0] = 0 }
+    }
+
+    /// Initialize from a Firebase snapshot
+    init(stringDict: SnapshotDict) {
+        scoreDict = StumpScoresDict()
+        ScoreKeys.allCases.forEach {
+            scoreDict[$0] = stringDict[$0.rawValue] ?? 0
+        }
+    }
+
+    /// Convert to plist types for Firebase
+    func stringDict() -> [String:Int] {
+        var stringDict: [String:Int] = [:]
+        scoreDict.forEach { stringDict[$0.key.rawValue] = $0.value }
+        return stringDict
+    }
+    
+    /// Wrap dictionary access with a subscript
+    subscript(key: ScoreKeys) -> Int {
+        get {
+            return scoreDict[key] ?? 0
+        }
+        set {
+            scoreDict[key] = newValue
+        }
+    }
 }
 
 class StumpmojiWatcher {
@@ -66,11 +104,10 @@ class StumpmojiWatcher {
     }
 
     func update(from snapshot: DataSnapshot) -> Void {
-        guard let scoreString = snapshot.value as? String else { return }
-        guard let scoreData = scoreString.data(using: .utf8) else { return }
-        guard let score = try? JSONDecoder().decode(StumpScores.self, from: scoreData) else { return }
+        guard let scoreStringDict = snapshot.value as? StumpScores.SnapshotDict else { return }
+        let score = StumpScores(stringDict: scoreStringDict)
         guard score != self.score else { return }
         self.score = score
-        logMilestone("New score value: \(score)")
+        print("New score value: \(score)")
     }
 }
