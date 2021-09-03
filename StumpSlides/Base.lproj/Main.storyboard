@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19142.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19158" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="ipad12_9rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19129"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19141"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -23,10 +23,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3fn-66-8RY">
-                                <rect key="frame" x="20" y="44" width="410" height="214"/>
+                                <rect key="frame" x="20" y="44" width="410" height="264"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Hby-Eg-arP">
-                                        <rect key="frame" x="8" y="8" width="394" height="198"/>
+                                        <rect key="frame" x="8" y="8" width="394" height="248"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3FE-oz-302">
                                                 <rect key="frame" x="0.0" y="0.0" width="394" height="48"/>
@@ -47,8 +47,19 @@
                                                     <action selector="openDocument" destination="BYZ-38-t0r" eventType="touchUpInside" id="fEs-Uk-4C9"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BEk-bf-d7G">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xDU-PV-juz">
                                                 <rect key="frame" x="0.0" y="106" width="394" height="42"/>
+                                                <fontDescription key="fontDescription" name="LevelUp" family="Level Up" pointSize="30"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="Show/hide timer">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="timerButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hRp-Zv-Bj6"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BEk-bf-d7G">
+                                                <rect key="frame" x="0.0" y="156" width="394" height="42"/>
                                                 <fontDescription key="fontDescription" name="LevelUp" family="Level Up" pointSize="30"/>
                                                 <state key="normal" title="Browse for Peers...">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -58,7 +69,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="12O-SL-cDJ">
-                                                <rect key="frame" x="0.0" y="156" width="394" height="42"/>
+                                                <rect key="frame" x="0.0" y="206" width="394" height="42"/>
                                                 <fontDescription key="fontDescription" name="LevelUp" family="Level Up" pointSize="30"/>
                                                 <state key="normal" title="Disconnect Peers">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -123,13 +134,23 @@
                                     <action selector="showByteGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rPR-eK-Iqv"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wh2-Nj-T5N">
+                                <rect key="frame" x="1106" y="44" width="240" height="62"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="NTR-c4-BPP"/>
+                                    <constraint firstAttribute="height" constant="62" id="amf-4r-cVI"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wh2-Nj-T5N" secondAttribute="trailing" constant="20" id="0J0-3I-R53"/>
                             <constraint firstItem="woZ-EZ-GHS" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="2le-y9-g6y"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="G8Q-q1-4Xl" secondAttribute="bottom" id="5SG-n7-4Rr"/>
                             <constraint firstItem="3fn-66-8RY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="8Gs-gy-85r"/>
+                            <constraint firstItem="3qm-HM-nI9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="G8Q-q1-4Xl" secondAttribute="trailing" id="EQd-HW-acb"/>
+                            <constraint firstItem="wh2-Nj-T5N" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="SKR-dw-gDa"/>
                             <constraint firstItem="3fn-66-8RY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="gXs-wE-ilu"/>
                             <constraint firstItem="G8Q-q1-4Xl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="pxy-2Z-KeS"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="woZ-EZ-GHS" secondAttribute="bottom" id="rYt-Xh-yYI"/>
@@ -145,9 +166,15 @@
                         <outlet property="menuControlButton" destination="3FE-oz-302" id="bqb-3N-w0s"/>
                         <outlet property="panelScore" destination="bbh-qd-YzD" id="KeX-ye-n8f"/>
                         <outlet property="scoreStack" destination="woZ-EZ-GHS" id="2nR-Kr-Ah1"/>
+                        <outlet property="timerContainerView" destination="wh2-Nj-T5N" id="A4g-DW-Pun"/>
                         <outletCollection property="menuButtons" destination="BEk-bf-d7G" collectionClass="NSMutableArray" id="IQ4-Fo-d9a"/>
                         <outletCollection property="menuButtons" destination="DId-Bc-oeN" collectionClass="NSMutableArray" id="2XE-oE-6yW"/>
                         <outletCollection property="menuButtons" destination="12O-SL-cDJ" collectionClass="NSMutableArray" id="amI-Zb-Og3"/>
+                        <outletCollection property="menuButtons" destination="xDU-PV-juz" collectionClass="NSMutableArray" id="VcE-vo-wqH"/>
+                        <outletCollection property="scoreLabels" destination="3qm-HM-nI9" collectionClass="NSMutableArray" id="0YS-pb-4BL"/>
+                        <outletCollection property="scoreLabels" destination="bbh-qd-YzD" collectionClass="NSMutableArray" id="hye-vs-2Vs"/>
+                        <outletCollection property="scoreLabels" destination="4wX-0I-Vir" collectionClass="NSMutableArray" id="Hzb-19-2Kb"/>
+                        <outletCollection property="scoreLabels" destination="n2e-2u-M6R" collectionClass="NSMutableArray" id="eCj-Ey-7ei"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -692,6 +719,45 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x9O-LE-sVm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="39" y="806"/>
+        </scene>
+        <!--Timer View Controller-->
+        <scene sceneID="kHa-rM-Rhd">
+            <objects>
+                <viewController storyboardIdentifier="TimerViewController" id="lra-E9-b0v" customClass="TimerViewController" customModule="StumpSlides" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="C7Q-hN-4uC">
+                        <rect key="frame" x="0.0" y="0.0" width="632" height="62"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LTm-0D-UFM">
+                                <rect key="frame" x="0.0" y="0.0" width="632" height="62"/>
+                                <fontDescription key="fontDescription" name="LevelUp" family="Level Up" pointSize="50"/>
+                                <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="0:00">
+                                    <color key="titleColor" systemColor="systemGreenColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="toggleTimer:" destination="lra-E9-b0v" eventType="touchUpInside" id="fc6-cD-Z8b"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="nOy-7l-8jG"/>
+                        <constraints>
+                            <constraint firstAttribute="top" secondItem="LTm-0D-UFM" secondAttribute="top" id="SCX-ep-7GK"/>
+                            <constraint firstAttribute="trailing" secondItem="LTm-0D-UFM" secondAttribute="trailing" id="VTx-L6-eyr"/>
+                            <constraint firstAttribute="bottom" secondItem="LTm-0D-UFM" secondAttribute="bottom" id="mYv-nn-jaZ"/>
+                            <constraint firstItem="LTm-0D-UFM" firstAttribute="leading" secondItem="C7Q-hN-4uC" secondAttribute="leading" id="pDO-cG-4fc"/>
+                        </constraints>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="632" height="62"/>
+                    <connections>
+                        <outlet property="timerButton" destination="LTm-0D-UFM" id="28p-XI-saJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aFW-2W-NDg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="519.18008784773053" y="525"/>
         </scene>
     </scenes>
     <resources>

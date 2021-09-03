@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0E1C69EE372B5B1FC3090AD1 /* Pods_StumpSlidesUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BE95E882162D0056D9A5C35 /* Pods_StumpSlidesUITests.framework */; };
 		6576B769DDE017D67658C193 /* Pods_StumpSlidesTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 555A0F92ECDB250605BFC517 /* Pods_StumpSlidesTests.framework */; };
+		EE20922026C8726700534278 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE20921F26C8726700534278 /* TimerViewController.swift */; };
 		EE32E0D32357BDAF006D6827 /* PDFView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE32E0D22357BDAF006D6827 /* PDFView+Extensions.swift */; };
 		EE32E0D5235A5E06006D6827 /* PDFPageSynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE32E0D4235A5E06006D6827 /* PDFPageSynchronizer.swift */; };
 		EE32E10F235E4940006D6827 /* LogMilestone.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE32E10E235E4940006D6827 /* LogMilestone.swift */; };
@@ -59,6 +60,7 @@
 		7BA0C9765B606F939FB3477B /* Pods-StumpSlidesTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StumpSlidesTests.debug.xcconfig"; path = "Target Support Files/Pods-StumpSlidesTests/Pods-StumpSlidesTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8CF3BC844D0B18AFE5C126C3 /* Pods-StumpSlidesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StumpSlidesTests.release.xcconfig"; path = "Target Support Files/Pods-StumpSlidesTests/Pods-StumpSlidesTests.release.xcconfig"; sourceTree = "<group>"; };
 		C680DFF4C0AD6843C3C98C76 /* Pods-StumpSlides.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StumpSlides.release.xcconfig"; path = "Target Support Files/Pods-StumpSlides/Pods-StumpSlides.release.xcconfig"; sourceTree = "<group>"; };
+		EE20921F26C8726700534278 /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		EE322DC52695415400003DD3 /* StumpSlides.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StumpSlides.entitlements; sourceTree = "<group>"; };
 		EE32E0D22357BDAF006D6827 /* PDFView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFView+Extensions.swift"; sourceTree = "<group>"; };
 		EE32E0D4235A5E06006D6827 /* PDFPageSynchronizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFPageSynchronizer.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				EED8D75326BDF3FE002DB0CC /* Thinking.mov */,
 				EE91FA02230396F5003C716D /* Main.storyboard */,
 				EE4C0FDE26A777C600BFCDDE /* ByteGameViewController.swift */,
+				EE20921F26C8726700534278 /* TimerViewController.swift */,
 				EE91FA05230396F6003C716D /* Assets.xcassets */,
 				EE91FA07230396F6003C716D /* LaunchScreen.storyboard */,
 				EE91FA0A230396F6003C716D /* Info.plist */,
@@ -435,6 +438,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE20922026C8726700534278 /* TimerViewController.swift in Sources */,
 				EE91FA01230396F5003C716D /* ViewController.swift in Sources */,
 				EE91FA2F23039B36003C716D /* StumpmojiWatcher.swift in Sources */,
 				EE32E10F235E4940006D6827 /* LogMilestone.swift in Sources */,

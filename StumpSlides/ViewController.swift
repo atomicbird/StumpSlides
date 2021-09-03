@@ -115,6 +115,12 @@ class ViewController: UIViewController {
         }
     }
 
+    @IBOutlet weak var timerContainerView: UIView!
+    lazy var timerViewController: TimerViewController = {
+        guard let vc = storyboard?.instantiateViewController(withIdentifier: "TimerViewController") as? TimerViewController else { fatalError() }
+        return vc
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -496,6 +502,30 @@ class ViewController: UIViewController {
                 self.showByteGame(self)
             }
         }
+    }
+    
+    @IBAction func timerButtonPressed(_ sender: Any) {
+        if timerViewController.parent != self {
+            showTimer()
+        } else {
+            hideTimer()
+        }
+    }
+    
+    func showTimer() {
+        addChild(timerViewController)
+        timerViewController.initialTimes = [60, 120, 180, 300, 480, 660]
+        timerViewController.view.frame = timerContainerView.bounds
+        timerViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        timerContainerView.addSubview(timerViewController.view)
+        view.bringSubviewToFront(timerContainerView)
+        timerViewController.didMove(toParent: self)
+    }
+    
+    func hideTimer() {
+        timerViewController.didMove(toParent: nil)
+        timerViewController.view.removeFromSuperview()
+        timerViewController.removeFromParent()
     }
     
     override var canBecomeFirstResponder: Bool {
