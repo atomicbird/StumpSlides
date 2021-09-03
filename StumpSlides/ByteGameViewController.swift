@@ -72,6 +72,7 @@ class ByteGameViewController: UIViewController {
     var activeBit = 0
     let timeLimits: [TimeInterval] = [10, 20, 30, 40, 50, 60, 70, 80]
     var remainingTime: TimeInterval = 0
+    var remainingTime: Int = 0
     var questionTimer: Timer?
     
     let fontName = "Level Up"
@@ -252,17 +253,12 @@ class ByteGameViewController: UIViewController {
         updateTotals()
     }
     
-    var questionTimeFormatter: DateComponentsFormatter = {
-        let dateCompsFormatter = DateComponentsFormatter()
-        dateCompsFormatter.allowedUnits = [.minute, .second]
-        dateCompsFormatter.zeroFormattingBehavior = .pad
-        dateCompsFormatter.unitsStyle = .positional
-        return dateCompsFormatter
-    }()
-    
+    /// Update remaining time label, formatted as binary
     func updateRemainingTime() -> Void {
-        let timeString = questionTimeFormatter.string(from:remainingTime)
-        timerButton.setTitle(timeString ?? "ERROR!", for: .normal)
+        var timeString = String(remainingTime, radix: 2)
+        while timeString.count < 8 { timeString = "0\(timeString)" }
+        timerButton.setTitle("Time: \(timeString)", for: .normal)
+    }
     }
     
     @IBAction func toggleTimer(_ sender: Any) {
