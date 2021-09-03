@@ -180,6 +180,7 @@ class ViewController: UIViewController {
         
         if usePageSynchronizer {
             pageSynchronizer = PDFPageSynchronizer(with: self)
+            pageSynchronizer?.startHosting()
         }
 
         loadPreviousDocument()
@@ -286,6 +287,8 @@ class ViewController: UIViewController {
         self.pdfDocument = pdfDocument
         pdfView.document = pdfDocument
         
+        pageSynchronizer?.updateHosting()
+        
         // Constrain the thumbnail view width based on the current document
         if let pdfThumbnailWidthConstraint = pdfThumbnailWidthConstraint {
             pdfThumbnailWidthConstraint.constant = CGFloat(pdfDocument.pageCount*(thumbnailSize + pdfThumbnailPerPagePadding))
@@ -374,7 +377,6 @@ class ViewController: UIViewController {
     }
 
     @IBAction func browseForPeers(_ sender: Any) {
-        pageSynchronizer?.startSyncing()
         pageSynchronizer?.browseForPeers()
         showHideMenu()
     }

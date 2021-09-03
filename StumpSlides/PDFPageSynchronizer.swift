@@ -12,14 +12,14 @@ import MultipeerConnectivity
 protocol PDFPageSynchronizerDelegate {
     func pdfPageSynchronizer(_: PDFPageSynchronizer, didReceivePage: Int) -> Void
     func pdfPageSynchronizerPeersUpdated(_: PDFPageSynchronizer) -> Void
-    var pdfDocumentPageCount: Int { get }
+    var pdfDocumentPageCount: Int? { get }
 }
 
 /// Synchronize the current page across two or more instances of the app running on different devices, via Multipeer networking.
 class PDFPageSynchronizer: NSObject {
     var peerID: MCPeerID!
     var mcSession: MCSession!
-    var mcAdvertiserAssistant: MCAdvertiserAssistant!
+    var mcAdvertiserAssistant: MCAdvertiserAssistant?
     var testDataTimer: Timer!
     var mcBrowser: MCBrowserViewController!
     
@@ -64,13 +64,6 @@ class PDFPageSynchronizer: NSObject {
         startDate = lastPageSend.startDate
     }
     
-    /// Start hosting and browsing
-    func startSyncing() -> Void {
-        logMilestone()
-        guard mcAdvertiserAssistant == nil else { return }
-        startHosting()
-        browseForPeers()
-    }
 
     // The service name needs to be 1-15 chars, only lowercase ASCII letters, numbers, or hyphens. Full rules are currently found in the MCAdvertiserAssistant documentation or apparently RFC 6335.
     // Service name ALSO must match the one declared in Info.plist under NSBonjourServices, stripped of the Bonjour-y details. If Info.plist has "_stump360._tcp", the service name here must me "stump360".
@@ -89,12 +82,23 @@ class PDFPageSynchronizer: NSObject {
         return String(mpService)
     }()
     
+    /// Start advertising that hosting is available
     func startHosting() {
-        let discoveryInfo = [DiscoveryInfoKeys.pageCount.rawValue: "\(presentingViewController.pdfDocumentPageCount)"]
+        guard let pageCount = presentingViewController.pdfDocumentPageCount else { return }
+        let discoveryInfo = [DiscoveryInfoKeys.pageCount.rawValue: "\(pageCount)"]
         mcAdvertiserAssistant = MCAdvertiserAssistant(serviceType: serviceType, discoveryInfo: discoveryInfo, session: mcSession)
-        mcAdvertiserAssistant.start()
+        mcAdvertiserAssistant?.start()
     }
-
+    
+    /// Disconnect from peers and then restart advertising. Use this if the document or page count changes
+    func updateHosting() {
+        mcAdvertiserAssistant?.stop()
+        mcAdvertiserAssistant = nil
+        disconnectFromPeers()
+        startHosting()
+    }
+    
+    /// Look for any other nearby hosts advertising the same service
     func browseForPeers() {
         guard mcBrowser == nil else { return }
         mcBrowser = MCBrowserViewController(serviceType: serviceType, session: mcSession)
@@ -104,6 +108,7 @@ class PDFPageSynchronizer: NSObject {
         }
     }
     
+    /// Disconnect from current peers but don't stop advertising
     func disconnectFromPeers() {
         mcSession.disconnect()
         DispatchQueue.main.async {
@@ -141,11 +146,11 @@ extension PDFPageSynchronizer: MCSessionDelegate {
         case MCSessionState.connected:
             logMilestone("Connected: \(peerID.displayName)")
             DispatchQueue.main.async {
-                logMilestone("Dismissing MP browser")
+                logMilestone("Dismissing MP browser: connected")
                 DispatchQueue.main.async {
+                    self.mcBrowser = nil
                     self.presentingViewController.dismiss(animated: true)
                 }
-                self.mcBrowser = nil
 
                 // Send the current page to the other connected devices so that everyone can get on the same page.
                 let connectPageSend = PageSend(pageNumber: self.lastPageSend.pageNumber, startDate: self.startDate, sendType: .connection)
@@ -204,25 +209,26 @@ extension PDFPageSynchronizer: MCSessionDelegate {
     }
 }
 
-// MARK: - MCSessionDelegate, MCBrowserViewControllerDelegate
+// MARK: - MCBrowserViewControllerDelegate
 extension PDFPageSynchronizer: MCBrowserViewControllerDelegate {
     func browserViewControllerDidFinish(_ browserViewController: MCBrowserViewController) {
-        logMilestone("Dismissing MP browser")
+        logMilestone("Dismissing MP browser: finished")
         DispatchQueue.main.async {
+            self.mcBrowser = nil
             self.presentingViewController.dismiss(animated: true)
         }
-        mcBrowser = nil
     }
     
     func browserViewControllerWasCancelled(_ browserViewController: MCBrowserViewController) {
-        logMilestone("Dismissing MP browser")
+        logMilestone("Dismissing MP browser: cancelled")
         DispatchQueue.main.async {
+            self.mcBrowser = nil
             self.presentingViewController.dismiss(animated: true)
         }
-        mcBrowser = nil
     }
     
     func browserViewController(_ browserViewController: MCBrowserViewController, shouldPresentNearbyPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) -> Bool {
+        logMilestone("Checking whether to present \(peerID.displayName)")
         guard let discoveryInfo = info else { return false }
         // Compare the number of pages in the peer's document to the local document to decide if we should connect.
         guard let incomingPageCountString = discoveryInfo[DiscoveryInfoKeys.pageCount.rawValue],
