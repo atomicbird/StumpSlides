@@ -478,6 +478,12 @@ class ViewController: UIViewController {
                 byteGameVC.removeFromParent()
             }
         }
+        
+        byteGameVC.timerExpired = { [weak self] in
+            if let self = self, !self.children.contains(byteGameVC) {
+                self.showByteGame(self)
+            }
+        }
     }
     
     override var canBecomeFirstResponder: Bool {
