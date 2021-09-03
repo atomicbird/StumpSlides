@@ -75,6 +75,8 @@ class ByteGameViewController: UIViewController {
     var remainingTime: Int = 0
     var questionTimer: Timer?
     
+    var timerExpired: (() -> Void)?
+    
     let fontName = "Level Up"
     
     required init?(coder: NSCoder) {
@@ -259,6 +261,22 @@ class ByteGameViewController: UIViewController {
         while timeString.count < 8 { timeString = "0\(timeString)" }
         timerButton.setTitle("Time: \(timeString)", for: .normal)
     }
+    
+    func flashScreen() -> Void {
+        var flashCount = 32
+        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
+            if flashCount.isMultiple(of: 2) {
+                self?.view.backgroundColor = .red
+                self?.view.layer.filters = [CIFilter(name: "CIColorInvert") as Any]
+            } else {
+                self?.view.backgroundColor = .black
+                self?.view.layer.filters = []
+            }
+            flashCount -= 1
+            if flashCount <= 0 {
+                timer.invalidate()
+            }
+        }
     }
     
     @IBAction func toggleTimer(_ sender: Any) {
@@ -269,6 +287,8 @@ class ByteGameViewController: UIViewController {
                 if self.remainingTime <= 0 {
                     self.questionTimer?.invalidate()
                     self.questionTimer = nil
+                    self.timerExpired?()
+                    self.flashScreen()
                 }
             })
         } else {
