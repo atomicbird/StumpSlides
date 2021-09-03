@@ -482,6 +482,7 @@ class ViewController: UIViewController {
         
         byteGameVC.dismissHandler = { (byteGameVC) in
             UIView.animate(withDuration: 0.3) {
+                byteGameVC.view.frame.origin.y = self.view.frame.height
                 byteGameVC.view.alpha = 0.0
             } completion: { _ in
                 byteGameVC.didMove(toParent: nil)
