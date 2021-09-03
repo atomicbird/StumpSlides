@@ -521,6 +521,8 @@ class ViewController: UIViewController {
             if pageIndex < pdfDocument.pageCount {
                 pdfView.go(to: pageIndex+1)
             }
+        } else {
+            super.pressesBegan(presses, with: event)
         }
     }
     
