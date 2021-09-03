@@ -101,11 +101,17 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBOutlet var scoreLabels: [UILabel]! { didSet { scoreLabels.forEach { $0.alpha = 0 }}}
     @IBOutlet weak var byteGameButton: UIButton!
     var stumpScore = StumpScores() {
         didSet {
             panelScore.text = String(stumpScore[.panelScore])
             attendeeScore.text = String(stumpScore[.audienceScore])
+            if stumpScore[.panelScore] != 0 || stumpScore[.audienceScore] != 0 {
+                scoreLabels.forEach { $0.alpha = 1 }
+            } else {
+                scoreLabels.forEach { $0.alpha = 0 }
+            }
         }
     }
 
