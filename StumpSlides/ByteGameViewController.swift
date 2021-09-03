@@ -70,8 +70,8 @@ class ByteGameViewController: UIViewController {
     var attendeeScore = 0
     var speakerScore = 0
     var activeBit = 0
-    let timeLimits: [TimeInterval] = [10, 20, 30, 40, 50, 60, 70, 80]
-    var remainingTime: TimeInterval = 0
+    // Start at 8 seconds, double every time, max out at 255 (the max 8-bit unsigned value)
+    let timeLimits: [Int] = [8, 16, 32, 64, 128, 255, 255, 255]
     var remainingTime: Int = 0
     var questionTimer: Timer?
     
