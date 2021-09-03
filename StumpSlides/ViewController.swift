@@ -53,7 +53,20 @@ class ViewController: UIViewController {
     var pageSynchronizer: PDFPageSynchronizer?
     var skipNextPageChangeNotification = false
     
-    var menuVisible = false
+    var menuVisible = false {
+        didSet {
+            self.menuButtons.forEach {
+                $0.isHidden = !menuVisible
+            }
+            if menuVisible {
+                menuBackground.backgroundColor = UIColor(white: 1.0, alpha: 0.6)
+                menuControlButton.tintColor = .black
+            } else {
+                menuBackground.backgroundColor = .clear
+                menuControlButton.tintColor = .white
+            }
+        }
+    }
     @IBOutlet weak var disconnectButton: UIButton!
     @IBOutlet var menuButtons: [UIButton]! {
         didSet {
@@ -374,6 +387,7 @@ class ViewController: UIViewController {
     }
     @objc func pdfViewTapped() -> Void {
         showOrHide(view: thumbnailContainerView)
+        menuVisible = false
     }
 
     @IBAction func browseForPeers(_ sender: Any) {
@@ -387,17 +401,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func showHideMenu() {
-        self.menuButtons.forEach {
-            $0.isHidden.toggle()
-        }
         menuVisible.toggle()
-        if menuVisible {
-            menuBackground.backgroundColor = UIColor(white: 1.0, alpha: 0.6)
-            menuControlButton.tintColor = .black
-        } else {
-            menuBackground.backgroundColor = .clear
-            menuControlButton.tintColor = .white
-        }
     }
     
     @IBAction func openDocument() {
