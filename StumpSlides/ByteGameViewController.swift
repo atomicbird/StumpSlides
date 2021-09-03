@@ -183,9 +183,9 @@ class ByteGameViewController: UIViewController {
         }
         
         totalScoreStyleSwitch.setTitleTextAttributes([.font: UIFont(name: fontName, size: scoreFont.pointSize/6.0) as Any, .foregroundColor: UIColor.green as Any], for: .normal)
-        bitIndicatorLabels.forEach { $0.font = UIFont(name: fontName, size: scoreFont.pointSize/2.0) }
+        bitIndicatorLabels.forEach { $0.font = UIFont(name: fontName, size: scoreFont.pointSize/3.0) }
         byteHeaderLabels.forEach { $0.font = UIFont(name: fontName, size: scoreFont.pointSize * 0.75) }
-        timerButton.titleLabel?.font = UIFont(name: fontName, size: scoreFont.pointSize * 0.75)
+        timerButton.titleLabel?.font = UIFont(name: fontName, size: scoreFont.pointSize * 0.5)
     }
     
     @IBAction func dismiss(_ sender: Any) {
