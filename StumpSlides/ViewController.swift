@@ -366,6 +366,7 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        becomeFirstResponder() // Make sure keyboard presses work
         // If we didn't load a previously-viewed document, ask the user to open something.
         if pdfDocument == nil, !documentDownloadInProgress {
             openDocument()
