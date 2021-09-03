@@ -563,8 +563,8 @@ extension ViewController: PDFPageSynchronizerDelegate {
         }
     }
     
-    var pdfDocumentPageCount: Int {
-        return pdfDocument.pageCount
+    var pdfDocumentPageCount: Int? {
+        return pdfDocument?.pageCount
     }
 
     func pdfPageSynchronizerPeersUpdated(_: PDFPageSynchronizer) -> Void {
