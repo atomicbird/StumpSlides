@@ -204,8 +204,7 @@ class ViewController: UIViewController {
         stumpmojiWatcher.startWatching()
         
         if usePageSynchronizer {
-            pageSynchronizer = PDFPageSynchronizer(with: self)
-            pageSynchronizer?.startHosting()
+            pageSynchronizer = PDFPageSynchronizer(delegate: self)
         }
 
         loadPreviousDocument()
@@ -404,7 +403,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func browseForPeers(_ sender: Any) {
-        pageSynchronizer?.browseForPeers()
+        pageSynchronizer?.browseForPeers(presentingViewController: self)
         showHideMenu()
     }
     
@@ -577,7 +576,12 @@ class ViewController: UIViewController {
         else { return }
         let savedPageNumber = coder.decodeInteger(forKey: StateRestorationKeys.pageNumber.rawValue)
         if usePageSynchronizer {
-            pageSynchronizer = PDFPageSynchronizer(with: self, pageNumber: savedPageNumber)
+            if pageSynchronizer == nil {
+                pageSynchronizer = PDFPageSynchronizer(delegate: self, pageNumber: savedPageNumber)
+                pageSynchronizer?.startHosting()
+            } else {
+                pageSynchronizer?.updateHosting()
+            }
         }
         pdfView.go(to: savedPageNumber)
         logMilestone()
@@ -586,6 +590,10 @@ class ViewController: UIViewController {
 
 // MARK: - PDFPageSynchronizerDelegate
 extension ViewController: PDFPageSynchronizerDelegate {
+    func pdfPageSynchrinizer(_: PDFPageSynchronizer, postedStatus: String) {
+        logMilestone("Page sync message: \(postedStatus)")
+    }
+    
     func pdfPageSynchronizer(_: PDFPageSynchronizer, didReceivePage page: Int) {
         DispatchQueue.main.async {
             if page <= self.pdfDocument.pageCount {
