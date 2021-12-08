@@ -6,6 +6,8 @@
 //  Copyright © 2019 Atomic Bird LLC. All rights reserved.
 //
 
+// asdf
+
 import UIKit
 
 class StumpmojiView: UIView {
