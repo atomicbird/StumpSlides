@@ -16,7 +16,6 @@
 		EE32E14D23625C48006D6827 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE32E14C23625C48006D6827 /* UIView+Extensions.swift */; };
 		EE450F672698EEA200582A11 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE450F662698EEA200582A11 /* GoogleService-Info.plist */; };
 		EE450F692698F92B00582A11 /* Oleg Stepanov - LevelUp.otf in Resources */ = {isa = PBXBuildFile; fileRef = EE450F682698F92B00582A11 /* Oleg Stepanov - LevelUp.otf */; };
-		EE4C0FDF26A777C600BFCDDE /* ByteGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4C0FDE26A777C600BFCDDE /* ByteGameViewController.swift */; };
 		EE528C1E230CE74E00065971 /* dogcow.png in Resources */ = {isa = PBXBuildFile; fileRef = EE528C1D230CE74E00065971 /* dogcow.png */; };
 		EE528C22230CE9DE00065971 /* 360iDev.png in Resources */ = {isa = PBXBuildFile; fileRef = EE528C21230CE9DE00065971 /* 360iDev.png */; };
 		EE528C24230CEBEF00065971 /* apple-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = EE528C23230CEBEF00065971 /* apple-logo.png */; };
@@ -69,7 +68,6 @@
 		EE32E14E23625D3E006D6827 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		EE450F662698EEA200582A11 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EE450F682698F92B00582A11 /* Oleg Stepanov - LevelUp.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oleg Stepanov - LevelUp.otf"; sourceTree = "<group>"; };
-		EE4C0FDE26A777C600BFCDDE /* ByteGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ByteGameViewController.swift; sourceTree = "<group>"; };
 		EE528C1D230CE74E00065971 /* dogcow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dogcow.png; sourceTree = "<group>"; };
 		EE528C21230CE9DE00065971 /* 360iDev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 360iDev.png; sourceTree = "<group>"; };
 		EE528C23230CEBEF00065971 /* apple-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "apple-logo.png"; sourceTree = "<group>"; };
@@ -180,7 +178,6 @@
 				EE528C23230CEBEF00065971 /* apple-logo.png */,
 				EED8D75326BDF3FE002DB0CC /* Thinking.mov */,
 				EE91FA02230396F5003C716D /* Main.storyboard */,
-				EE4C0FDE26A777C600BFCDDE /* ByteGameViewController.swift */,
 				EE20921F26C8726700534278 /* TimerViewController.swift */,
 				EE91FA05230396F6003C716D /* Assets.xcassets */,
 				EE91FA07230396F6003C716D /* LaunchScreen.storyboard */,
@@ -447,7 +444,6 @@
 				EE32E0D32357BDAF006D6827 /* PDFView+Extensions.swift in Sources */,
 				EE32E14D23625C48006D6827 /* UIView+Extensions.swift in Sources */,
 				EE91F9FF230396F5003C716D /* AppDelegate.swift in Sources */,
-				EE4C0FDF26A777C600BFCDDE /* ByteGameViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

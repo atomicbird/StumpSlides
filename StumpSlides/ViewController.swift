@@ -104,7 +104,6 @@ class ViewController: UIViewController {
     }
     
     @IBOutlet var scoreLabels: [UILabel]! { didSet { scoreLabels.forEach { $0.alpha = 0 }}}
-    @IBOutlet weak var byteGameButton: UIButton!
     var stumpScore = StumpScores() {
         didSet {
             panelScore.text = String(stumpScore[.panelScore])
@@ -249,7 +248,6 @@ class ViewController: UIViewController {
         
         disconnectButton.isEnabled = false
         view.bringSubviewToFront(menuBackground)
-        view.bringSubviewToFront(byteGameButton)
         view.bringSubviewToFront(scoreStack)
     }
     
@@ -393,10 +391,6 @@ class ViewController: UIViewController {
             openDocument()
         }
         logMilestone()
-        
-        if let byteGameVC = byteGameController {
-            byteGameScores = (speakers:byteGameVC.speakerScore, attendees:byteGameVC.attendeeScore)
-        }
     }
 
     override var prefersStatusBarHidden: Bool { return true }
@@ -476,46 +470,6 @@ class ViewController: UIViewController {
                 self.thinkingVC.player?.pause()
             }
             NotificationCenter.default.removeObserver(observerRef)
-        }
-    }
-    
-    var byteGameController: ByteGameViewController?
-    var byteGameScores: (speakers:Int, attendees:Int)?
-    
-    @IBAction func showByteGame(_ sender: Any) {
-        guard let byteGameVC = byteGameController ?? self.storyboard?.instantiateViewController(withIdentifier: "ByteGameViewController") as? ByteGameViewController else { return }
-        byteGameController = byteGameVC
-        if let previousScores = byteGameScores {
-            byteGameController?.attendeeScore = previousScores.attendees
-            byteGameController?.speakerScore = previousScores.speakers
-        }
-        
-        addChild(byteGameVC)
-        byteGameVC.view.frame = view.bounds
-        byteGameVC.view.translatesAutoresizingMaskIntoConstraints = false
-        byteGameVC.view.alpha = 0.0
-        view.addSubview(byteGameVC.view)
-        view.bringSubviewToFront(byteGameVC.view)
-        
-        // Constraints are applied by ByteGameViewController's `didMove(toParent:)`.
-        
-        byteGameVC.didMove(toParent: self)
-        
-        byteGameVC.dismissHandler = { (byteGameVC) in
-            UIView.animate(withDuration: 0.3) {
-                byteGameVC.view.frame.origin.y = self.view.frame.height
-                byteGameVC.view.alpha = 0.0
-            } completion: { _ in
-                byteGameVC.didMove(toParent: nil)
-                byteGameVC.view.removeFromSuperview()
-                byteGameVC.removeFromParent()
-            }
-        }
-        
-        byteGameVC.timerExpired = { [weak self] in
-            if let self = self, !self.children.contains(byteGameVC) {
-                self.showByteGame(self)
-            }
         }
     }
     
