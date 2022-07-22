@@ -133,7 +133,9 @@ class PDFPageSynchronizer: NSObject {
         }
     }
     
-    var peerCount: Int { return mcSession.connectedPeers.count }
+//    var peerCount: Int { return mcSession.connectedPeers.count }
+    var connectedPeers: [String] { mcSession.connectedPeers.map { $0.displayName }}
+    var connected: Bool { !mcSession.connectedPeers.isEmpty } // At least one peer is connected
     
     fileprivate func send(_ pageSend: PageSend) -> Void {
         logMilestone("Asked to send page \(pageSend.pageNumber) with type \(pageSend.sendType.rawValue)")

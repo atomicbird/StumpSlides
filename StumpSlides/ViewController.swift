@@ -48,8 +48,10 @@ class ViewController: UIViewController {
     // Without some extra padding, PDFThumbnailView has geometry trouble with PDFs more than around 20 pages long when the scroll view is used. Tapping on a thumbnail may bring up an adjacent page instead of the tapped page, and the enlarged "selected" view of the thumbnail will be off center. This was reported in FB7379442, 2019-10-15.
     // Adding a little horizontal padding gets normal behavior on iOS 13.1 but this is not documented and is something I found by experimenting.
     let pdfThumbnailPerPagePadding = 2
-    lazy var pdfThumbnailEndPadding: Int = { return thumbnailSize / 2 }()
-    
+    // Padding at the leading and trailing edges of the thumbnail view. Purely aesthetic, no functional effect.
+    lazy var pdfThumbnailEndPadding: Int = { return 0 }()
+//    lazy var pdfThumbnailEndPadding: Int = { return thumbnailSize / 2 }()
+
     var pageSynchronizer: PDFPageSynchronizer?
     var skipNextPageChangeNotification = false
     
@@ -124,6 +126,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        let asdf = PDFAnnotation(bounds: <#T##CGRect#>, forType: <#T##PDFAnnotationSubtype#>, withProperties: <#T##[AnyHashable : Any]?#>)
         // Add PDF view
         pdfView = PDFView(frame: view.bounds)
         pdfView.displayMode = .singlePage
@@ -215,6 +218,7 @@ class ViewController: UIViewController {
         // - When the user moves to a new page.
         NotificationCenter.default.addObserver(forName: .PDFViewPageChanged, object: nil, queue: OperationQueue.main) { [weak self] (notification) in
             logMilestone("Page change notification")
+                // Sometimes the PDF view doesn't update when stopping to think and sending a page. The thumbnail view does update, though. Dispatching to main here doesn't fix it.
             self?.stopToThink()
             guard let self = self else { return }
             // Ignore a page change notification that happens when loading a PDF (when assigning to pdfView.document). Page sync messages should only be sent when the user changes the page.
@@ -226,9 +230,15 @@ class ViewController: UIViewController {
             logMilestone("Current page: \(String(describing: self.pdfView.currentPage))")
             logMilestone("Visible pages: \(self.pdfView.visiblePages)")
             if let currentPage = self.pdfView.currentPage {
+//                self.pdfView.go(to: currentPage)
+//                self.pdfView.setNeedsDisplay()
                 let pageIndex = self.pdfDocument.index(for: currentPage)
                 logMilestone("Sending page index: \(pageIndex)")
                 self.pageSynchronizer?.send(pageNumber: pageIndex)
+            }
+            
+            DispatchQueue.main.async {
+                self.pdfView.setNeedsLayout()
             }
         }
         
@@ -241,6 +251,12 @@ class ViewController: UIViewController {
         view.bringSubviewToFront(menuBackground)
         view.bringSubviewToFront(byteGameButton)
         view.bringSubviewToFront(scoreStack)
+    }
+    
+    override func buildMenu(with builder: UIMenuBuilder) {
+        // Not getting called
+        super.buildMenu(with: builder)
+        builder.remove(menu: UIMenu.Identifier.file)
     }
     
     /// If there's a bookmark to a previously viewed document, and it still works, load that PDF.
@@ -607,7 +623,7 @@ extension ViewController: PDFPageSynchronizerDelegate {
     }
 
     func pdfPageSynchronizerPeersUpdated(_: PDFPageSynchronizer) -> Void {
-        disconnectButton.isEnabled = pageSynchronizer?.peerCount != 0
+        disconnectButton.isEnabled = pageSynchronizer?.connected ?? false
     }
 
 }
