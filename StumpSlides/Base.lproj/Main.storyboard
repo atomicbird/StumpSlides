@@ -140,21 +140,33 @@
                                     <constraint firstAttribute="height" constant="62" id="amf-4r-cVI"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hO3-nW-zZ2">
+                                <rect key="frame" x="20" y="967" width="47" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="💥"/>
+                                <connections>
+                                    <action selector="addSomeEmoji:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aAC-E5-Cpi"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wh2-Nj-T5N" secondAttribute="trailing" constant="20" id="0J0-3I-R53"/>
                             <constraint firstItem="woZ-EZ-GHS" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="2le-y9-g6y"/>
+                            <constraint firstItem="hO3-nW-zZ2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="7Y4-av-o8N"/>
                             <constraint firstItem="3fn-66-8RY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="8Gs-gy-85r"/>
+                            <constraint firstItem="hO3-nW-zZ2" firstAttribute="centerY" secondItem="3qm-HM-nI9" secondAttribute="centerY" id="Dat-Hf-L0S"/>
                             <constraint firstItem="wh2-Nj-T5N" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="SKR-dw-gDa"/>
                             <constraint firstItem="3fn-66-8RY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="gXs-wE-ilu"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="woZ-EZ-GHS" secondAttribute="bottom" id="rYt-Xh-yYI"/>
+                            <constraint firstItem="3qm-HM-nI9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hO3-nW-zZ2" secondAttribute="trailing" id="zC8-Co-zyb"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="attendeeScore" destination="n2e-2u-M6R" id="xXE-tv-flo"/>
                         <outlet property="disconnectButton" destination="12O-SL-cDJ" id="VoK-7g-JqH"/>
+                        <outlet property="emojiDemoButton" destination="hO3-nW-zZ2" id="a2P-mh-oSN"/>
                         <outlet property="iCloudDownloadingView" destination="0Sr-3G-g6c" id="TxU-MF-UoL"/>
                         <outlet property="menuBackground" destination="3fn-66-8RY" id="Fmi-fc-loZ"/>
                         <outlet property="menuContainer" destination="Hby-Eg-arP" id="rc1-oz-0aU"/>

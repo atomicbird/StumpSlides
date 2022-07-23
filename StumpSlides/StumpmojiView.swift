@@ -22,6 +22,8 @@ class StumpmojiView: UIView {
     
     static let messageColors: [UIColor] = [.red, .orange, .yellow, .green, .blue, .purple]
 
+    static let allowedMessages = ["😀", "🔥", "🤩", "😍", "🎉", "✅", "❌", "🌈", "🌟", "❤️", "🍪", "🍔", "🌶", "♻️", "❤️", "💥", "🎈", "💩", "🤖", "🤮", "💯", "❓", "❗️", "🆗", "🍺", "🍷", "📱", "💡", "😱", "dogcow", "360iDev", "apple-logo"]
+    
     func addMessage(_ message: String) -> Void {
         let messageInitialXPosition = CGFloat.random(in: 20...frame.maxX-20)
         
@@ -54,6 +56,16 @@ class StumpmojiView: UIView {
             messageView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5).concatenating(CGAffineTransform(rotationAngle: animationRotation))
         }) { (_) in
             messageView.removeFromSuperview()
+        }
+    }
+    
+    func addRandomMessages() -> Void {
+        for _ in 1...100 {
+//            addMessage(StumpmojiView.allowedMessages.randomElement()!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(Int.random(in: 1...10000))) {
+                self.addMessage(StumpmojiView.allowedMessages.randomElement()!)
+            }
+            
         }
     }
 }

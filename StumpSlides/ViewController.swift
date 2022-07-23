@@ -122,6 +122,8 @@ class ViewController: UIViewController {
         return vc
     }()
     
+    @IBOutlet var emojiDemoButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -249,6 +251,7 @@ class ViewController: UIViewController {
         disconnectButton.isEnabled = false
         view.bringSubviewToFront(menuBackground)
         view.bringSubviewToFront(scoreStack)
+        view.bringSubviewToFront(emojiDemoButton)
     }
     
     override func buildMenu(with builder: UIMenuBuilder) {
@@ -479,6 +482,10 @@ class ViewController: UIViewController {
         } else {
             hideTimer()
         }
+    }
+    
+    @IBAction func addSomeEmoji(_ sender: Any) {
+        stumpMojis.addRandomMessages()
     }
     
     func showTimer() {
