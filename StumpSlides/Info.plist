@@ -29,6 +29,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Oleg Stepanov - LevelUp.otf</string>
+		<string>LucidaGrande.ttc</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

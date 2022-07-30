@@ -92,9 +92,38 @@ class ViewController: UIViewController {
             menuControlButton.setImage(image, for: .normal)
         }
     }
+    @IBOutlet var pdfContainer: UIView!
     @IBOutlet weak var scoreStack: UIStackView!
     @IBOutlet weak var panelScore: UILabel!
     @IBOutlet weak var attendeeScore: UILabel!
+    @IBOutlet var windowBarContainer: UIView!
+    @IBOutlet var windowBarImageView: UIImageView! {
+        didSet {
+            let rawWindowBarImage = UIImage(named: "Cheetah window bar.png")!
+            let stretchableWindowBarImage = rawWindowBarImage.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 75, bottom: 0, right: 35))
+            windowBarImageView.image = stretchableWindowBarImage
+        }
+    }
+    @IBOutlet var menuBarImageView: UIImageView! {
+        didSet {
+            let rawMenuBarImage = UIImage(named: "Cheetah menu bar.png")!
+            let stretchableMenuBarImage = rawMenuBarImage.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 400, bottom: 0, right: 10), resizingMode: .stretch)
+            menuBarImageView.image = stretchableMenuBarImage
+        }
+    }
+    @IBOutlet var menuBarTimeLabel: UILabel! {
+        didSet {
+            menuBarTimeLabel.text = menuBarDateFormatter.string(from: Date())
+            Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+                self.menuBarTimeLabel.text = self.menuBarDateFormatter.string(from: Date())
+            }
+        }
+    }
+    let menuBarDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEE h:mm a"
+        return formatter
+    }()
     
     @IBOutlet var iCloudDownloadingView: UIView! {
         didSet {
@@ -127,6 +156,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = UIColor(patternImage: UIImage(named: "10-0_10.1.png")!)
 //        let asdf = PDFAnnotation(bounds: <#T##CGRect#>, forType: <#T##PDFAnnotationSubtype#>, withProperties: <#T##[AnyHashable : Any]?#>)
         // Add PDF view
         pdfView = PDFView(frame: view.bounds)
@@ -135,7 +165,20 @@ class ViewController: UIViewController {
         pdfView.autoScales = true
         pdfView.usePageViewController(true, withViewOptions: nil)
         pdfView.backgroundColor = .black
-        view.addSubviewAndConstrain(pdfView)
+        
+        // Make PDFView equal to view's width, centered horizontally, with a 16:9 aspect ratio
+        pdfContainer.addSubviewAndConstrain(pdfView)
+//        pdfView.frame = view.bounds
+//        pdfView.translatesAutoresizingMaskIntoConstraints = false
+//        pdfView.alpha = 1.0
+//        view.addSubview(pdfView)
+//        NSLayoutConstraint.activate([
+//            view.leadingAnchor.constraint(equalTo: pdfView.leadingAnchor, constant: -100),
+//            view.trailingAnchor.constraint(equalTo: pdfView.trailingAnchor, constant: 100),
+//            view.centerYAnchor.constraint(equalTo: pdfView.centerYAnchor),
+//            pdfView.widthAnchor.constraint(equalTo: pdfView.heightAnchor, multiplier: (16.0/9.0))
+//        ])
+//        view.addSubviewAndConstrain(pdfView)
         
         // Add thumbnails but hide them for now. First the actual thumbnail viewer.
         pdfThumbnailView = PDFThumbnailView()
