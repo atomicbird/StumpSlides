@@ -124,6 +124,14 @@ class ViewController: UIViewController {
         formatter.dateFormat = "EEE h:mm a"
         return formatter
     }()
+    @IBOutlet var scoreContainerView: UIView!
+    @IBOutlet var scoreContainerBackground: UIImageView! {
+        didSet {
+            let rawStickiesBackground = UIImage(named: "stickies-background.png")!
+            let stretchableStickiesBackground = rawStickiesBackground.resizableImage(withCapInsets: UIEdgeInsets(top: 12, left: 22, bottom: 0, right: 33), resizingMode: .stretch)
+            scoreContainerBackground.image = stretchableStickiesBackground
+        }
+    }
     
     @IBOutlet var iCloudDownloadingView: UIView! {
         didSet {
