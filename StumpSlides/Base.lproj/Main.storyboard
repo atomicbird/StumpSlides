@@ -290,9 +290,12 @@
                                     <rect key="frame" x="0.0" y="59" width="220" height="29"/>
                                     <fontDescription key="fontDescription" name="LucidaGrande-Bold" family="Lucida Grande" pointSize="14"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" title="Open Video...">
+                                    <state key="normal" title="Play Video...">
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
+                                    <connections>
+                                        <action selector="openVideo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vJs-qz-TWJ"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u5i-x0-f16">
                                     <rect key="frame" x="0.0" y="88" width="220" height="29"/>

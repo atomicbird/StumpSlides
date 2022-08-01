@@ -428,6 +428,35 @@ class ViewController: UIViewController {
         }
     }
     
+    lazy var introVideoVC: AVPlayerViewController = {
+        let controller = AVPlayerViewController()
+        controller.showsPlaybackControls = true
+        controller.entersFullScreenWhenPlaybackBegins = true
+        controller.delegate = self
+        return controller
+    }()
+    var introVideoLoopingObserver: Any?
+    
+    func play(video videoURL: URL) {
+        guard videoURL.startAccessingSecurityScopedResource() else {
+            print("Could not access url \(videoURL)")
+            return
+        }
+        let player = AVPlayer(url: videoURL)
+        introVideoVC.player = player
+        
+        present(introVideoVC, animated: false) {
+            self.introVideoVC.player?.play()
+        }
+        
+        // Looping isn't built in so do this to replay when the video ends
+        introVideoLoopingObserver = NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: introVideoVC.player?.currentItem, queue: .main) { [weak self] _ in
+            self?.introVideoVC.player?.currentItem?.seek(to: .zero) { _ in
+                self?.introVideoVC.player?.play()
+            }
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
@@ -485,6 +514,16 @@ class ViewController: UIViewController {
         showHideMenu()
     }
 
+    @IBAction func openVideo(_ sender: Any) {
+        let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.video, .movie])
+        documentPicker.allowsMultipleSelection = false
+        documentPicker.shouldShowFileExtensions = true
+        documentPicker.delegate = self
+        self.modalPresentationStyle = .fullScreen
+        present(documentPicker, animated: true, completion: nil)
+        showHideMenu()
+    }
+    
     lazy var thinkingVC: AVPlayerViewController = {
         let controller = AVPlayerViewController()
         guard let url = Bundle.main.url(forResource: "Thinking", withExtension: "mov") else { fatalError() }
@@ -643,6 +682,26 @@ extension ViewController: UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         logMilestone("Document picker picked \(urls)")
         guard !urls.isEmpty else { return }
-        load(documentURL: urls[0])
+        let url = urls[0]
+        
+        guard url.startAccessingSecurityScopedResource(),
+            let resourceValues = try? url.resourceValues(forKeys: [.contentTypeKey]),
+              let contentType = resourceValues.contentType
+        else { return }
+        url.stopAccessingSecurityScopedResource()
+        if contentType.conforms(to: .pdf) {
+            load(documentURL: urls[0])
+        } else if contentType.conforms(to: .video) || contentType.conforms(to: .movie) {
+            play(video: url)
+        }
+    }
+}
+
+extension ViewController: AVPlayerViewControllerDelegate {
+    func playerViewController(_ playerViewController: AVPlayerViewController, willEndFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        logMilestone("View controller ending full screen")
+        if let introVideoLoopingObserver = introVideoLoopingObserver {
+            NotificationCenter.default.removeObserver(introVideoLoopingObserver)
+        }
     }
 }
