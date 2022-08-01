@@ -269,13 +269,35 @@ class ViewController: UIViewController {
         cheetahMenuContainer.isHidden = true
         view.addSubview(cheetahMenuContainer)
         NSLayoutConstraint.activate([
-            cheetahMenuContainer.topAnchor.constraint(equalTo: cheetahMenuBarImageView.bottomAnchor, constant: -2),
+            cheetahMenuContainer.topAnchor.constraint(equalTo: cheetahMenuBarImageView.bottomAnchor, constant: 0),
             cheetahMenuContainer.leadingAnchor.constraint(equalTo: cheetahFileMenuButton.leadingAnchor)
         ])
         
         disconnectButton.isEnabled = false
         view.bringSubviewToFront(scoreStack)
         view.bringSubviewToFront(emojiDemoButton)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        addShadowPath(to: cheetahMenuContainer)
+        addShadowPath(to: scoreContainerView)
+        addShadowPath(to: pdfContainer)
+    }
+    
+    func addShadowPath(to viewToShadow:  UIView) -> Void {
+        viewToShadow.layer.shadowColor = UIColor.darkGray.cgColor
+        viewToShadow.layer.shadowOpacity = 1
+        viewToShadow.layer.shadowOffset = .zero
+        viewToShadow.layer.shadowRadius = 7
+
+        let shadowPath = CGMutablePath()
+        shadowPath.move(to: CGPoint(x: viewToShadow.bounds.minX, y: viewToShadow.bounds.minY))
+        shadowPath.addLine(to: CGPoint(x: viewToShadow.bounds.minX, y: viewToShadow.bounds.maxY))
+        shadowPath.addLine(to: CGPoint(x: viewToShadow.bounds.maxX, y: viewToShadow.bounds.maxY))
+        shadowPath.addLine(to: CGPoint(x: viewToShadow.bounds.maxX, y: viewToShadow.bounds.minY))
+        viewToShadow.layer.shadowPath = shadowPath
     }
     
     override func buildMenu(with builder: UIMenuBuilder) {
