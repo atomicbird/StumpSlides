@@ -57,41 +57,10 @@ class ViewController: UIViewController {
     
     var menuVisible = false {
         didSet {
-            self.menuButtons.forEach {
-                $0.isHidden = !menuVisible
-            }
-            if menuVisible {
-                menuBackground.backgroundColor = UIColor(white: 1.0, alpha: 0.6)
-                menuControlButton.tintColor = .black
-            } else {
-                menuBackground.backgroundColor = .clear
-                menuControlButton.tintColor = .white
-            }
+            cheetahMenuContainer.isHidden = !menuVisible
         }
     }
     @IBOutlet weak var disconnectButton: UIButton!
-    @IBOutlet var menuButtons: [UIButton]! {
-        didSet {
-            menuButtons.forEach {
-                $0.setTitleColor(.black, for: .normal)
-                $0.isHidden = true
-            }
-        }
-    }
-    @IBOutlet weak var menuBackground: UIView! {
-        didSet {
-            menuBackground.backgroundColor = .clear
-            menuBackground.layer.cornerRadius = 10.0
-        }
-    }
-    @IBOutlet weak var menuContainer: UIStackView!
-    @IBOutlet weak var menuControlButton: UIButton! {
-        didSet {
-            let image = UIImage(systemName: "line.horizontal.3")
-            menuControlButton.setTitle("", for: .normal)
-            menuControlButton.setImage(image, for: .normal)
-        }
-    }
     @IBOutlet var pdfContainer: UIView!
     @IBOutlet weak var scoreStack: UIStackView!
     @IBOutlet weak var panelScore: UILabel!
@@ -102,13 +71,6 @@ class ViewController: UIViewController {
             let rawWindowBarImage = UIImage(named: "Cheetah window bar.png")!
             let stretchableWindowBarImage = rawWindowBarImage.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 75, bottom: 0, right: 35))
             windowBarImageView.image = stretchableWindowBarImage
-        }
-    }
-    @IBOutlet var menuBarImageView: UIImageView! {
-        didSet {
-            let rawMenuBarImage = UIImage(named: "Cheetah menu bar.png")!
-            let stretchableMenuBarImage = rawMenuBarImage.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 400, bottom: 0, right: 10), resizingMode: .stretch)
-            menuBarImageView.image = stretchableMenuBarImage
         }
     }
     @IBOutlet var menuBarTimeLabel: UILabel! {
@@ -124,6 +86,21 @@ class ViewController: UIViewController {
         formatter.dateFormat = "EEE h:mm a"
         return formatter
     }()
+    @IBOutlet var cheetahMenuBarImageView: UIImageView! {
+        didSet {
+            let rawMenuBarImage = UIImage(named: "Cheetah menu bar blank.png")!
+            let stretchableMenuBarImage = rawMenuBarImage.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 36, bottom: 0, right: 10), resizingMode: .stretch)
+            cheetahMenuBarImageView.image = stretchableMenuBarImage
+        }
+    }
+    @IBOutlet var cheetahFileMenuButton: UIButton!
+    @IBOutlet var cheetahMenuContainer: UIView! {
+        didSet {
+            let stripePattern = UIImage(named: "Cheetah stripes.png")!
+            let backgroud = UIColor(patternImage: stripePattern)
+            cheetahMenuContainer.backgroundColor = backgroud
+        }
+    }
     @IBOutlet var scoreContainerView: UIView!
     @IBOutlet var scoreContainerBackground: UIImageView! {
         didSet {
@@ -176,17 +153,6 @@ class ViewController: UIViewController {
         
         // Make PDFView equal to view's width, centered horizontally, with a 16:9 aspect ratio
         pdfContainer.addSubviewAndConstrain(pdfView)
-//        pdfView.frame = view.bounds
-//        pdfView.translatesAutoresizingMaskIntoConstraints = false
-//        pdfView.alpha = 1.0
-//        view.addSubview(pdfView)
-//        NSLayoutConstraint.activate([
-//            view.leadingAnchor.constraint(equalTo: pdfView.leadingAnchor, constant: -100),
-//            view.trailingAnchor.constraint(equalTo: pdfView.trailingAnchor, constant: 100),
-//            view.centerYAnchor.constraint(equalTo: pdfView.centerYAnchor),
-//            pdfView.widthAnchor.constraint(equalTo: pdfView.heightAnchor, multiplier: (16.0/9.0))
-//        ])
-//        view.addSubviewAndConstrain(pdfView)
         
         // Add thumbnails but hide them for now. First the actual thumbnail viewer.
         pdfThumbnailView = PDFThumbnailView()
@@ -299,8 +265,15 @@ class ViewController: UIViewController {
             logMilestone("PDF document changed")
         }
         
+        cheetahMenuContainer.translatesAutoresizingMaskIntoConstraints = false
+        cheetahMenuContainer.isHidden = true
+        view.addSubview(cheetahMenuContainer)
+        NSLayoutConstraint.activate([
+            cheetahMenuContainer.topAnchor.constraint(equalTo: cheetahMenuBarImageView.bottomAnchor, constant: -2),
+            cheetahMenuContainer.leadingAnchor.constraint(equalTo: cheetahFileMenuButton.leadingAnchor)
+        ])
+        
         disconnectButton.isEnabled = false
-        view.bringSubviewToFront(menuBackground)
         view.bringSubviewToFront(scoreStack)
         view.bringSubviewToFront(emojiDemoButton)
     }
