@@ -149,7 +149,7 @@ class ViewController: UIViewController {
         pdfView.displayDirection = .horizontal
         pdfView.autoScales = true
         pdfView.usePageViewController(true, withViewOptions: nil)
-        pdfView.backgroundColor = .black
+        pdfView.backgroundColor = .white
         
         // Make PDFView equal to view's width, centered horizontally, with a 16:9 aspect ratio
         pdfContainer.addSubviewAndConstrain(pdfView)
@@ -237,7 +237,7 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(forName: .PDFViewPageChanged, object: nil, queue: OperationQueue.main) { [weak self] (notification) in
             logMilestone("Page change notification")
                 // Sometimes the PDF view doesn't update when stopping to think and sending a page. The thumbnail view does update, though. Dispatching to main here doesn't fix it.
-            self?.stopToThink()
+            self?.showBeachball()
             guard let self = self else { return }
             // Ignore a page change notification that happens when loading a PDF (when assigning to pdfView.document). Page sync messages should only be sent when the user changes the page.
             guard !self.skipNextPageChangeNotification else {
@@ -524,40 +524,55 @@ class ViewController: UIViewController {
         showHideMenu()
     }
     
-    lazy var thinkingVC: AVPlayerViewController = {
-        let controller = AVPlayerViewController()
-        guard let url = Bundle.main.url(forResource: "Thinking", withExtension: "mov") else { fatalError() }
-        let player = AVPlayer(url: url)
-        controller.player = player
-        controller.showsPlaybackControls = false
-
-        return controller
+    let shoeBeachballProbability = 0.1
+    let showBeachballTime = 2
+    
+    var beachballImages: [UIImage] = {
+        var images = [UIImage]()
+        images.append(contentsOf: [
+            UIImage(named: "spinning-beachball 2.png")!,
+            UIImage(named: "spinning-beachball 3.png")!,
+            UIImage(named: "spinning-beachball 4.png")!,
+            UIImage(named: "spinning-beachball 5.png")!,
+            UIImage(named: "spinning-beachball 6.png")!,
+            UIImage(named: "spinning-beachball 7.png")!,
+            UIImage(named: "spinning-beachball 8.png")!,
+            UIImage(named: "spinning-beachball 9.png")!,
+            UIImage(named: "spinning-beachball 10.png")!,
+            UIImage(named: "spinning-beachball 11.png")!,
+            UIImage(named: "spinning-beachball 12.png")!,
+            UIImage(named: "spinning-beachball.png")!,
+        ])
+        return images
     }()
+    var beachballImageView: UIImageView?
+    var beachballView: UIView?
     
-    let stopToThinkProbability = 0.1
-    
-    func stopToThink() -> Void {
-        guard presentedViewController == nil else { return }
-        
+    func showBeachball() -> Void {
         let limit: Double = 100
-        guard Double.random(in: 1...limit) < stopToThinkProbability * 100.0 else { return }
-        
-        present(thinkingVC, animated: false) {
-            self.thinkingVC.player?.play()
-        }
-        
-        let observerRef = NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: thinkingVC.player?.currentItem, queue: OperationQueue.main) { [weak self] notification in
-            print("Notification: \(notification)")
-            self?.thinkingVC.player?.currentItem?.seek(to: CMTime.zero) { _ in
-                self?.thinkingVC.player?.play()
-            }
-        }
+        guard Double.random(in: 1...limit) < shoeBeachballProbability * 100.0 else { return }
 
-        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
-            self.thinkingVC.dismiss(animated: false) {
-                self.thinkingVC.player?.pause()
-            }
-            NotificationCenter.default.removeObserver(observerRef)
+        if beachballImageView == nil {
+            let background = UIView(frame: pdfContainer.frame)
+            background.backgroundColor = .white
+            beachballView = background
+            
+            let ballView = UIImageView(frame: pdfContainer.frame)
+            ballView.animationImages = beachballImages
+            ballView.animationDuration = 1
+            ballView.contentMode = .scaleAspectFit
+            ballView.backgroundColor = .white
+            beachballImageView = ballView
+            
+            background.addSubviewAndConstrain(ballView, inset: UIEdgeInsets(top: -40, left: 0, bottom: 40, right: 0))
+        }
+        
+        pdfContainer.addSubviewAndConstrain(beachballView!)
+        pdfContainer.bringSubviewToFront(beachballView!)
+        beachballImageView?.startAnimating()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(showBeachballTime)) {
+            self.beachballView?.removeFromSuperview()
         }
     }
     
