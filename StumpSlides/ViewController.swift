@@ -446,6 +446,9 @@ class ViewController: UIViewController {
         let player = AVPlayer(url: videoURL)
         introVideoVC.player = player
         
+        stumpMojis.removeFromSuperview()
+        introVideoVC.contentOverlayView?.addSubviewAndConstrain(stumpMojis)
+        
         present(introVideoVC, animated: false) {
             self.introVideoVC.player?.play()
         }
@@ -721,5 +724,8 @@ extension ViewController: AVPlayerViewControllerDelegate {
         if let introVideoLoopingObserver = introVideoLoopingObserver {
             NotificationCenter.default.removeObserver(introVideoLoopingObserver)
         }
+        stumpMojis.removeFromSuperview()
+        view.addSubviewAndConstrain(stumpMojis)
+        view.bringSubviewToFront(stumpMojis)
     }
 }
