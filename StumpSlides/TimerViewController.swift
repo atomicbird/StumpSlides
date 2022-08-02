@@ -52,8 +52,8 @@ class TimerViewController: UIViewController {
     /// Set this to change the default timer flashing when time runs out
     var timerExpired: (() -> Void)?
 
-    var fontName = "Level Up"
-    var fontSize = 50.0
+    var fontName = "Lucida Grande"
+    var fontSize = 30.0
 
     @IBOutlet weak var timerButton: UIButton!
     override func viewDidLoad() {
@@ -81,6 +81,7 @@ class TimerViewController: UIViewController {
         } else {
             remainingTime = initialTimes.nextInitialTime()
         }
+        self.timerButton.setTitleColor(.black, for: .normal)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -110,6 +111,8 @@ class TimerViewController: UIViewController {
     }
 
     @IBAction func toggleTimer(_ sender: Any) {
+        guard remainingTime > 0 else { return }
+        self.timerButton.setTitleColor(.black, for: .normal)
         if questionTimer == nil {
             questionTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { _ in
                 self.remainingTime = max(self.remainingTime - 1, 0)
@@ -117,7 +120,8 @@ class TimerViewController: UIViewController {
                     self.questionTimer?.invalidate()
                     self.questionTimer = nil
                     // Call timerExpired, if set, otherwise flash the timer UI
-                    (self.timerExpired ?? self.flashTimer)()
+//                    (self.timerExpired ?? self.flashTimer)()
+                    self.timerButton.setTitleColor(.red, for: .normal)
                 }
             })
         } else {

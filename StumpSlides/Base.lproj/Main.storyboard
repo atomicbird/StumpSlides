@@ -14,9 +14,6 @@
             <string>LucidaGrande</string>
             <string>LucidaGrande-Bold</string>
         </array>
-        <array key="Oleg Stepanov - LevelUp.otf">
-            <string>LevelUp</string>
-        </array>
     </customFonts>
     <scenes>
         <!--Root-->
@@ -89,10 +86,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wh2-Nj-T5N">
-                                <rect key="frame" x="1106" y="44" width="240" height="62"/>
+                                <rect key="frame" x="1171" y="35" width="175" height="79"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="NTR-c4-BPP"/>
-                                    <constraint firstAttribute="height" constant="62" id="amf-4r-cVI"/>
+                                    <constraint firstAttribute="width" constant="175" id="NTR-c4-BPP"/>
+                                    <constraint firstAttribute="height" constant="79" id="amf-4r-cVI"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hO3-nW-zZ2">
@@ -201,10 +198,10 @@
                             <constraint firstItem="hY3-ta-ay5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="IEH-YX-Wk5" secondAttribute="trailing" id="73R-F7-qut"/>
                             <constraint firstItem="hO3-nW-zZ2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="7Y4-av-o8N"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hk7-aM-bfR" secondAttribute="trailing" constant="50" id="8qs-wD-TXL"/>
+                            <constraint firstItem="wh2-Nj-T5N" firstAttribute="top" secondItem="wdP-gn-D40" secondAttribute="bottom" constant="12" id="BPQ-Ki-9zA"/>
                             <constraint firstItem="wdP-gn-D40" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="E7V-XN-ecz"/>
                             <constraint firstItem="hY3-ta-ay5" firstAttribute="centerY" secondItem="wdP-gn-D40" secondAttribute="centerY" id="GVk-Mo-Vmv"/>
                             <constraint firstItem="hk7-aM-bfR" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="OP4-Wk-y9G"/>
-                            <constraint firstItem="wh2-Nj-T5N" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="SKR-dw-gDa"/>
                             <constraint firstItem="YZ9-H2-77e" firstAttribute="leading" secondItem="hk7-aM-bfR" secondAttribute="leading" id="T3B-ki-V4s"/>
                             <constraint firstItem="WYV-H9-0uH" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hO3-nW-zZ2" secondAttribute="trailing" id="aLw-5O-9jz"/>
                             <constraint firstItem="WYV-H9-0uH" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="f4g-TJ-2Gb"/>
@@ -230,6 +227,7 @@
                         <outlet property="scoreContainerBackground" destination="bGJ-gQ-Tmx" id="hwM-Ix-4gS"/>
                         <outlet property="scoreContainerView" destination="WYV-H9-0uH" id="Owk-xY-blx"/>
                         <outlet property="scoreStack" destination="woZ-EZ-GHS" id="2nR-Kr-Ah1"/>
+                        <outlet property="showHideTimerButton" destination="u5i-x0-f16" id="T2h-pb-daO"/>
                         <outlet property="timerContainerView" destination="wh2-Nj-T5N" id="A4g-DW-Pun"/>
                         <outlet property="windowBarContainer" destination="YZ9-H2-77e" id="deo-3F-tzC"/>
                         <outlet property="windowBarImageView" destination="Ee4-x8-NoY" id="iHd-hv-Rbk"/>
@@ -244,13 +242,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="543" height="111"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Downloading PDF from iCloud..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3cH-MS-VT6">
-                            <rect key="frame" x="19.5" y="24" width="504" height="26"/>
-                            <fontDescription key="fontDescription" name="LevelUp" family="Level Up" pointSize="24"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Downloading PDF from iCloud..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3cH-MS-VT6">
+                            <rect key="frame" x="19.666666666666686" y="24" width="504.00000000000006" height="26"/>
+                            <fontDescription key="fontDescription" name="LucidaGrande" family="Lucida Grande" pointSize="24"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Ztv-nZ-bwF">
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Ztv-nZ-bwF">
                             <rect key="frame" x="261" y="66" width="20" height="37"/>
                             <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </activityIndicatorView>
@@ -301,7 +299,7 @@
                                     <rect key="frame" x="0.0" y="88" width="220" height="29"/>
                                     <fontDescription key="fontDescription" name="LucidaGrande-Bold" family="Lucida Grande" pointSize="14"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" title="Show/hide timer">
+                                    <state key="normal" title="Show timer">
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <connections>
@@ -353,16 +351,19 @@
             <objects>
                 <viewController storyboardIdentifier="TimerViewController" id="lra-E9-b0v" customClass="TimerViewController" customModule="StumpSlides" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="C7Q-hN-4uC">
-                        <rect key="frame" x="0.0" y="0.0" width="632" height="62"/>
+                        <rect key="frame" x="0.0" y="0.0" width="175" height="79"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Cheetah-Calculator.png" translatesAutoresizingMaskIntoConstraints="NO" id="zAt-lt-OCV">
+                                <rect key="frame" x="0.0" y="0.0" width="175" height="79"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LTm-0D-UFM">
-                                <rect key="frame" x="0.0" y="0.0" width="632" height="62"/>
-                                <fontDescription key="fontDescription" name="LevelUp" family="Level Up" pointSize="50"/>
+                                <rect key="frame" x="15" y="24" width="145" height="55"/>
+                                <fontDescription key="fontDescription" name="LucidaGrande" family="Lucida Grande" pointSize="30"/>
                                 <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="0:00">
-                                    <color key="titleColor" systemColor="systemGreenColor"/>
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="toggleTimer:" destination="lra-E9-b0v" eventType="touchUpInside" id="fc6-cD-Z8b"/>
@@ -371,29 +372,31 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="nOy-7l-8jG"/>
                         <constraints>
-                            <constraint firstAttribute="top" secondItem="LTm-0D-UFM" secondAttribute="top" id="SCX-ep-7GK"/>
-                            <constraint firstAttribute="trailing" secondItem="LTm-0D-UFM" secondAttribute="trailing" id="VTx-L6-eyr"/>
+                            <constraint firstItem="zAt-lt-OCV" firstAttribute="bottom" secondItem="nOy-7l-8jG" secondAttribute="bottom" id="1yT-oN-Ser"/>
+                            <constraint firstItem="zAt-lt-OCV" firstAttribute="trailing" secondItem="nOy-7l-8jG" secondAttribute="trailing" id="6Tg-8H-BiZ"/>
+                            <constraint firstItem="LTm-0D-UFM" firstAttribute="leading" secondItem="nOy-7l-8jG" secondAttribute="leading" constant="15" id="JJe-JT-uho"/>
+                            <constraint firstAttribute="top" secondItem="LTm-0D-UFM" secondAttribute="top" constant="-24" id="SCX-ep-7GK"/>
+                            <constraint firstItem="zAt-lt-OCV" firstAttribute="leading" secondItem="nOy-7l-8jG" secondAttribute="leading" id="Se0-MQ-M1H"/>
+                            <constraint firstAttribute="trailing" secondItem="LTm-0D-UFM" secondAttribute="trailing" constant="15" id="VTx-L6-eyr"/>
+                            <constraint firstItem="zAt-lt-OCV" firstAttribute="top" secondItem="C7Q-hN-4uC" secondAttribute="top" id="foA-ok-HGb"/>
                             <constraint firstAttribute="bottom" secondItem="LTm-0D-UFM" secondAttribute="bottom" id="mYv-nn-jaZ"/>
-                            <constraint firstItem="LTm-0D-UFM" firstAttribute="leading" secondItem="C7Q-hN-4uC" secondAttribute="leading" id="pDO-cG-4fc"/>
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="632" height="62"/>
+                    <size key="freeformSize" width="175" height="79"/>
                     <connections>
                         <outlet property="timerButton" destination="LTm-0D-UFM" id="28p-XI-saJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aFW-2W-NDg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="519.18008784773053" y="525"/>
+            <point key="canvasLocation" x="518.96046852122981" y="524.70703125"/>
         </scene>
     </scenes>
     <resources>
+        <image name="Cheetah-Calculator.png" width="175" height="79"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

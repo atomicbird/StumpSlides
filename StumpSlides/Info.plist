@@ -28,7 +28,6 @@
 	<string>Find other devices using this app to sync the current page number</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Oleg Stepanov - LevelUp.otf</string>
 		<string>LucidaGrande.ttc</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

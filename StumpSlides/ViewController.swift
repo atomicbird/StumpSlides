@@ -64,6 +64,7 @@ class ViewController: UIViewController {
     @IBOutlet var pdfContainer: UIView!
     @IBOutlet weak var scoreStack: UIStackView!
     @IBOutlet weak var panelScore: UILabel!
+    @IBOutlet var showHideTimerButton: UIButton!
     @IBOutlet weak var attendeeScore: UILabel!
     @IBOutlet var windowBarContainer: UIView!
     @IBOutlet var windowBarImageView: UIImageView! {
@@ -590,18 +591,20 @@ class ViewController: UIViewController {
     
     func showTimer() {
         addChild(timerViewController)
-        timerViewController.initialTimes = [60, 120, 180, 300, 480, 660]
+        timerViewController.initialTimes = [60, 5*60, 10*60, 15*60]
         timerViewController.view.frame = timerContainerView.bounds
         timerViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        timerContainerView.addSubview(timerViewController.view)
+        timerContainerView.addSubviewAndConstrain(timerViewController.view)
         view.bringSubviewToFront(timerContainerView)
         timerViewController.didMove(toParent: self)
+        showHideTimerButton.setTitle("Hide Timer", for: .normal)
     }
     
     func hideTimer() {
         timerViewController.didMove(toParent: nil)
         timerViewController.view.removeFromSuperview()
         timerViewController.removeFromParent()
+        showHideTimerButton.setTitle("Show Timer", for: .normal)
     }
     
     override var canBecomeFirstResponder: Bool {
