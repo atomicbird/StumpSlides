@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>512399985262-joiqbu30nlrdngltnpmlc0pt8b660ri2.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.512399985262-joiqbu30nlrdngltnpmlc0pt8b660ri2</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDsgn6mc_lmh5Xd6-n58i7Jbi6CpLxXz6A</string>
+	<key>GCM_SENDER_ID</key>
+	<string>512399985262</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.atomicbird.Stump-Score</string>
+	<key>PROJECT_ID</key>
+	<string>stumpscore-1801e</string>
+	<key>STORAGE_BUCKET</key>
+	<string>stumpscore-1801e.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:512399985262:ios:ee49a9fe4de4b42209f47f</string>
+	<key>DATABASE_URL</key>
+	<string>https://stumpscore-1801e.firebaseio.com</string>
+</dict>
+</plist>
