@@ -15,10 +15,13 @@
 		EE32E10F235E4940006D6827 /* LogMilestone.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE32E10E235E4940006D6827 /* LogMilestone.swift */; };
 		EE32E14D23625C48006D6827 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE32E14C23625C48006D6827 /* UIView+Extensions.swift */; };
 		EE450F672698EEA200582A11 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE450F662698EEA200582A11 /* GoogleService-Info.plist */; };
-		EE450F692698F92B00582A11 /* Oleg Stepanov - LevelUp.otf in Resources */ = {isa = PBXBuildFile; fileRef = EE450F682698F92B00582A11 /* Oleg Stepanov - LevelUp.otf */; };
 		EE528C1E230CE74E00065971 /* dogcow.png in Resources */ = {isa = PBXBuildFile; fileRef = EE528C1D230CE74E00065971 /* dogcow.png */; };
 		EE528C22230CE9DE00065971 /* 360iDev.png in Resources */ = {isa = PBXBuildFile; fileRef = EE528C21230CE9DE00065971 /* 360iDev.png */; };
 		EE528C24230CEBEF00065971 /* apple-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = EE528C23230CEBEF00065971 /* apple-logo.png */; };
+		EE8F73E9289342700045A22C /* 10-0_10.1.png in Resources */ = {isa = PBXBuildFile; fileRef = EE8F73E8289342700045A22C /* 10-0_10.1.png */; };
+		EE8F73ED289348220045A22C /* Cheetah window bar.png in Resources */ = {isa = PBXBuildFile; fileRef = EE8F73EC289348220045A22C /* Cheetah window bar.png */; };
+		EE8F73F128934E120045A22C /* Cheetah menu bar.png in Resources */ = {isa = PBXBuildFile; fileRef = EE8F73F028934E120045A22C /* Cheetah menu bar.png */; };
+		EE8F73F3289352520045A22C /* LucidaGrande.ttc in Resources */ = {isa = PBXBuildFile; fileRef = EE8F73F2289351030045A22C /* LucidaGrande.ttc */; };
 		EE91F9FF230396F5003C716D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE91F9FE230396F5003C716D /* AppDelegate.swift */; };
 		EE91FA01230396F5003C716D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE91FA00230396F5003C716D /* ViewController.swift */; };
 		EE91FA04230396F5003C716D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE91FA02230396F5003C716D /* Main.storyboard */; };
@@ -27,7 +30,23 @@
 		EE91FA14230396F6003C716D /* StumpSlidesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE91FA13230396F6003C716D /* StumpSlidesTests.swift */; };
 		EE91FA1F230396F6003C716D /* StumpSlidesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE91FA1E230396F6003C716D /* StumpSlidesUITests.swift */; };
 		EE91FA2F23039B36003C716D /* StumpmojiWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE91FA2E23039B36003C716D /* StumpmojiWatcher.swift */; };
-		EE91FA3123039B65003C716D /* StackmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE91FA3023039B65003C716D /* StackmojiView.swift */; };
+		EE91FA3123039B65003C716D /* StumpmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE91FA3023039B65003C716D /* StumpmojiView.swift */; };
+		EE99C2712895E71E00090C85 /* stickies-background.png in Resources */ = {isa = PBXBuildFile; fileRef = EE99C2702895E71E00090C85 /* stickies-background.png */; };
+		EE99C27328974EC900090C85 /* Cheetah menu bar blank.png in Resources */ = {isa = PBXBuildFile; fileRef = EE99C27228974EC900090C85 /* Cheetah menu bar blank.png */; };
+		EE99C275289840E300090C85 /* Cheetah stripes.png in Resources */ = {isa = PBXBuildFile; fileRef = EE99C274289840E300090C85 /* Cheetah stripes.png */; };
+		EE99C2822898841700090C85 /* spinning-beachball 8.png in Resources */ = {isa = PBXBuildFile; fileRef = EE99C2762898841600090C85 /* spinning-beachball 8.png */; };
+		EE99C2832898841700090C85 /* spinning-beachball 11.png in Resources */ = {isa = PBXBuildFile; fileRef = EE99C2772898841700090C85 /* spinning-beachball 11.png */; };
+		EE99C2842898841700090C85 /* spinning-beachball 6.png in Resources */ = {isa = PBXBuildFile; fileRef = EE99C2782898841700090C85 /* spinning-beachball 6.png */; };
+		EE99C2852898841700090C85 /* spinning-beachball 2.png in Resources */ = {isa = PBXBuildFile; fileRef = EE99C2792898841700090C85 /* spinning-beachball 2.png */; };
+		EE99C2862898841700090C85 /* spinning-beachball.png in Resources */ = {isa = PBXBuildFile; fileRef = EE99C27A2898841700090C85 /* spinning-beachball.png */; };
+		EE99C2872898841700090C85 /* spinning-beachball 5.png in Resources */ = {isa = PBXBuildFile; fileRef = EE99C27B2898841700090C85 /* spinning-beachball 5.png */; };
+		EE99C2882898841700090C85 /* spinning-beachball 7.png in Resources */ = {isa = PBXBuildFile; fileRef = EE99C27C2898841700090C85 /* spinning-beachball 7.png */; };
+		EE99C2892898841700090C85 /* spinning-beachball 12.png in Resources */ = {isa = PBXBuildFile; fileRef = EE99C27D2898841700090C85 /* spinning-beachball 12.png */; };
+		EE99C28A2898841700090C85 /* spinning-beachball 9.png in Resources */ = {isa = PBXBuildFile; fileRef = EE99C27E2898841700090C85 /* spinning-beachball 9.png */; };
+		EE99C28B2898841700090C85 /* spinning-beachball 4.png in Resources */ = {isa = PBXBuildFile; fileRef = EE99C27F2898841700090C85 /* spinning-beachball 4.png */; };
+		EE99C28C2898841700090C85 /* spinning-beachball 3.png in Resources */ = {isa = PBXBuildFile; fileRef = EE99C2802898841700090C85 /* spinning-beachball 3.png */; };
+		EE99C28D2898841700090C85 /* spinning-beachball 10.png in Resources */ = {isa = PBXBuildFile; fileRef = EE99C2812898841700090C85 /* spinning-beachball 10.png */; };
+		EE99C2992899C0D000090C85 /* Cheetah-Calculator.png in Resources */ = {isa = PBXBuildFile; fileRef = EE99C2982899C0D000090C85 /* Cheetah-Calculator.png */; };
 		EED8D75426BDF3FE002DB0CC /* Thinking.mov in Resources */ = {isa = PBXBuildFile; fileRef = EED8D75326BDF3FE002DB0CC /* Thinking.mov */; };
 		F0AEF79981F3A007E726054F /* Pods_StumpSlides.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4648B48971FDC149487BDB5F /* Pods_StumpSlides.framework */; };
 /* End PBXBuildFile section */
@@ -67,10 +86,13 @@
 		EE32E14C23625C48006D6827 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		EE32E14E23625D3E006D6827 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		EE450F662698EEA200582A11 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		EE450F682698F92B00582A11 /* Oleg Stepanov - LevelUp.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oleg Stepanov - LevelUp.otf"; sourceTree = "<group>"; };
 		EE528C1D230CE74E00065971 /* dogcow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dogcow.png; sourceTree = "<group>"; };
 		EE528C21230CE9DE00065971 /* 360iDev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 360iDev.png; sourceTree = "<group>"; };
 		EE528C23230CEBEF00065971 /* apple-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "apple-logo.png"; sourceTree = "<group>"; };
+		EE8F73E8289342700045A22C /* 10-0_10.1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "10-0_10.1.png"; sourceTree = "<group>"; };
+		EE8F73EC289348220045A22C /* Cheetah window bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cheetah window bar.png"; sourceTree = "<group>"; };
+		EE8F73F028934E120045A22C /* Cheetah menu bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cheetah menu bar.png"; sourceTree = "<group>"; };
+		EE8F73F2289351030045A22C /* LucidaGrande.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = LucidaGrande.ttc; sourceTree = "<group>"; };
 		EE91F9FB230396F5003C716D /* StumpSlides.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StumpSlides.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE91F9FE230396F5003C716D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE91FA00230396F5003C716D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -85,7 +107,23 @@
 		EE91FA1E230396F6003C716D /* StumpSlidesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StumpSlidesUITests.swift; sourceTree = "<group>"; };
 		EE91FA20230396F6003C716D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE91FA2E23039B36003C716D /* StumpmojiWatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StumpmojiWatcher.swift; sourceTree = "<group>"; };
-		EE91FA3023039B65003C716D /* StackmojiView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackmojiView.swift; sourceTree = "<group>"; };
+		EE91FA3023039B65003C716D /* StumpmojiView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StumpmojiView.swift; sourceTree = "<group>"; };
+		EE99C2702895E71E00090C85 /* stickies-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stickies-background.png"; sourceTree = "<group>"; };
+		EE99C27228974EC900090C85 /* Cheetah menu bar blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cheetah menu bar blank.png"; sourceTree = "<group>"; };
+		EE99C274289840E300090C85 /* Cheetah stripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cheetah stripes.png"; sourceTree = "<group>"; };
+		EE99C2762898841600090C85 /* spinning-beachball 8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spinning-beachball 8.png"; sourceTree = "<group>"; };
+		EE99C2772898841700090C85 /* spinning-beachball 11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spinning-beachball 11.png"; sourceTree = "<group>"; };
+		EE99C2782898841700090C85 /* spinning-beachball 6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spinning-beachball 6.png"; sourceTree = "<group>"; };
+		EE99C2792898841700090C85 /* spinning-beachball 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spinning-beachball 2.png"; sourceTree = "<group>"; };
+		EE99C27A2898841700090C85 /* spinning-beachball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spinning-beachball.png"; sourceTree = "<group>"; };
+		EE99C27B2898841700090C85 /* spinning-beachball 5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spinning-beachball 5.png"; sourceTree = "<group>"; };
+		EE99C27C2898841700090C85 /* spinning-beachball 7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spinning-beachball 7.png"; sourceTree = "<group>"; };
+		EE99C27D2898841700090C85 /* spinning-beachball 12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spinning-beachball 12.png"; sourceTree = "<group>"; };
+		EE99C27E2898841700090C85 /* spinning-beachball 9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spinning-beachball 9.png"; sourceTree = "<group>"; };
+		EE99C27F2898841700090C85 /* spinning-beachball 4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spinning-beachball 4.png"; sourceTree = "<group>"; };
+		EE99C2802898841700090C85 /* spinning-beachball 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spinning-beachball 3.png"; sourceTree = "<group>"; };
+		EE99C2812898841700090C85 /* spinning-beachball 10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spinning-beachball 10.png"; sourceTree = "<group>"; };
+		EE99C2982899C0D000090C85 /* Cheetah-Calculator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cheetah-Calculator.png"; sourceTree = "<group>"; };
 		EED8D75326BDF3FE002DB0CC /* Thinking.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = Thinking.mov; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -172,11 +210,30 @@
 				EE32E10E235E4940006D6827 /* LogMilestone.swift */,
 				EE32E0D4235A5E06006D6827 /* PDFPageSynchronizer.swift */,
 				EE91FA2E23039B36003C716D /* StumpmojiWatcher.swift */,
-				EE91FA3023039B65003C716D /* StackmojiView.swift */,
+				EE91FA3023039B65003C716D /* StumpmojiView.swift */,
 				EE528C1D230CE74E00065971 /* dogcow.png */,
 				EE528C21230CE9DE00065971 /* 360iDev.png */,
 				EE528C23230CEBEF00065971 /* apple-logo.png */,
 				EED8D75326BDF3FE002DB0CC /* Thinking.mov */,
+				EE8F73E8289342700045A22C /* 10-0_10.1.png */,
+				EE8F73EC289348220045A22C /* Cheetah window bar.png */,
+				EE8F73F028934E120045A22C /* Cheetah menu bar.png */,
+				EE99C27228974EC900090C85 /* Cheetah menu bar blank.png */,
+				EE99C274289840E300090C85 /* Cheetah stripes.png */,
+				EE99C2982899C0D000090C85 /* Cheetah-Calculator.png */,
+				EE99C2702895E71E00090C85 /* stickies-background.png */,
+				EE99C2792898841700090C85 /* spinning-beachball 2.png */,
+				EE99C2802898841700090C85 /* spinning-beachball 3.png */,
+				EE99C27F2898841700090C85 /* spinning-beachball 4.png */,
+				EE99C27B2898841700090C85 /* spinning-beachball 5.png */,
+				EE99C2782898841700090C85 /* spinning-beachball 6.png */,
+				EE99C27C2898841700090C85 /* spinning-beachball 7.png */,
+				EE99C2762898841600090C85 /* spinning-beachball 8.png */,
+				EE99C27E2898841700090C85 /* spinning-beachball 9.png */,
+				EE99C2812898841700090C85 /* spinning-beachball 10.png */,
+				EE99C2772898841700090C85 /* spinning-beachball 11.png */,
+				EE99C27D2898841700090C85 /* spinning-beachball 12.png */,
+				EE99C27A2898841700090C85 /* spinning-beachball.png */,
 				EE91FA02230396F5003C716D /* Main.storyboard */,
 				EE20921F26C8726700534278 /* TimerViewController.swift */,
 				EE91FA05230396F6003C716D /* Assets.xcassets */,
@@ -185,7 +242,7 @@
 				EE450F662698EEA200582A11 /* GoogleService-Info.plist */,
 				EE32E0D22357BDAF006D6827 /* PDFView+Extensions.swift */,
 				EE32E14C23625C48006D6827 /* UIView+Extensions.swift */,
-				EE450F682698F92B00582A11 /* Oleg Stepanov - LevelUp.otf */,
+				EE8F73F2289351030045A22C /* LucidaGrande.ttc */,
 			);
 			path = StumpSlides;
 			sourceTree = "<group>";
@@ -316,15 +373,34 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE99C2892898841700090C85 /* spinning-beachball 12.png in Resources */,
 				EE528C1E230CE74E00065971 /* dogcow.png in Resources */,
 				EE91FA09230396F6003C716D /* LaunchScreen.storyboard in Resources */,
+				EE99C275289840E300090C85 /* Cheetah stripes.png in Resources */,
+				EE8F73ED289348220045A22C /* Cheetah window bar.png in Resources */,
 				EE91FA06230396F6003C716D /* Assets.xcassets in Resources */,
-				EE450F692698F92B00582A11 /* Oleg Stepanov - LevelUp.otf in Resources */,
+				EE99C28D2898841700090C85 /* spinning-beachball 10.png in Resources */,
+				EE99C28B2898841700090C85 /* spinning-beachball 4.png in Resources */,
+				EE8F73E9289342700045A22C /* 10-0_10.1.png in Resources */,
+				EE99C2852898841700090C85 /* spinning-beachball 2.png in Resources */,
+				EE99C2992899C0D000090C85 /* Cheetah-Calculator.png in Resources */,
 				EE528C22230CE9DE00065971 /* 360iDev.png in Resources */,
+				EE99C2842898841700090C85 /* spinning-beachball 6.png in Resources */,
+				EE99C2862898841700090C85 /* spinning-beachball.png in Resources */,
 				EE528C24230CEBEF00065971 /* apple-logo.png in Resources */,
 				EE91FA04230396F5003C716D /* Main.storyboard in Resources */,
+				EE99C2822898841700090C85 /* spinning-beachball 8.png in Resources */,
 				EE450F672698EEA200582A11 /* GoogleService-Info.plist in Resources */,
+				EE99C28C2898841700090C85 /* spinning-beachball 3.png in Resources */,
+				EE99C27328974EC900090C85 /* Cheetah menu bar blank.png in Resources */,
+				EE99C2712895E71E00090C85 /* stickies-background.png in Resources */,
 				EED8D75426BDF3FE002DB0CC /* Thinking.mov in Resources */,
+				EE99C2832898841700090C85 /* spinning-beachball 11.png in Resources */,
+				EE8F73F3289352520045A22C /* LucidaGrande.ttc in Resources */,
+				EE99C28A2898841700090C85 /* spinning-beachball 9.png in Resources */,
+				EE8F73F128934E120045A22C /* Cheetah menu bar.png in Resources */,
+				EE99C2882898841700090C85 /* spinning-beachball 7.png in Resources */,
+				EE99C2872898841700090C85 /* spinning-beachball 5.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,7 +515,7 @@
 				EE91FA01230396F5003C716D /* ViewController.swift in Sources */,
 				EE91FA2F23039B36003C716D /* StumpmojiWatcher.swift in Sources */,
 				EE32E10F235E4940006D6827 /* LogMilestone.swift in Sources */,
-				EE91FA3123039B65003C716D /* StackmojiView.swift in Sources */,
+				EE91FA3123039B65003C716D /* StumpmojiView.swift in Sources */,
 				EE32E0D5235A5E06006D6827 /* PDFPageSynchronizer.swift in Sources */,
 				EE32E0D32357BDAF006D6827 /* PDFView+Extensions.swift in Sources */,
 				EE32E14D23625C48006D6827 /* UIView+Extensions.swift in Sources */,
