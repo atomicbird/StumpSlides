@@ -102,7 +102,7 @@ class ViewController: UIViewController {
             cheetahMenuContainer.backgroundColor = backgroud
         }
     }
-    @IBOutlet var scoreContainerView: UIView!
+    @IBOutlet var scoreContainerView: UIView! { didSet { scoreContainerView.isHidden = true }}
     @IBOutlet var scoreContainerBackground: UIImageView! {
         didSet {
             let rawStickiesBackground = UIImage(named: "stickies-background.png")!
@@ -118,15 +118,15 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBOutlet var scoreLabels: [UILabel]! { didSet { scoreLabels.forEach { $0.alpha = 0 }}}
+    @IBOutlet var scoreLabels: [UILabel]! // { didSet { scoreLabels.forEach { $0.alpha = 0 }}}
     var stumpScore = StumpScores() {
         didSet {
             panelScore.text = String(stumpScore[.panelScore])
             attendeeScore.text = String(stumpScore[.audienceScore])
             if stumpScore[.panelScore] != 0 || stumpScore[.audienceScore] != 0 {
-                scoreLabels.forEach { $0.alpha = 1 }
+                scoreContainerView.isHidden = false
             } else {
-                scoreLabels.forEach { $0.alpha = 0 }
+                scoreContainerView.isHidden = true
             }
         }
     }
