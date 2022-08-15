@@ -22,13 +22,14 @@ class StumpmojiView: UIView {
     
     static let messageColors: [UIColor] = [.red, .orange, .yellow, .green, .blue, .purple]
 
-    static let allowedMessages = ["😀", "🔥", "🤩", "😍", "🎉", "✅", "❌", "🌈", "🌟", "❤️", "🍪", "🍔", "🌶", "♻️", "❤️", "💥", "🎈", "💩", "🤖", "🤮", "💯", "❓", "❗️", "🆗", "🍺", "🍷", "📱", "💡", "😱", "dogcow", "360iDev", "apple-logo"]
+    static let knownMessages = ["😀", "🔥", "🤩", "😍", "🎉", "✅", "❌", "🌈", "🌟", "❤️", "🍪", "🍔", "🌶", "♻️", "❤️", "💥", "🎈", "💩", "🤖", "🤮", "💯", "❓", "❗️", "🆗", "🍺", "🍷", "📱", "💡", "😱", "dogcow", "360iDev", "apple-logo", "orange-x-small", "cheeto-1", "cheeto-2"]
+    static let customImageNames = ["dogcow", "360iDev", "apple-logo", "orange-x-small", "cheeto-1", "cheeto-2"]
     
     func addMessage(_ message: String) -> Void {
         let messageInitialXPosition = CGFloat.random(in: 20...frame.maxX-20)
         
         let messageView: UIView = {
-            if message == "dogcow" || message == "360iDev" || message == "apple-logo" {
+            if StumpmojiView.customImageNames.contains(message) {
                 let image = UIImage(named: message)
                 let imageView = UIImageView(image: image)
                 imageView.frame = CGRect(x: messageInitialXPosition, y: 0, width: 100, height: 100)
@@ -63,9 +64,8 @@ class StumpmojiView: UIView {
         for _ in 1...100 {
 //            addMessage(StumpmojiView.allowedMessages.randomElement()!)
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(Int.random(in: 1...10000))) {
-                self.addMessage(StumpmojiView.allowedMessages.randomElement()!)
+                self.addMessage(StumpmojiView.knownMessages.randomElement()!)
             }
-            
         }
     }
 }
