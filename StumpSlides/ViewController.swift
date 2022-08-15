@@ -528,8 +528,10 @@ class ViewController: UIViewController {
         showHideMenu()
     }
     
-    let shoeBeachballProbability = 0.1
-    let showBeachballTime = 2
+    let shoeBeachballProbability = 0.1  // Chance of showing the beachball at every page change, from 0 (never) to 1 (always)
+    let showBeachballTime = 2  // How long to show the beachball
+    let showBeachballPageDelay = 10 // How many page changes to skip before the beachball can show.
+    var beachballPageCount = 0
     
     var beachballImages: [UIImage] = {
         var images = [UIImage]()
@@ -554,6 +556,10 @@ class ViewController: UIViewController {
     
     func showBeachball() -> Void {
         let limit: Double = 100
+        guard beachballPageCount >= showBeachballPageDelay else {
+            beachballPageCount += 1
+            return
+        }
         guard Double.random(in: 1...limit) < shoeBeachballProbability * 100.0 else { return }
 
         if beachballImageView == nil {
