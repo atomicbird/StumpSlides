@@ -151,6 +151,7 @@ class ViewController: UIViewController {
         pdfView.autoScales = true
         pdfView.usePageViewController(true, withViewOptions: nil)
         pdfView.backgroundColor = .white
+        pdfView.pageShadowsEnabled = false
         
         // Make PDFView equal to view's width, centered horizontally, with a 16:9 aspect ratio
         pdfContainer.addSubviewAndConstrain(pdfView)
