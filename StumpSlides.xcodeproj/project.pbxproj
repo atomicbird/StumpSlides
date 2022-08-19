@@ -14,6 +14,9 @@
 		EE32E0D5235A5E06006D6827 /* PDFPageSynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE32E0D4235A5E06006D6827 /* PDFPageSynchronizer.swift */; };
 		EE32E10F235E4940006D6827 /* LogMilestone.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE32E10E235E4940006D6827 /* LogMilestone.swift */; };
 		EE32E14D23625C48006D6827 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE32E14C23625C48006D6827 /* UIView+Extensions.swift */; };
+		EE435EBF28A574EA009BF3EE /* orange-x-small.png in Resources */ = {isa = PBXBuildFile; fileRef = EE435EBE28A574EA009BF3EE /* orange-x-small.png */; };
+		EE435EC228A57574009BF3EE /* cheeto-2.png in Resources */ = {isa = PBXBuildFile; fileRef = EE435EC028A57574009BF3EE /* cheeto-2.png */; };
+		EE435EC328A57574009BF3EE /* cheeto-1.png in Resources */ = {isa = PBXBuildFile; fileRef = EE435EC128A57574009BF3EE /* cheeto-1.png */; };
 		EE450F672698EEA200582A11 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE450F662698EEA200582A11 /* GoogleService-Info.plist */; };
 		EE528C1E230CE74E00065971 /* dogcow.png in Resources */ = {isa = PBXBuildFile; fileRef = EE528C1D230CE74E00065971 /* dogcow.png */; };
 		EE528C22230CE9DE00065971 /* 360iDev.png in Resources */ = {isa = PBXBuildFile; fileRef = EE528C21230CE9DE00065971 /* 360iDev.png */; };
@@ -85,6 +88,9 @@
 		EE32E10E235E4940006D6827 /* LogMilestone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogMilestone.swift; sourceTree = "<group>"; };
 		EE32E14C23625C48006D6827 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		EE32E14E23625D3E006D6827 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		EE435EBE28A574EA009BF3EE /* orange-x-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "orange-x-small.png"; sourceTree = "<group>"; };
+		EE435EC028A57574009BF3EE /* cheeto-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cheeto-2.png"; sourceTree = "<group>"; };
+		EE435EC128A57574009BF3EE /* cheeto-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cheeto-1.png"; sourceTree = "<group>"; };
 		EE450F662698EEA200582A11 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EE528C1D230CE74E00065971 /* dogcow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dogcow.png; sourceTree = "<group>"; };
 		EE528C21230CE9DE00065971 /* 360iDev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 360iDev.png; sourceTree = "<group>"; };
@@ -221,6 +227,9 @@
 				EE99C27228974EC900090C85 /* Cheetah menu bar blank.png */,
 				EE99C274289840E300090C85 /* Cheetah stripes.png */,
 				EE99C2982899C0D000090C85 /* Cheetah-Calculator.png */,
+				EE435EBE28A574EA009BF3EE /* orange-x-small.png */,
+				EE435EC128A57574009BF3EE /* cheeto-1.png */,
+				EE435EC028A57574009BF3EE /* cheeto-2.png */,
 				EE99C2702895E71E00090C85 /* stickies-background.png */,
 				EE99C2792898841700090C85 /* spinning-beachball 2.png */,
 				EE99C2802898841700090C85 /* spinning-beachball 3.png */,
@@ -375,6 +384,7 @@
 			files = (
 				EE99C2892898841700090C85 /* spinning-beachball 12.png in Resources */,
 				EE528C1E230CE74E00065971 /* dogcow.png in Resources */,
+				EE435EC328A57574009BF3EE /* cheeto-1.png in Resources */,
 				EE91FA09230396F6003C716D /* LaunchScreen.storyboard in Resources */,
 				EE99C275289840E300090C85 /* Cheetah stripes.png in Resources */,
 				EE8F73ED289348220045A22C /* Cheetah window bar.png in Resources */,
@@ -389,9 +399,11 @@
 				EE99C2862898841700090C85 /* spinning-beachball.png in Resources */,
 				EE528C24230CEBEF00065971 /* apple-logo.png in Resources */,
 				EE91FA04230396F5003C716D /* Main.storyboard in Resources */,
+				EE435EC228A57574009BF3EE /* cheeto-2.png in Resources */,
 				EE99C2822898841700090C85 /* spinning-beachball 8.png in Resources */,
 				EE450F672698EEA200582A11 /* GoogleService-Info.plist in Resources */,
 				EE99C28C2898841700090C85 /* spinning-beachball 3.png in Resources */,
+				EE435EBF28A574EA009BF3EE /* orange-x-small.png in Resources */,
 				EE99C27328974EC900090C85 /* Cheetah menu bar blank.png in Resources */,
 				EE99C2712895E71E00090C85 /* stickies-background.png in Resources */,
 				EED8D75426BDF3FE002DB0CC /* Thinking.mov in Resources */,
