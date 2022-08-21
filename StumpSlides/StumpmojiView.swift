@@ -22,7 +22,7 @@ class StumpmojiView: UIView {
     
     static let messageColors: [UIColor] = [.red, .orange, .yellow, .green, .blue, .purple]
 
-    static let knownMessages = ["😀", "🔥", "🤩", "😍", "🎉", "✅", "❌", "🌈", "🌟", "❤️", "🍪", "🍔", "🌶", "♻️", "❤️", "💥", "🎈", "💩", "🤖", "🤮", "💯", "❓", "❗️", "🆗", "🍺", "🍷", "📱", "💡", "😱", "dogcow", "360iDev", "apple-logo", "orange-x-small", "cheeto-1", "cheeto-2"]
+    static let knownMessages = ["😀", "🔥", "🤩", "😍", "🎉", "✅", "❌", "🌈", "🍿", "🌟", "❤️", "🍪", "🍔", "🌶", "♻️", "❤️", "💥", "🎈", "💩", "🤖", "🤮", "💯", "❓", "❗️", "🆗", "🍺", "🍷", "📱", "💡", "😱", "dogcow", "360iDev", "apple-logo", "orange-x-small", "cheeto-1", "cheeto-2"]
     static let customImageNames = ["dogcow", "360iDev", "apple-logo", "orange-x-small", "cheeto-1", "cheeto-2"]
     
     func addMessage(_ message: String) -> Void {
