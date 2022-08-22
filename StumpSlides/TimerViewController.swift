@@ -53,7 +53,7 @@ class TimerViewController: UIViewController {
     var timerExpired: (() -> Void)?
 
     var fontName = "Lucida Grande"
-    var fontSize = 30.0
+    var fontSize = 50.0
 
     @IBOutlet weak var timerButton: UIButton!
     override func viewDidLoad() {

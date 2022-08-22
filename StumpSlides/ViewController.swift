@@ -69,8 +69,8 @@ class ViewController: UIViewController {
     @IBOutlet var windowBarContainer: UIView!
     @IBOutlet var windowBarImageView: UIImageView! {
         didSet {
-            let rawWindowBarImage = UIImage(named: "Cheetah window bar.png")!
-            let stretchableWindowBarImage = rawWindowBarImage.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 75, bottom: 0, right: 35))
+            let rawWindowBarImage = UIImage(named: "Cheetah window bar tall.png")!
+            let stretchableWindowBarImage = rawWindowBarImage.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 150, bottom: 0, right: 70))
             windowBarImageView.image = stretchableWindowBarImage
         }
     }
@@ -89,8 +89,8 @@ class ViewController: UIViewController {
     }()
     @IBOutlet var cheetahMenuBarImageView: UIImageView! {
         didSet {
-            let rawMenuBarImage = UIImage(named: "Cheetah menu bar blank.png")!
-            let stretchableMenuBarImage = rawMenuBarImage.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 36, bottom: 0, right: 10), resizingMode: .stretch)
+            let rawMenuBarImage = UIImage(named: "Cheetah menu bar blank tall.png")!
+            let stretchableMenuBarImage = rawMenuBarImage.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 72, bottom: 0, right: 20), resizingMode: .stretch)
             cheetahMenuBarImageView.image = stretchableMenuBarImage
         }
     }
